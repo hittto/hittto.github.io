@@ -148,13 +148,23 @@ section{padding:70px 28px;position:relative}
 .cal-grid .dow{font-size:11px;color:var(--ink-soft);padding:6px 0}
 .cal-grid .dow.sun{color:#d67b6d}
 .cal-grid .day{font-size:13px;padding:8px 0;color:#6b625d;position:relative}
+.cal-grid .day>span{position:relative;z-index:1}
 .cal-grid .day.sun{color:#d67b6d}
 .cal-grid .day.dim{opacity:0}
-.cal-grid .day.dday{color:#fff;font-weight:700}
+.cal-grid .day.dday{color:#fff;font-weight:700;isolation:isolate}
 .cal-grid .day.dday::before{
-  content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  width:32px;height:32px;border-radius:50%;background:var(--accent);z-index:-1;
+  content:'';position:absolute;z-index:0;left:50%;top:50%;
+  width:34px;height:34px;border-radius:50%;background:var(--accent);
+  opacity:1;transform:translate(-50%,-50%) scale(1);
+  box-shadow:0 0 0 3px var(--accent-soft);
 }
+#calendar.on .cal-grid .day.dday::before{animation:ddayCircleIn .9s cubic-bezier(.2,.85,.3,1.15) both}
+@keyframes ddayCircleIn{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.18);box-shadow:0 0 0 0 var(--accent-soft)}
+  65%{opacity:1;transform:translate(-50%,-50%) scale(1.18);box-shadow:0 0 0 8px var(--accent-soft)}
+  100%{opacity:1;transform:translate(-50%,-50%) scale(1);box-shadow:0 0 0 3px var(--accent-soft)}
+}
+@media(prefers-reduced-motion:reduce){#calendar.on .cal-grid .day.dday::before{animation:none}}
 .countdown{display:flex;justify-content:center;gap:8px;margin-top:34px}
 .cd-cell{
   background:#fff;border:1px solid var(--line);border-radius:8px;
@@ -639,7 +649,7 @@ if(D.calendar&&D.calendar.show){
   for(var i=0;i<first;i++)cal+='<div class="day dim"></div>';
   for(var d=1;d<=last;d++){
     var dow=(first+d-1)%7;
-    cal+='<div class="day'+(dow===0?' sun':'')+(d===dd?' dday':'')+'">'+d+'</div>';
+    cal+='<div class="day'+(dow===0?' sun':'')+(d===dd?' dday':'')+'"'+(d===dd?' aria-label="예식일 '+d+'일"':'')+'><span>'+d+'</span></div>';
   }
   cal+='</div>';
   var cd='';
@@ -651,7 +661,7 @@ if(D.calendar&&D.calendar.show){
      +'<div class="cd-cell"><div class="n" id="cdS">0</div><div class="l">SEC</div></div>'
      +'</div><div class="cd-msg" id="cdMsg"></div>';
   }
-  H.push('<section id="calendar"><div class="eyebrow">'+esc(L.calendarEyebrow||'Save the date')+'</div>'
+  H.push('<section id="calendar" class="reveal"><div class="eyebrow">'+esc(L.calendarEyebrow||'Save the date')+'</div>'
    +'<div class="cal-date-main">'+y+'. '+String(mo+1).padStart(2,'0')+'. '+String(dd).padStart(2,'0')+'</div>'
    +'<div class="cal-sub">'+esc(dateText())+'</div>'
    +'<div class="cal-box"><div class="cal-month">'+(mo+1)+'월</div>'
