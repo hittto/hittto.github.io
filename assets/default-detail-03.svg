@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="900" viewBox="0 0 900 900" role="img" aria-label="Default wedding cake illustration">
+  <defs><linearGradient id="g" x2="0" y2="1"><stop stop-color="#efd5ce"/><stop offset="1" stop-color="#fffaf6"/></linearGradient></defs>
+  <rect width="900" height="900" fill="url(#g)"/>
+  <ellipse cx="450" cy="736" rx="288" ry="48" fill="#b98a7e" opacity=".18"/>
+  <g fill="#fffdf9" stroke="#a8756a" stroke-width="6">
+    <path d="M279 590h342v142H279z"/><path d="M330 447h240v143H330z"/><path d="M376 329h148v118H376z"/>
+  </g>
+  <g fill="none" stroke="#cf988c" stroke-width="8">
+    <path d="M279 633c52-35 104-35 156 0s104 35 156 0"/><path d="M330 490c40-29 80-29 120 0s80 29 120 0"/>
+  </g>
+  <path d="M450 300c-75-62-152-4-116 67 26 50 116 94 116 94s90-44 116-94c36-71-41-129-116-67z" fill="#c48d7e" transform="translate(0 -111) scale(.6) translate(300 120)"/>
+  <text x="450" y="814" text-anchor="middle" fill="#735a54" font-family="Georgia, serif" font-size="28" letter-spacing="7">SWEET MOMENTS</text>
+</svg>

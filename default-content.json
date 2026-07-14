@@ -19,8 +19,8 @@
     "hall": "홀 이름",
     "address": "예식장 주소를 입력해 주세요"
   },
-  "cover": { "image": "" },
-  "intro": { "image": "" },
+  "cover": { "image": "assets/default-cover.svg" },
+  "intro": { "image": "assets/default-intro.svg" },
   "greeting": {
     "show": true,
     "title": "소중한 분들을 초대합니다",
@@ -30,7 +30,18 @@
   },
   "contacts": [],
   "video": { "url": "" },
-  "gallery": { "show": true, "initial": 6, "images": [] },
+  "gallery": {
+    "show": true,
+    "initial": 6,
+    "images": [
+      "assets/default-cover.svg",
+      "assets/default-intro.svg",
+      "assets/default-detail-01.svg",
+      "assets/default-detail-02.svg",
+      "assets/default-detail-03.svg",
+      "assets/default-detail-04.svg"
+    ]
+  },
   "calendar": { "show": true, "showCountdown": true },
   "map": {
     "show": true,
@@ -59,7 +70,7 @@
     "desc": "소중한 분들을 저희의 시작에 초대합니다.",
     "url": "https://hittto.github.io/",
     "kakaoKey": "",
-    "ogImageUrl": ""
+    "ogImageUrl": "assets/default-share.svg"
   },
   "labels": {
     "coverEyebrow": "Wedding Invitation",

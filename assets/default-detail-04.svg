@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="900" viewBox="0 0 900 900" role="img" aria-label="Default wedding letter illustration">
+  <rect width="900" height="900" fill="#ead1ca"/>
+  <rect x="115" y="145" width="670" height="610" rx="16" fill="#fffaf6" transform="rotate(-4 450 450)"/>
+  <g transform="rotate(-4 450 450)">
+    <path d="M190 247h520M190 662h520" stroke="#d4aaa0" stroke-width="3"/>
+    <path d="M450 330c-63-60-165-21-165 64 0 115 165 211 165 211s165-96 165-211c0-85-102-124-165-64z" fill="none" stroke="#a8756a" stroke-width="8"/>
+    <text x="450" y="705" text-anchor="middle" fill="#735a54" font-family="Georgia, serif" font-size="25" letter-spacing="7">WITH LOVE</text>
+  </g>
+</svg>

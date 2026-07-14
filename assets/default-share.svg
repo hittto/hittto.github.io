@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Default wedding invitation share image</title>
+  <desc id="desc">An abstract wedding invitation card in ivory and muted rose.</desc>
+  <defs><linearGradient id="g" x2="1" y2="1"><stop stop-color="#f8eee9"/><stop offset="1" stop-color="#d8afa6"/></linearGradient></defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <rect x="96" y="62" width="1008" height="506" rx="250" fill="#fffaf7" opacity=".78" stroke="#b98378" stroke-width="3"/>
+  <g transform="translate(600 264)" fill="none" stroke="#a8756a">
+    <circle cx="-48" cy="0" r="83" stroke-width="8"/><circle cx="48" cy="0" r="83" stroke-width="8"/>
+    <path d="M2-88l45-41 46 41-46 47z" stroke-width="5"/>
+  </g>
+  <text x="600" y="430" text-anchor="middle" fill="#715852" font-family="Georgia, serif" font-size="38" letter-spacing="10">WEDDING INVITATION</text>
+  <text x="600" y="476" text-anchor="middle" fill="#aa786d" font-family="Arial, sans-serif" font-size="14" letter-spacing="6">WE INVITE YOU TO CELEBRATE WITH US</text>
+</svg>

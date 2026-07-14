@@ -35,10 +35,10 @@
     "address": "부산광역시 해운대구 센텀1로 25 센텀한샘빌딩 8층"
   },
   "cover": {
-    "image": ""
+    "image": "assets/default-cover.svg"
   },
   "intro": {
-    "image": ""
+    "image": "assets/default-intro.svg"
   },
   "greeting": {
     "show": true,
@@ -67,7 +67,14 @@
   "gallery": {
     "show": true,
     "initial": 6,
-    "images": []
+    "images": [
+      "assets/default-cover.svg",
+      "assets/default-intro.svg",
+      "assets/default-detail-01.svg",
+      "assets/default-detail-02.svg",
+      "assets/default-detail-03.svg",
+      "assets/default-detail-04.svg"
+    ]
   },
   "calendar": {
     "show": true,
@@ -150,7 +157,7 @@
     "desc": "소중한 분들을 저희의 시작에 초대합니다.",
     "url": "https://hittto.github.io/",
     "kakaoKey": "",
-    "ogImageUrl": ""
+    "ogImageUrl": "assets/default-share.svg"
   },
   "labels": {
     "coverEyebrow": "Wedding Invitation",

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="900" viewBox="0 0 900 900" role="img" aria-label="Default wedding flowers illustration">
+  <rect width="900" height="900" fill="#f5e9e3"/>
+  <circle cx="450" cy="450" r="332" fill="#fffaf6"/>
+  <g fill="none" stroke="#9f7167" stroke-width="7" stroke-linecap="round">
+    <path d="M450 700V307M450 521c-112-31-171-103-177-216 110 32 169 104 177 216zM450 596c108-36 164-108 168-217-106 35-162 108-168 217z"/>
+  </g>
+  <g fill="#d3a59a" stroke="#9f7167" stroke-width="4">
+    <circle cx="450" cy="276" r="92"/><circle cx="380" cy="315" r="75"/><circle cx="520" cy="315" r="75"/><circle cx="450" cy="354" r="75"/>
+  </g>
+  <circle cx="450" cy="313" r="48" fill="#f9e8cf"/>
+  <text x="450" y="780" text-anchor="middle" fill="#735a54" font-family="Georgia, serif" font-size="27" letter-spacing="7">IN FULL BLOOM</text>
+</svg>

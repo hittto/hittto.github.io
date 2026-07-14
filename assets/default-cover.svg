@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1200" viewBox="0 0 900 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Default wedding cover</title>
+  <desc id="desc">An abstract ivory and rose wedding illustration with flowers and rings.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fbf6f1"/>
+      <stop offset=".55" stop-color="#f3ded9"/>
+      <stop offset="1" stop-color="#d9b2aa"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="42%" r="55%">
+      <stop offset="0" stop-color="#fff" stop-opacity=".95"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#80625c" flood-opacity=".18"/>
+    </filter>
+  </defs>
+  <rect width="900" height="1200" fill="url(#bg)"/>
+  <circle cx="450" cy="490" r="375" fill="url(#glow)"/>
+  <path d="M153 1050V425C153 225 285 112 450 112s297 113 297 313v625" fill="#fffaf7" fill-opacity=".78" filter="url(#shadow)"/>
+  <path d="M179 1050V430c0-181 119-291 271-291s271 110 271 291v620" fill="none" stroke="#c48d7e" stroke-width="2" stroke-opacity=".5"/>
+  <g fill="none" stroke="#b98276" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M450 356c-51-48-133-17-133 52 0 93 133 169 133 169s133-76 133-169c0-69-82-100-133-52z" stroke-width="3" opacity=".72"/>
+    <circle cx="412" cy="654" r="61" stroke-width="7"/>
+    <circle cx="493" cy="654" r="61" stroke-width="7"/>
+    <path d="M458 587l34-28 35 28-35 35z" stroke-width="4"/>
+  </g>
+  <g fill="#a8756a" opacity=".82">
+    <path d="M103 1006c74-74 108-175 92-286-67 82-92 184-92 286z"/>
+    <path d="M123 930c-59-30-89-80-91-149 58 33 88 82 91 149z"/>
+    <path d="M139 862c55-32 83-80 85-144-54 30-82 78-85 144z"/>
+    <path d="M797 1006c-74-74-108-175-92-286 67 82 92 184 92 286z"/>
+    <path d="M777 930c59-30 89-80 91-149-58 33-88 82-91 149z"/>
+    <path d="M761 862c-55-32-83-80-85-144 54 30 82 78 85 144z"/>
+  </g>
+  <g fill="#f7e8e3" stroke="#b98276" stroke-width="2">
+    <circle cx="115" cy="760" r="42"/><circle cx="182" cy="820" r="34"/><circle cx="785" cy="760" r="42"/><circle cx="718" cy="820" r="34"/>
+  </g>
+  <text x="450" y="804" text-anchor="middle" fill="#6d5751" font-family="Georgia, serif" font-size="31" letter-spacing="9">WEDDING DAY</text>
+  <text x="450" y="853" text-anchor="middle" fill="#a8756a" font-family="Arial, sans-serif" font-size="14" letter-spacing="5">A BEAUTIFUL BEGINNING</text>
+</svg>

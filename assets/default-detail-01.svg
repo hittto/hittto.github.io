@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="900" viewBox="0 0 900 900" role="img" aria-label="Default wedding rings illustration">
+  <defs><linearGradient id="g" x2="1" y2="1"><stop stop-color="#fffaf5"/><stop offset="1" stop-color="#e9cdc5"/></linearGradient></defs>
+  <rect width="900" height="900" fill="url(#g)"/>
+  <circle cx="450" cy="420" r="310" fill="#fff" opacity=".46"/>
+  <g fill="none" stroke="#aa776c">
+    <circle cx="365" cy="418" r="160" stroke-width="22"/><circle cx="535" cy="418" r="160" stroke-width="22"/>
+    <path d="M451 246l82-75 83 75-83 86z" stroke-width="13"/>
+  </g>
+  <text x="450" y="700" text-anchor="middle" fill="#765b54" font-family="Georgia, serif" font-size="31" letter-spacing="8">FOREVER</text>
+</svg>

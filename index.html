@@ -7,7 +7,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="신랑 · 신부 결혼합니다">
 <meta property="og:description" content="소중한 분들을 저희의 시작에 초대합니다.">
-<meta property="og:image" content="">
+<meta property="og:image" content="assets/default-share.svg">
 <meta property="og:url" content="https://hittto.github.io/">
 <meta name="description" content="소중한 분들을 저희의 시작에 초대합니다.">
 <meta name="theme-color" content="#f4879f">
@@ -112,6 +112,10 @@ section{padding:70px 28px;position:relative}
 /* ─── 영상 ─── */
 .video-box{position:relative;width:100%;aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:#000}
 .video-box iframe,.video-box video{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-box.default-media{background:#f3e2dc}
+.video-box.default-media img{position:absolute;inset:-3%;width:106%;height:106%;object-fit:cover;animation:defaultFilm 8s ease-in-out infinite alternate}
+.video-default-note{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:1;white-space:nowrap;padding:7px 13px;border-radius:100px;background:rgba(255,253,251,.86);color:#806861;font:11px var(--sans);letter-spacing:.04em;box-shadow:0 4px 16px rgba(93,68,61,.1)}
+@keyframes defaultFilm{from{transform:scale(1)}to{transform:scale(1.045)}}
 
 /* ─── 갤러리 ─── */
 #gallery{padding-left:14px;padding-right:14px}
@@ -164,7 +168,7 @@ section{padding:70px 28px;position:relative}
   65%{opacity:1;transform:translate(-50%,-50%) scale(1.18);box-shadow:0 0 0 8px var(--accent-soft)}
   100%{opacity:1;transform:translate(-50%,-50%) scale(1);box-shadow:0 0 0 3px var(--accent-soft)}
 }
-@media(prefers-reduced-motion:reduce){#calendar.on .cal-grid .day.dday::before{animation:none}}
+@media(prefers-reduced-motion:reduce){#calendar.on .cal-grid .day.dday::before,.video-box.default-media img{animation:none}}
 .countdown{display:flex;justify-content:center;gap:8px;margin-top:34px}
 .cd-cell{
   background:#fff;border:1px solid var(--line);border-radius:8px;
@@ -531,6 +535,16 @@ function copyText(text,msg){
 function placeholder(title,sub,cls){
   return '<div class="ph '+(cls||'')+'"><div class="ph-icon">🌸</div><div class="ph-t">'+esc(title)+'</div>'+(sub?'<div class="ph-s">'+esc(sub)+'</div>':'')+'</div>';
 }
+var DEFAULT_MEDIA={
+  cover:'assets/default-cover.svg',
+  intro:'assets/default-intro.svg',
+  video:'assets/default-video.svg',
+  share:'assets/default-share.svg',
+  gallery:['assets/default-cover.svg','assets/default-intro.svg','assets/default-detail-01.svg','assets/default-detail-02.svg','assets/default-detail-03.svg','assets/default-detail-04.svg']
+};
+function mediaSource(value,fallback){
+  return typeof value==='string'&&value.trim()?value:fallback;
+}
 function imgOrPh(src,alt,title,sub){
   return src?'<img src="'+esc(src)+'" alt="'+esc(alt)+'">':placeholder(title,sub);
 }
@@ -566,7 +580,7 @@ var L=D.labels||{};
 
 /* 커버 */
 H.push('<section id="cover" class="reveal">'
- +'<div class="cover-photo">'+imgOrPh(D.cover.image,'커버 사진',L.coverPlaceholderTitle||'커버 사진',L.coverPlaceholderSubtitle||'편집기에서 사진을 등록해 주세요')+'</div>'
+ +'<div class="cover-photo">'+imgOrPh(mediaSource(D.cover&&D.cover.image,DEFAULT_MEDIA.cover),'커버 사진',L.coverPlaceholderTitle||'커버 사진',L.coverPlaceholderSubtitle||'편집기에서 사진을 등록해 주세요')+'</div>'
  +'<div class="cover-text">'
  +'<div class="cover-script">'+esc(L.coverEyebrow||'Wedding Invitation')+'</div>'
  +'<div class="cover-date">'+esc(dateText())+'</div>'
@@ -576,7 +590,7 @@ H.push('<section id="cover" class="reveal">'
 
 /* 신랑 & 신부 */
 H.push('<section id="intro" class="reveal">'
- +'<div class="intro-photo">'+imgOrPh(D.intro.image,'웨딩 사진',L.introPlaceholderTitle||'웨딩 사진',L.introPlaceholderSubtitle||'편집기에서 사진을 등록해 주세요')+'</div>'
+ +'<div class="intro-photo">'+imgOrPh(mediaSource(D.intro&&D.intro.image,DEFAULT_MEDIA.intro),'웨딩 사진',L.introPlaceholderTitle||'웨딩 사진',L.introPlaceholderSubtitle||'편집기에서 사진을 등록해 주세요')+'</div>'
  +'<div class="names">'
  +'<div class="name-col"><div class="role">'+esc(L.groomRole||'Groom')+'</div><div class="en">'+esc(g.en||g.name)+'</div><div class="kr">'+esc(g.name)+'</div></div>'
  +'<div class="name-sep"></div>'
@@ -589,17 +603,21 @@ function youtubeId(url){
   var m=url.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{6,})/);
   return m?m[1]:null;
 }
-if(D.video&&D.video.url){
-  var yid=youtubeId(D.video.url);
+var videoUrl=D.video&&typeof D.video.url==='string'?D.video.url.trim():'';
+if(videoUrl){
+  var yid=youtubeId(videoUrl);
   var inner=yid
     ?'<iframe src="https://www.youtube.com/embed/'+esc(yid)+'?rel=0" title="웨딩 영상" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
-    :'<video src="'+esc(D.video.url)+'" controls playsinline></video>';
+    :'<video src="'+esc(videoUrl)+'" controls playsinline></video>';
   H.push('<section id="video" class="reveal"><div class="eyebrow">'+esc(L.videoEyebrow||'Video')+'</div><div class="sec-title">'+esc(L.videoTitle||'웨딩 영상')+'</div><div class="video-box">'+inner+'</div></section>');
+}else{
+  H.push('<section id="video" class="reveal"><div class="eyebrow">'+esc(L.videoEyebrow||'Video')+'</div><div class="sec-title">'+esc(L.videoTitle||'웨딩 영상')+'</div><div class="video-box default-media"><img src="'+DEFAULT_MEDIA.video+'" alt="기본 웨딩 영상 이미지"><span class="video-default-note">영상 주소를 등록하면 자동으로 교체됩니다</span></div></section>');
 }
 
 /* 갤러리 */
 if(D.gallery&&D.gallery.show){
-  var imgs=D.gallery.images||[];
+  var imgs=(Array.isArray(D.gallery.images)?D.gallery.images:[]).filter(Boolean);
+  if(!imgs.length)imgs=DEFAULT_MEDIA.gallery.slice();
   var initial=D.gallery.initial||6;
   var cells=imgs.map(function(src,i){
     var hidden=i>=initial?' style="display:none" data-extra="1"':'';
@@ -731,7 +749,8 @@ var dateCalendar=document.getElementById('calendar');
 if(dateCalendar)io.observe(dateCalendar);
 
 /* 갤러리 */
-var gImgs=(D.gallery&&D.gallery.images||[]).slice();
+var gImgs=(D.gallery&&Array.isArray(D.gallery.images)?D.gallery.images:[]).filter(Boolean);
+if(!gImgs.length)gImgs=DEFAULT_MEDIA.gallery.slice();
 var lb=document.getElementById('lightbox'),lbImg=document.getElementById('lbImg'),lbCount=document.getElementById('lbCount');
 var lbIdx=0;
 function openLb(i){

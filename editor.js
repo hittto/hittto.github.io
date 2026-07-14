@@ -122,8 +122,8 @@
     next.wedding.time = value.event?.time || next.wedding.time;
     next.wedding.venue = value.event?.venue || next.wedding.venue;
     next.wedding.address = value.event?.address || next.wedding.address;
-    next.cover.image = value.images?.cover || '';
-    next.intro.image = value.images?.secondary || '';
+    next.cover.image = value.images?.cover || next.cover.image;
+    next.intro.image = value.images?.secondary || next.intro.image;
     next.greeting.message = value.messages?.invitation || next.greeting.message;
     next.video.url = value.video?.youtubeUrl || '';
     next.gallery.images = Array.isArray(value.gallery) ? value.gallery : next.gallery.images;
@@ -212,7 +212,7 @@
 
   function refreshMediaCards() {
     document.querySelectorAll('[data-image-card]').forEach((card) => {
-      const value = getPath(content, card.dataset.imageCard);
+      const value = getPath(content, card.dataset.imageCard) || getPath(originalContent, card.dataset.imageCard);
       const preview = card.querySelector('.media-preview');
       preview.style.backgroundImage = value ? `url("${String(value).replaceAll('"', '%22')}")` : 'none';
       preview.style.backgroundColor = value ? '#eee' : '#f4f1ef';
@@ -222,7 +222,11 @@
   }
 
   function renderGalleryEditor() {
-    const images = content.gallery?.images || [];
+    let images = content.gallery?.images || [];
+    if (!images.length && originalContent?.gallery?.images?.length) {
+      content.gallery.images = clone(originalContent.gallery.images);
+      images = content.gallery.images;
+    }
     galleryEditor.innerHTML = images.length ? images.map((src, index) => `
       <div class="gallery-edit-item">
         ${src ? `<img src="${escapeHtml(src)}" alt="갤러리 사진 ${index + 1}">` : `<div class="gallery-placeholder">사진 ${index + 1}</div>`}
@@ -424,11 +428,14 @@
       input.value = '';
     }));
     document.querySelectorAll('[data-image-clear]').forEach((button) => button.addEventListener('click', () => {
-      setPath(content, button.dataset.imageClear, ''); refreshMediaCards(); scheduleSave();
+      const path = button.dataset.imageClear;
+      setPath(content, path, clone(getPath(originalContent, path) || '')); refreshMediaCards(); scheduleSave();
     }));
     document.getElementById('gallery-input').addEventListener('change', async (event) => {
       const files = [...event.target.files]; if (!files.length) return;
-      content.gallery.images = (content.gallery.images || []).filter(Boolean);
+      const defaultImages = originalContent?.gallery?.images || [];
+      const currentImages = (content.gallery.images || []).filter(Boolean);
+      content.gallery.images = currentImages.length && currentImages.every((src) => defaultImages.includes(src)) ? [] : currentImages;
       for (let i = 0; i < files.length; i += 1) {
         saveState.textContent = `사진 처리 중 ${i + 1}/${files.length}`;
         try { content.gallery.images.push(await compressImage(files[i], 1500, 0.82)); }

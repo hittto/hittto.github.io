@@ -77,13 +77,13 @@
       <details open>
         <summary><span>03</span> 사진·영상·음악</summary>
         <div class="form-section">
-          <p class="help-text">사진은 웹용 크기로 자동 압축됩니다. 커버는 세로형, 서브 사진은 가로형을 권장합니다.</p>
+          <p class="help-text">사진은 웹용 크기로 자동 압축됩니다. 입력하지 않은 사진·영상에는 실제 예식 정보가 없는 기본 자료가 표시됩니다.</p>
           <div class="media-editor-grid">
-            <div class="media-editor" data-image-card="cover.image"><div class="media-preview portrait"></div><strong>커버 사진</strong><label class="upload-button">사진 선택<input type="file" accept="image/*" data-image-input="cover.image"></label><button type="button" data-image-clear="cover.image">비우기</button></div>
-            <div class="media-editor" data-image-card="intro.image"><div class="media-preview"></div><strong>서브 사진</strong><label class="upload-button">사진 선택<input type="file" accept="image/*" data-image-input="intro.image"></label><button type="button" data-image-clear="intro.image">비우기</button></div>
-            <div class="media-editor" data-image-card="share.ogImageUrl"><div class="media-preview"></div><strong>공유 대표 사진</strong><label class="upload-button">사진 선택<input type="file" accept="image/*" data-image-input="share.ogImageUrl"></label><button type="button" data-image-clear="share.ogImageUrl">커버 사용</button></div>
+            <div class="media-editor" data-image-card="cover.image"><div class="media-preview portrait"></div><strong>커버 사진</strong><label class="upload-button">사진 선택<input type="file" accept="image/*" data-image-input="cover.image"></label><button type="button" data-image-clear="cover.image">기본 이미지로</button></div>
+            <div class="media-editor" data-image-card="intro.image"><div class="media-preview"></div><strong>서브 사진</strong><label class="upload-button">사진 선택<input type="file" accept="image/*" data-image-input="intro.image"></label><button type="button" data-image-clear="intro.image">기본 이미지로</button></div>
+            <div class="media-editor" data-image-card="share.ogImageUrl"><div class="media-preview"></div><strong>공유 대표 사진</strong><label class="upload-button">사진 선택<input type="file" accept="image/*" data-image-input="share.ogImageUrl"></label><button type="button" data-image-clear="share.ogImageUrl">기본 이미지로</button></div>
           </div>
-          <label>웨딩 영상 주소<input data-path="video.url" type="url" placeholder="유튜브 또는 mp4 주소"></label>
+          <label>웨딩 영상 주소<input data-path="video.url" type="url" placeholder="비워두면 기본 웨딩 영상 카드가 표시됩니다"></label>
           <div class="divider-label">배경 음악</div>
           <div class="file-control">
             <label class="upload-button music-upload">음악 파일 선택<input id="music-input" type="file" accept="audio/*"></label>

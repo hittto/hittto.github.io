@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Default wedding film image</title>
+  <desc id="desc">A neutral animated-film style wedding placeholder with botanical shapes.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#f8eee9"/><stop offset="1" stop-color="#d8afa6"/></linearGradient>
+    <radialGradient id="light"><stop stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <circle cx="640" cy="315" r="300" fill="url(#light)"/>
+  <g fill="#a8756a" opacity=".65">
+    <path d="M50 720c142-139 202-313 177-522C100 362 51 536 50 720z"/><path d="M1230 720c-142-139-202-313-177-522 127 164 176 338 177 522z"/>
+  </g>
+  <g transform="translate(640 303)" fill="none" stroke="#916b62">
+    <circle cx="-50" cy="0" r="92" stroke-width="9"/><circle cx="50" cy="0" r="92" stroke-width="9"/><path d="M2-98l48-44 49 44-49 51z" stroke-width="6"/>
+  </g>
+  <text x="640" y="492" text-anchor="middle" fill="#6f5751" font-family="Georgia, serif" font-size="44" letter-spacing="12">WEDDING FILM</text>
+  <text x="640" y="540" text-anchor="middle" fill="#a8756a" font-family="Arial, sans-serif" font-size="15" letter-spacing="6">OUR STORY BEGINS HERE</text>
+</svg>
