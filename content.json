@@ -4,8 +4,8 @@
     "font": "serif"
   },
   "access": {
-    "enabled": false,
-    "passwordHash": "",
+    "enabled": true,
+    "passwordHash": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
     "title": "청첩장을 열어주세요",
     "message": "초대받은 분만 입장할 수 있습니다.",
     "placeholder": "비밀번호를 입력해 주세요",
