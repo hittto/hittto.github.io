@@ -11,8 +11,8 @@
     "ink": "#181818"
   },
   "couple": {
-    "groom": "신랑 이름",
-    "bride": "신부 이름",
+    "groom": "황희수",
+    "bride": "조혜정",
     "groomEn": "GROOM",
     "brideEn": "BRIDE"
   },
@@ -56,8 +56,20 @@
     "parking": "주차 안내를 입력해 주세요."
   },
   "accounts": [
-    { "side": "groom", "role": "신랑", "bank": "은행", "number": "000-0000-0000", "holder": "예금주" },
-    { "side": "bride", "role": "신부", "bank": "은행", "number": "000-0000-0000", "holder": "예금주" }
+    {
+      "side": "groom",
+      "role": "신랑",
+      "bank": "은행",
+      "number": "000-0000-0000",
+      "holder": "예금주"
+    },
+    {
+      "side": "bride",
+      "role": "신부",
+      "bank": "은행",
+      "number": "000-0000-0000",
+      "holder": "예금주"
+    }
   ],
   "musicUrl": "",
   "footer": "Thank you for celebrating with us"
