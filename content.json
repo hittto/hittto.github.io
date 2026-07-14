@@ -35,10 +35,10 @@
     "address": "부산광역시 해운대구 센텀1로 25 센텀한샘빌딩 8층"
   },
   "cover": {
-    "image": ""
+    "image": "assets/placeholder-photo.svg"
   },
   "intro": {
-    "image": ""
+    "image": "assets/placeholder-photo-wide.svg"
   },
   "greeting": {
     "show": true,
@@ -76,7 +76,7 @@
   "map": {
     "show": true,
     "naverClientId": "",
-    "kakaoAppKey": "",
+    "kakaoAppKey": "6272acf8b347f8a83c8d3acfcf54ce55",
     "guides": [
       {
         "title": "🚃 지하철",
@@ -150,7 +150,7 @@
     "desc": "소중한 분들을 저희의 시작에 초대합니다.",
     "url": "https://hittto.github.io/",
     "kakaoKey": "",
-    "ogImageUrl": ""
+    "ogImageUrl": "assets/placeholder-photo-wide.svg"
   },
   "labels": {
     "coverEyebrow": "Wedding Invitation",
