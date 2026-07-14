@@ -25,102 +25,169 @@
   <div class="editor-layout">
     <aside class="editor-panel">
       <div class="welcome-card">
-        <strong>글자를 고치거나 사진을 선택하면 오른쪽에 바로 반영됩니다.</strong>
-        <p>내용은 이 브라우저에 자동 저장됩니다. 모두 고친 뒤 위의 “GitHub에 게시”를 누르세요.</p>
+        <strong>클로드 디자인의 모든 항목을 이 화면에서 수정할 수 있습니다.</strong>
+        <p>글자나 사진을 바꾸면 오른쪽에 즉시 반영되고, 내용은 현재 브라우저에 자동 저장됩니다.</p>
       </div>
 
       <details open>
-        <summary><span>01</span> 기본 정보</summary>
+        <summary><span>01</span> 신랑과 신부</summary>
+        <div class="form-section">
+          <div class="divider-label">신랑</div>
+          <div class="two-columns">
+            <label>한글 이름<input data-path="couple.groom.name" type="text"></label>
+            <label>영문 이름<input data-path="couple.groom.en" type="text"></label>
+            <label>아버지 성함<input data-path="couple.groom.father" type="text"></label>
+            <label>어머니 성함<input data-path="couple.groom.mother" type="text"></label>
+            <label class="full">관계<input data-path="couple.groom.relation" type="text" placeholder="장남, 차남 등"></label>
+          </div>
+          <div class="divider-label">신부</div>
+          <div class="two-columns">
+            <label>한글 이름<input data-path="couple.bride.name" type="text"></label>
+            <label>영문 이름<input data-path="couple.bride.en" type="text"></label>
+            <label>아버지 성함<input data-path="couple.bride.father" type="text"></label>
+            <label>어머니 성함<input data-path="couple.bride.mother" type="text"></label>
+            <label class="full">관계<input data-path="couple.bride.relation" type="text" placeholder="장녀, 차녀 등"></label>
+          </div>
+        </div>
+      </details>
+
+      <details open>
+        <summary><span>02</span> 예식 정보</summary>
         <div class="form-section two-columns">
-          <label>신랑 이름<input data-path="couple.groom" type="text"></label>
-          <label>신부 이름<input data-path="couple.bride" type="text"></label>
-          <label>신랑 영문 이름<input data-path="couple.groomEn" type="text"></label>
-          <label>신부 영문 이름<input data-path="couple.brideEn" type="text"></label>
-          <label>예식 날짜<input data-path="event.date" type="date"></label>
-          <label>예식 시간<input data-path="event.time" type="time"></label>
-          <label class="full">예식장 이름<input data-path="event.venue" type="text"></label>
-          <label class="full">예식장 주소<input data-path="event.address" type="text"></label>
-          <label class="full">공유 제목<input data-path="meta.title" type="text"></label>
-          <label class="full">공유 설명<input data-path="meta.description" type="text"></label>
-          <label class="full">공개 주소<input data-path="meta.shareUrl" type="url"></label>
+          <label>예식 날짜<input data-path="wedding.date" type="date"></label>
+          <label>예식 시간<input data-path="wedding.time" type="time"></label>
+          <label class="full">예식장 이름<input data-path="wedding.venue" type="text"></label>
+          <label class="full">층·홀 이름<input data-path="wedding.hall" type="text"></label>
+          <label class="full">도로명 주소<input data-path="wedding.address" type="text"></label>
+          <p class="help-text full">날짜는 달력과 D-day에, 주소는 지도와 길찾기 버튼에 자동 반영됩니다.</p>
+        </div>
+      </details>
+
+      <details open>
+        <summary><span>03</span> 사진·영상·음악</summary>
+        <div class="form-section">
+          <p class="help-text">사진은 웹용 크기로 자동 압축됩니다. 커버는 세로형, 서브 사진은 가로형을 권장합니다.</p>
+          <div class="media-editor-grid">
+            <div class="media-editor" data-image-card="cover.image"><div class="media-preview portrait"></div><strong>커버 사진</strong><label class="upload-button">사진 선택<input type="file" accept="image/*" data-image-input="cover.image"></label><button type="button" data-image-clear="cover.image">비우기</button></div>
+            <div class="media-editor" data-image-card="intro.image"><div class="media-preview"></div><strong>서브 사진</strong><label class="upload-button">사진 선택<input type="file" accept="image/*" data-image-input="intro.image"></label><button type="button" data-image-clear="intro.image">비우기</button></div>
+            <div class="media-editor" data-image-card="share.ogImageUrl"><div class="media-preview"></div><strong>공유 대표 사진</strong><label class="upload-button">사진 선택<input type="file" accept="image/*" data-image-input="share.ogImageUrl"></label><button type="button" data-image-clear="share.ogImageUrl">커버 사용</button></div>
+          </div>
+          <label>웨딩 영상 주소<input data-path="video.url" type="url" placeholder="유튜브 또는 mp4 주소"></label>
+          <div class="divider-label">배경 음악</div>
+          <div class="file-control">
+            <label class="upload-button music-upload">음악 파일 선택<input id="music-input" type="file" accept="audio/*"></label>
+            <button class="small-danger" type="button" data-clear-music>음악 비우기</button>
+            <span id="music-state">등록된 음악 없음</span>
+          </div>
+          <label class="switch-row"><input data-path="bgm.autoplay" type="checkbox"> 첫 화면 터치 후 자동 재생 시도</label>
         </div>
       </details>
 
       <details>
-        <summary><span>02</span> 초대 문구와 가족</summary>
+        <summary><span>04</span> 초대 인사말과 연락처</summary>
         <div class="form-section">
-          <label>날짜 위 짧은 문구<input data-path="messages.opening" type="text"></label>
-          <label>초대 문구<textarea data-path="messages.invitation" rows="5"></textarea></label>
-          <label>러브레터 제목<input data-path="messages.letterTitle" type="text"></label>
-          <label>러브레터 내용<textarea data-path="messages.letter" rows="5"></textarea></label>
-          <div class="divider-label">신랑 측</div>
-          <div class="two-columns">
-            <label>아버지<input data-path="family.groomFather" type="text"></label>
-            <label>어머니<input data-path="family.groomMother" type="text"></label>
-          </div>
-          <label>가족 인사말<textarea data-path="messages.groomFamily" rows="3"></textarea></label>
-          <div class="divider-label">신부 측</div>
-          <div class="two-columns">
-            <label>아버지<input data-path="family.brideFather" type="text"></label>
-            <label>어머니<input data-path="family.brideMother" type="text"></label>
-          </div>
-          <label>가족 인사말<textarea data-path="messages.brideFamily" rows="3"></textarea></label>
-          <label>맨 아래 문구<input data-path="footer" type="text"></label>
+          <label class="switch-row"><input data-path="greeting.show" type="checkbox"> 초대 인사말 섹션 표시</label>
+          <label>인사말 제목<input data-path="greeting.title" type="text"></label>
+          <label>인사말 내용<textarea data-path="greeting.message" rows="7"></textarea></label>
+          <label class="switch-row"><input data-path="greeting.showParents" type="checkbox"> 부모님 성함과 관계 표시</label>
+          <label class="switch-row"><input data-path="greeting.showContacts" type="checkbox"> 전화 연락 버튼 표시</label>
+          <div class="divider-label">연락처 버튼</div>
+          <div id="contact-editor"></div>
+          <button class="wide-button" type="button" data-add-contact>+ 연락처 추가</button>
         </div>
       </details>
 
       <details>
-        <summary><span>03</span> 사진과 영상</summary>
+        <summary><span>05</span> 갤러리</summary>
         <div class="form-section">
-          <p class="help-text">사진은 자동으로 웹용 크기로 줄어듭니다. 세로 메인 사진은 3:4 비율을 권장합니다.</p>
-          <div class="media-editor-grid" id="media-editor-grid">
-            <div class="media-editor" data-image-card="images.cover"><div class="media-preview"></div><strong>메인 사진</strong><label class="upload-button">사진 선택<input type="file" accept="image/*" data-image-input="images.cover"></label><button type="button" data-image-clear="images.cover">비우기</button></div>
-            <div class="media-editor" data-image-card="images.secondary"><div class="media-preview"></div><strong>중간 와이드 사진</strong><label class="upload-button">사진 선택<input type="file" accept="image/*" data-image-input="images.secondary"></label><button type="button" data-image-clear="images.secondary">비우기</button></div>
-            <div class="media-editor" data-image-card="images.groomFamily"><div class="media-preview"></div><strong>신랑 가족 사진</strong><label class="upload-button">사진 선택<input type="file" accept="image/*" data-image-input="images.groomFamily"></label><button type="button" data-image-clear="images.groomFamily">비우기</button></div>
-            <div class="media-editor" data-image-card="images.brideFamily"><div class="media-preview"></div><strong>신부 가족 사진</strong><label class="upload-button">사진 선택<input type="file" accept="image/*" data-image-input="images.brideFamily"></label><button type="button" data-image-clear="images.brideFamily">비우기</button></div>
-            <div class="media-editor" data-image-card="images.videoThumbnail"><div class="media-preview"></div><strong>영상 썸네일</strong><label class="upload-button">사진 선택<input type="file" accept="image/*" data-image-input="images.videoThumbnail"></label><button type="button" data-image-clear="images.videoThumbnail">비우기</button></div>
-            <div class="media-editor" data-image-card="images.shareThumbnail"><div class="media-preview"></div><strong>공유 대표 사진</strong><label class="upload-button">사진 선택<input type="file" accept="image/*" data-image-input="images.shareThumbnail"></label><button type="button" data-image-clear="images.shareThumbnail">비우기</button></div>
-          </div>
-          <label>유튜브 주소<input data-path="video.youtubeUrl" type="url" placeholder="https://youtu.be/..."></label>
-          <label>배경 음악 파일 주소<input data-path="musicUrl" type="url" placeholder="https://.../music.mp3"></label>
-          <div class="divider-label">갤러리</div>
+          <label class="switch-row"><input data-path="gallery.show" type="checkbox"> 갤러리 섹션 표시</label>
+          <label>처음 보여줄 사진 수<input data-path="gallery.initial" type="number" min="1" max="30"></label>
           <label class="gallery-upload">여러 사진 한 번에 추가<input id="gallery-input" type="file" accept="image/*" multiple></label>
           <div class="gallery-editor" id="gallery-editor"></div>
         </div>
       </details>
 
       <details>
-        <summary><span>04</span> 오시는 길</summary>
-        <div class="form-section two-columns">
-          <label>위도<input data-path="map.lat" type="number" step="0.000001"></label>
-          <label>경도<input data-path="map.lng" type="number" step="0.000001"></label>
-          <p class="help-text full">위도·경도를 모르면 지도에서 예식장을 검색한 뒤 좌표를 확인해 입력하세요. 기본값은 서울시청입니다.</p>
-          <label class="full">지하철 안내<textarea data-path="map.subway" rows="3"></textarea></label>
-          <label class="full">버스 안내<textarea data-path="map.bus" rows="3"></textarea></label>
-          <label class="full">주차 안내<textarea data-path="map.parking" rows="3"></textarea></label>
-        </div>
-      </details>
-
-      <details>
-        <summary><span>05</span> 계좌번호</summary>
+        <summary><span>06</span> 달력과 D-day</summary>
         <div class="form-section">
-          <div id="account-editor"></div>
-          <button class="wide-button" type="button" data-add-account>+ 계좌 추가</button>
+          <label class="switch-row"><input data-path="calendar.show" type="checkbox"> 달력 섹션 표시</label>
+          <label class="switch-row"><input data-path="calendar.showCountdown" type="checkbox"> 실시간 D-day 카운트다운 표시</label>
         </div>
       </details>
 
       <details>
-        <summary><span>06</span> 색상</summary>
-        <div class="form-section color-grid">
-          <label>포인트 색<input data-path="theme.accent" type="color"></label>
-          <label>연한 배경<input data-path="theme.soft" type="color"></label>
-          <label>종이 배경<input data-path="theme.paper" type="color"></label>
-          <label>글자 색<input data-path="theme.ink" type="color"></label>
+        <summary><span>07</span> 오시는 길</summary>
+        <div class="form-section">
+          <label class="switch-row"><input data-path="map.show" type="checkbox"> 지도와 오시는 길 섹션 표시</label>
+          <p class="help-text">지도 위치는 02 예식 정보의 주소를 사용합니다.</p>
+          <div class="divider-label">교통 안내</div>
+          <div id="guide-editor"></div>
+          <button class="wide-button" type="button" data-add-guide>+ 교통 안내 추가</button>
         </div>
       </details>
 
       <details>
-        <summary><span>07</span> 백업과 초기화</summary>
+        <summary><span>08</span> 마음 전하실 곳</summary>
+        <div class="form-section">
+          <label class="switch-row"><input data-path="accounts.show" type="checkbox"> 계좌번호 섹션 표시</label>
+          <label>신랑 측 제목<input data-path="accounts.groom.title" type="text"></label>
+          <div id="account-groom-editor"></div>
+          <button class="wide-button" type="button" data-add-account="groom">+ 신랑 측 계좌 추가</button>
+          <label>신부 측 제목<input data-path="accounts.bride.title" type="text"></label>
+          <div id="account-bride-editor"></div>
+          <button class="wide-button" type="button" data-add-account="bride">+ 신부 측 계좌 추가</button>
+        </div>
+      </details>
+
+      <details>
+        <summary><span>09</span> 디자인과 공유</summary>
+        <div class="form-section two-columns">
+          <label>포인트 색상<input data-path="theme.accent" type="color"></label>
+          <label>글꼴<select data-path="theme.font"><option value="serif">고운바탕 명조체</option><option value="sans">깔끔한 고딕체</option></select></label>
+          <label class="full">공유 제목<input data-path="share.title" type="text"></label>
+          <label class="full">공유 설명<textarea data-path="share.desc" rows="3"></textarea></label>
+          <label class="full">청첩장 공개 주소<input data-path="share.url" type="url"></label>
+          <label class="full">카카오 JavaScript 키<input data-path="share.kakaoKey" type="password" autocomplete="off" placeholder="선택 입력"></label>
+          <label class="full">맨 아래 문구<input data-path="footer.text" type="text"></label>
+          <p class="help-text full">카카오 키가 없으면 휴대폰 기본 공유창이 열립니다.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span>10</span> 화면 고정 문구</summary>
+        <div class="form-section two-columns">
+          <label>커버 영문 문구<input data-path="labels.coverEyebrow" type="text"></label>
+          <label>커버 빈 사진 제목<input data-path="labels.coverPlaceholderTitle" type="text"></label>
+          <label class="full">커버 빈 사진 안내<input data-path="labels.coverPlaceholderSubtitle" type="text"></label>
+          <label>서브 빈 사진 제목<input data-path="labels.introPlaceholderTitle" type="text"></label>
+          <label>서브 빈 사진 안내<input data-path="labels.introPlaceholderSubtitle" type="text"></label>
+          <label>신랑 역할 영문<input data-path="labels.groomRole" type="text"></label>
+          <label>신부 역할 영문<input data-path="labels.brideRole" type="text"></label>
+          <div class="divider-label full">영상·갤러리·인사말</div>
+          <label>영상 영문 제목<input data-path="labels.videoEyebrow" type="text"></label>
+          <label>영상 한글 제목<input data-path="labels.videoTitle" type="text"></label>
+          <label>갤러리 영문 제목<input data-path="labels.galleryEyebrow" type="text"></label>
+          <label>갤러리 한글 제목<input data-path="labels.galleryTitle" type="text"></label>
+          <label>갤러리 더보기 버튼<input data-path="labels.galleryMore" type="text"></label>
+          <label>인사말 영문 제목<input data-path="labels.greetingEyebrow" type="text"></label>
+          <label class="full">달력 영문 제목<input data-path="labels.calendarEyebrow" type="text"></label>
+          <div class="divider-label full">지도·계좌·공유 버튼</div>
+          <label>지도 영문 제목<input data-path="labels.locationEyebrow" type="text"></label>
+          <label>지도 한글 제목<input data-path="labels.locationTitle" type="text"></label>
+          <label>주소 복사 버튼<input data-path="labels.addressCopy" type="text"></label>
+          <label>네이버 지도 버튼<input data-path="labels.naverMap" type="text"></label>
+          <label>카카오맵 버튼<input data-path="labels.kakaoMap" type="text"></label>
+          <label>구글 지도 버튼<input data-path="labels.googleMap" type="text"></label>
+          <label>계좌 영문 제목<input data-path="labels.accountsEyebrow" type="text"></label>
+          <label>계좌 한글 제목<input data-path="labels.accountsTitle" type="text"></label>
+          <label>계좌 복사 버튼<input data-path="labels.accountCopy" type="text"></label>
+          <label class="full">공유 버튼<input data-path="labels.shareButton" type="text"></label>
+          <label class="full">주소 공유 버튼<input data-path="labels.urlCopyButton" type="text"></label>
+        </div>
+      </details>
+
+      <details>
+        <summary><span>11</span> 백업과 초기화</summary>
         <div class="form-section">
           <p class="help-text">다른 컴퓨터로 옮기려면 백업 파일을 내려받아 보관하세요.</p>
           <div class="button-row">
@@ -133,7 +200,7 @@
     </aside>
 
     <section class="preview-area" aria-label="모바일 미리보기">
-      <div class="preview-label"><span class="live-dot"></span> 실시간 모바일 미리보기</div>
+      <div class="preview-label"><span class="live-dot"></span> 클로드 디자인 실시간 미리보기</div>
       <div class="phone-frame">
         <div class="phone-speaker"></div>
         <iframe id="preview-frame" src="index.html?preview=1" title="청첩장 미리보기"></iframe>
@@ -150,7 +217,7 @@
       <div class="publish-steps">
         <p><b>1.</b> GitHub에서 <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">새 토큰 만들기</a>를 엽니다.</p>
         <p><b>2.</b> 저장소는 <strong>hittto/hittto.github.io</strong>, 권한은 <strong>Contents → Read and write</strong>로 선택합니다.</p>
-        <p><b>3.</b> 만들어진 토큰을 아래에 붙여넣고 게시합니다. 토큰은 이 화면에 저장되지 않습니다.</p>
+        <p><b>3.</b> 만들어진 토큰을 아래에 붙여넣고 게시합니다. 토큰은 저장되지 않습니다.</p>
       </div>
       <div class="two-columns publish-fields">
         <label>GitHub 아이디<input id="publish-owner" value="hittto" autocomplete="off"></label>

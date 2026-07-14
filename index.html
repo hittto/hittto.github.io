@@ -1,37 +1,680 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#111111">
-  <meta name="description" content="두 사람의 결혼식에 초대합니다.">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="결혼합니다">
-  <meta property="og:description" content="소중한 분들을 초대합니다.">
-  <meta property="og:image" content="https://hittto.github.io/assets/placeholder-photo-wide.svg">
-  <meta property="og:url" content="https://hittto.github.io/">
-  <title>결혼합니다</title>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>결혼합니다</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="결혼합니다">
+<meta property="og:description" content="소중한 분들을 초대합니다.">
+<meta property="og:image" content="">
+<meta property="og:url" content="https://hittto.github.io/">
+<meta name="description" content="소중한 분들을 초대합니다.">
+<meta name="theme-color" content="#c48d7e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --accent:#c48d7e;
+  --accent-soft:#f3e2dc;
+  --ink:#4a4441;
+  --ink-soft:#8a807b;
+  --paper:#fffdfb;
+  --line:#eee2dc;
+  --serif:'Gowun Batang','Nanum Myeongjo',serif;
+  --sans:'Noto Sans KR',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:#f3ede8;
+  font-family:var(--serif);
+  color:var(--ink);
+  line-height:1.7;
+  word-break:keep-all;
+}
+body.font-sans{font-family:var(--sans)}
+#wrap{
+  max-width:430px;margin:0 auto;background:var(--paper);
+  box-shadow:0 0 40px rgba(90,70,60,.12);
+  min-height:100vh;overflow-x:hidden;position:relative;
+}
+img{max-width:100%;display:block}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+section{padding:70px 28px;position:relative}
+.eyebrow{
+  font-family:var(--sans);font-size:11px;letter-spacing:.35em;
+  color:var(--accent);text-align:center;text-transform:uppercase;
+  margin-bottom:10px;font-weight:500;
+}
+.sec-title{
+  font-size:21px;text-align:center;margin-bottom:34px;font-weight:700;
+  color:var(--ink);
+}
+.divider{width:1px;height:34px;background:var(--accent);opacity:.45;margin:0 auto 18px}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s ease}
+.reveal.on{opacity:1;transform:none}
+
+/* ─── 커버 ─── */
+#cover{padding:0}
+.cover-photo{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden}
+.cover-photo img{width:100%;height:100%;object-fit:cover}
+.ph{
+  width:100%;height:100%;display:flex;flex-direction:column;gap:8px;
+  align-items:center;justify-content:center;text-align:center;
+  background:linear-gradient(160deg,#f9ece7 0%,#eed4cb 55%,#e5c3b8 100%);
+  color:#a67a6c;font-family:var(--sans);
+}
+.ph .ph-icon{font-size:34px}
+.ph .ph-t{font-size:14px;font-weight:500}
+.ph .ph-s{font-size:11px;opacity:.75}
+.cover-text{text-align:center;padding:52px 24px 58px}
+.cover-script{
+  font-family:var(--sans);font-size:11px;letter-spacing:.45em;color:var(--accent);
+  text-transform:uppercase;margin-bottom:22px;
+}
+.cover-date{font-size:17px;letter-spacing:.02em;margin-bottom:14px}
+.cover-venue{font-size:15px;color:var(--ink)}
+.cover-addr{font-size:12.5px;color:var(--ink-soft);margin-top:6px;font-family:var(--sans);font-weight:300}
+
+/* ─── 신랑 신부 ─── */
+#intro{padding-top:0}
+.intro-photo{width:100%;aspect-ratio:4/3;overflow:hidden;border-radius:6px}
+.intro-photo img{width:100%;height:100%;object-fit:cover}
+.names{display:flex;justify-content:center;gap:0;margin-top:44px;text-align:center}
+.name-col{flex:1;max-width:170px}
+.name-col .role{
+  font-family:var(--sans);font-size:10.5px;letter-spacing:.4em;color:var(--accent);
+  text-transform:uppercase;margin-bottom:12px;
+}
+.name-col .en{font-size:17px;line-height:1.45;margin-bottom:6px}
+.name-col .kr{font-size:13px;color:var(--ink-soft)}
+.name-sep{width:1px;background:var(--line);margin:6px 18px}
+
+/* ─── 인사말 ─── */
+#greeting{background:linear-gradient(180deg,var(--paper) 0%,#fbf4f0 50%,var(--paper) 100%)}
+.greet-msg{text-align:center;font-size:15px;line-height:2.15;color:#5b534f}
+.parents{margin-top:44px;display:flex;flex-direction:column;gap:12px;align-items:center}
+.parent-line{font-size:15px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;justify-content:center}
+.parent-line .p-names{letter-spacing:.03em}
+.parent-line .p-rel{font-size:12.5px;color:var(--ink-soft);font-family:var(--sans);font-weight:300}
+.parent-line .p-me{font-weight:700;font-size:16px}
+.contact-btns{display:flex;justify-content:center;gap:10px;margin-top:36px;flex-wrap:wrap}
+.contact-btn{
+  display:inline-flex;align-items:center;gap:7px;
+  border:1px solid var(--line);border-radius:100px;padding:9px 18px;
+  font-family:var(--sans);font-size:12.5px;color:var(--ink);background:#fff;
+  text-decoration:none;
+}
+.contact-btn:active{background:var(--accent-soft)}
+
+/* ─── 영상 ─── */
+.video-box{position:relative;width:100%;aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:#000}
+.video-box iframe,.video-box video{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+/* ─── 갤러리 ─── */
+#gallery{padding-left:14px;padding-right:14px}
+.g-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.g-item{aspect-ratio:1/1;overflow:hidden;border-radius:4px;padding:0;position:relative;background:#f4ebe6}
+.g-item img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.g-item:active img{transform:scale(1.05)}
+.g-item .ph .ph-icon{font-size:20px}
+.g-item .ph .ph-t{font-size:10px}
+.g-more{
+  display:block;margin:26px auto 0;padding:11px 34px;border:1px solid var(--line);
+  border-radius:100px;font-family:var(--sans);font-size:13px;color:var(--ink-soft);background:#fff;
+}
+/* 라이트박스 */
+#lightbox{
+  position:fixed;inset:0;background:rgba(20,15,13,.94);z-index:1000;
+  display:none;align-items:center;justify-content:center;
+}
+#lightbox.open{display:flex}
+#lightbox img{max-width:92vw;max-height:82vh;object-fit:contain;border-radius:4px}
+.lb-btn{position:absolute;color:#fff;font-size:26px;padding:16px;opacity:.85;font-family:var(--sans)}
+.lb-close{top:8px;right:8px}
+.lb-prev{left:2px;top:50%;transform:translateY(-50%)}
+.lb-next{right:2px;top:50%;transform:translateY(-50%)}
+.lb-count{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);color:#fff;font-family:var(--sans);font-size:12px;letter-spacing:.15em;opacity:.8}
+
+/* ─── 캘린더 ─── */
+#calendar{background:#fbf4f0}
+.cal-box{max-width:300px;margin:0 auto;text-align:center}
+.cal-month{font-size:26px;margin-bottom:4px}
+.cal-sub{font-family:var(--sans);font-size:12px;color:var(--ink-soft);margin-bottom:22px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;font-family:var(--sans)}
+.cal-grid .dow{font-size:11px;color:var(--ink-soft);padding:6px 0}
+.cal-grid .dow.sun{color:#d67b6d}
+.cal-grid .day{font-size:13px;padding:8px 0;color:#6b625d;position:relative}
+.cal-grid .day.sun{color:#d67b6d}
+.cal-grid .day.dim{opacity:0}
+.cal-grid .day.dday{color:#fff;font-weight:700}
+.cal-grid .day.dday::before{
+  content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:32px;height:32px;border-radius:50%;background:var(--accent);z-index:-1;
+}
+.countdown{display:flex;justify-content:center;gap:8px;margin-top:34px}
+.cd-cell{
+  background:#fff;border:1px solid var(--line);border-radius:8px;
+  width:64px;padding:10px 0;text-align:center;font-family:var(--sans);
+}
+.cd-cell .n{font-size:20px;font-weight:500;color:var(--ink)}
+.cd-cell .l{font-size:10px;color:var(--ink-soft);margin-top:2px}
+.cd-msg{text-align:center;margin-top:22px;font-size:13.5px;color:#5b534f}
+.cd-msg b{color:var(--accent)}
+
+/* ─── 오시는 길 ─── */
+.map-frame{width:100%;aspect-ratio:4/3;border:0;border-radius:6px;background:#eee}
+.loc-name{text-align:center;font-size:16.5px;font-weight:700;margin-top:26px}
+.loc-addr{text-align:center;font-size:13px;color:var(--ink-soft);font-family:var(--sans);font-weight:300;margin-top:6px}
+.copy-sm{
+  display:block;margin:14px auto 0;padding:7px 20px;border:1px solid var(--line);
+  border-radius:100px;font-family:var(--sans);font-size:12px;color:var(--ink-soft);background:#fff;
+}
+.map-apps{display:flex;gap:8px;margin-top:22px}
+.map-app{
+  flex:1;text-align:center;padding:11px 0;border:1px solid var(--line);border-radius:8px;
+  font-family:var(--sans);font-size:12.5px;color:var(--ink);text-decoration:none;background:#fff;
+}
+.guides{margin-top:34px;display:flex;flex-direction:column;gap:22px}
+.guide .g-title{font-size:14.5px;font-weight:700;margin-bottom:6px}
+.guide .g-desc{font-size:13.5px;color:#6b625d;font-family:var(--sans);font-weight:300;line-height:1.8;white-space:pre-line}
+
+/* ─── 계좌 ─── */
+#accounts{background:#fbf4f0}
+.acc-group{margin-bottom:26px}
+.acc-group:last-of-type{margin-bottom:0}
+.acc-head{
+  width:100%;text-align:left;padding:14px 18px;background:#fff;border:1px solid var(--line);
+  border-radius:10px;font-size:14px;font-weight:700;display:flex;justify-content:space-between;align-items:center;
+}
+.acc-head .arrow{transition:transform .3s;color:var(--ink-soft);font-size:12px}
+.acc-group.open .acc-head .arrow{transform:rotate(180deg)}
+.acc-list{display:none;padding:4px 4px 0}
+.acc-group.open .acc-list{display:block}
+.acc-item{
+  background:#fff;border:1px solid var(--line);border-radius:10px;padding:13px 16px;
+  margin-top:8px;display:flex;justify-content:space-between;align-items:center;gap:10px;
+}
+.acc-info .a-num{font-family:var(--sans);font-size:13.5px;font-weight:500}
+.acc-info .a-holder{font-family:var(--sans);font-size:12px;color:var(--ink-soft);margin-top:2px;font-weight:300}
+.acc-copy{
+  flex-shrink:0;padding:7px 14px;border-radius:8px;background:var(--accent-soft);
+  font-family:var(--sans);font-size:11.5px;color:#9c6b5c;
+}
+
+/* ─── 공유 ─── */
+#share{text-align:center;padding-bottom:54px}
+.share-btn{
+  display:block;width:100%;padding:14px 0;border-radius:10px;margin-bottom:10px;
+  font-family:var(--sans);font-size:14px;font-weight:500;
+}
+.share-kakao{background:#fee500;color:#3c1e1e}
+.share-copy{background:#fff;border:1px solid var(--line);color:var(--ink)}
+footer{
+  text-align:center;padding:26px 0 34px;font-family:var(--sans);
+  font-size:11px;color:#b5aaa4;letter-spacing:.08em;background:#faf3ef;
+}
+
+/* ─── BGM ─── */
+#bgmBtn{
+  position:fixed;top:14px;right:14px;z-index:900;width:38px;height:38px;border-radius:50%;
+  background:rgba(255,255,255,.85);backdrop-filter:blur(4px);
+  box-shadow:0 2px 10px rgba(90,70,60,.2);font-size:15px;color:var(--accent);
+  display:none;align-items:center;justify-content:center;
+}
+#bgmBtn.show{display:flex}
+#bgmBtn.playing{animation:spin 6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ─── 토스트 ─── */
+#toast{
+  position:fixed;bottom:36px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:rgba(60,50,45,.92);color:#fff;font-family:var(--sans);font-size:13px;
+  padding:11px 24px;border-radius:100px;opacity:0;transition:.35s;pointer-events:none;z-index:1100;
+  white-space:nowrap;
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
 </head>
 <body>
-  <main id="invitation" class="invitation" aria-live="polite">
-    <div class="loading-card">
-      <span class="loading-heart">♥</span>
-      <p>초대장을 준비하고 있어요</p>
-    </div>
-  </main>
+<script type="application/json" id="wedding-data">{}</script>
 
-  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="사진 크게 보기">
-    <button class="lightbox-close" type="button" aria-label="닫기">×</button>
-    <button class="lightbox-nav lightbox-prev" type="button" aria-label="이전 사진">‹</button>
-    <img id="lightbox-image" alt="갤러리 사진 크게 보기">
-    <button class="lightbox-nav lightbox-next" type="button" aria-label="다음 사진">›</button>
-    <p class="lightbox-count" id="lightbox-count"></p>
-  </div>
+<button id="bgmBtn" aria-label="배경음악 재생/정지">♪</button>
+<audio id="bgmAudio" loop preload="none"></audio>
 
-  <div class="toast" id="toast" role="status"></div>
-  <script src="app.js" defer></script>
+<div id="wrap"><div id="app"></div></div>
+
+<div id="lightbox" role="dialog" aria-label="사진 크게 보기">
+  <button class="lb-btn lb-close" aria-label="닫기">✕</button>
+  <button class="lb-btn lb-prev" aria-label="이전">‹</button>
+  <img id="lbImg" alt="">
+  <button class="lb-btn lb-next" aria-label="다음">›</button>
+  <div class="lb-count" id="lbCount"></div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+(function(){
+'use strict';
+
+function resetWeddingUi(){
+  if(window.__weddingCountdown){clearInterval(window.__weddingCountdown);window.__weddingCountdown=null;}
+  if(window.__weddingIo){window.__weddingIo.disconnect();window.__weddingIo=null;}
+  if(window.__weddingAutoplayOnce){
+    document.removeEventListener('touchstart',window.__weddingAutoplayOnce);
+    document.removeEventListener('click',window.__weddingAutoplayOnce);
+    window.__weddingAutoplayOnce=null;
+  }
+  document.onkeydown=null;
+  document.body.classList.remove('font-sans');
+  document.documentElement.style.setProperty('--accent','#c48d7e');
+  document.documentElement.style.setProperty('--accent-soft','#c48d7e26');
+  var oldAudio=document.getElementById('bgmAudio');
+  if(oldAudio){try{oldAudio.pause();}catch(e){}}
+  ['bgmBtn','bgmAudio','lightbox'].forEach(function(id){
+    var old=document.getElementById(id);if(!old)return;
+    var fresh=old.cloneNode(true);
+    if(id==='bgmBtn'){fresh.className='';fresh.textContent='♪';}
+    if(id==='bgmAudio'){fresh.removeAttribute('src');}
+    if(id==='lightbox'){fresh.classList.remove('open');fresh.setAttribute('aria-hidden','true');}
+    old.replaceWith(fresh);
+  });
+  document.body.style.overflow='';
+  document.getElementById('app').innerHTML='';
+}
+
+function updateShareMeta(D){
+  var share=D.share||{};
+  var title=share.title||'결혼합니다';
+  var desc=share.desc||'소중한 분들을 초대합니다.';
+  var image=share.ogImageUrl||(D.cover&&D.cover.image)||'';
+  document.title=title;
+  function setMeta(selector,value){
+    var el=document.querySelector(selector);if(el&&value)el.setAttribute('content',value);
+  }
+  setMeta('meta[name="description"]',desc);
+  setMeta('meta[property="og:title"]',title);
+  setMeta('meta[property="og:description"]',desc);
+  setMeta('meta[property="og:url"]',share.url||location.href.split('#')[0]);
+  setMeta('meta[property="og:image"]',image);
+}
+
+function renderWedding(D){
+  if(!D||!D.couple||!D.couple.groom||!D.couple.bride||!D.wedding){
+    throw new Error('청첩장 데이터 형식이 올바르지 않습니다.');
+  }
+  resetWeddingUi();
+  updateShareMeta(D);
+
+/* ───────── 유틸 ───────── */
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function nl2br(s){return esc(s).replace(/\n/g,'<br>');}
+function toast(msg){
+  var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  clearTimeout(t._tm);t._tm=setTimeout(function(){t.classList.remove('show');},1800);
+}
+function copyText(text,msg){
+  function done(){toast(msg||'복사되었습니다');}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done,function(){fallback();});
+  }else fallback();
+  function fallback(){
+    var ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+    document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');done();}catch(e){toast('복사에 실패했습니다');}
+    document.body.removeChild(ta);
+  }
+}
+function placeholder(title,sub,cls){
+  return '<div class="ph '+(cls||'')+'"><div class="ph-icon">🌸</div><div class="ph-t">'+esc(title)+'</div>'+(sub?'<div class="ph-s">'+esc(sub)+'</div>':'')+'</div>';
+}
+function imgOrPh(src,alt,title,sub){
+  return src?'<img src="'+esc(src)+'" alt="'+esc(alt)+'">':placeholder(title,sub);
+}
+
+/* ───────── 날짜 처리 ───────── */
+var WD=['일요일','월요일','화요일','수요일','목요일','금요일','토요일'];
+function parseWhen(){
+  var p=(D.wedding.date||'2026-01-01').split('-').map(Number);
+  var t=(D.wedding.time||'12:00').split(':').map(Number);
+  return new Date(p[0],p[1]-1,p[2],t[0]||0,t[1]||0);
+}
+var WHEN=parseWhen();
+function dateText(){
+  var h=WHEN.getHours(),m=WHEN.getMinutes();
+  var ampm=h<12?'오전':'오후';var h12=h%12;if(h12===0)h12=12;
+  return WHEN.getFullYear()+'년 '+(WHEN.getMonth()+1)+'월 '+WHEN.getDate()+'일 '+WD[WHEN.getDay()]
+    +' '+ampm+' '+h12+'시'+(m?' '+m+'분':'');
+}
+
+/* ───────── 테마 ───────── */
+if(D.theme){
+  if(D.theme.accent){
+    document.documentElement.style.setProperty('--accent',D.theme.accent);
+    document.documentElement.style.setProperty('--accent-soft',D.theme.accent+'26');
+  }
+  if(D.theme.font==='sans')document.body.classList.add('font-sans');
+}
+
+/* ───────── 섹션 렌더링 ───────── */
+var H=[];
+var g=D.couple.groom,b=D.couple.bride;
+var L=D.labels||{};
+
+/* 커버 */
+H.push('<section id="cover" class="reveal">'
+ +'<div class="cover-photo">'+imgOrPh(D.cover.image,'커버 사진',L.coverPlaceholderTitle||'커버 사진',L.coverPlaceholderSubtitle||'편집기에서 사진을 등록해 주세요')+'</div>'
+ +'<div class="cover-text">'
+ +'<div class="cover-script">'+esc(L.coverEyebrow||'Wedding Invitation')+'</div>'
+ +'<div class="cover-date">'+esc(dateText())+'</div>'
+ +'<div class="cover-venue">'+esc(D.wedding.venue)+(D.wedding.hall?' · '+esc(D.wedding.hall):'')+'</div>'
+ +'<div class="cover-addr">'+esc(D.wedding.address)+'</div>'
+ +'</div></section>');
+
+/* 신랑 & 신부 */
+H.push('<section id="intro" class="reveal">'
+ +'<div class="intro-photo">'+imgOrPh(D.intro.image,'웨딩 사진',L.introPlaceholderTitle||'웨딩 사진',L.introPlaceholderSubtitle||'편집기에서 사진을 등록해 주세요')+'</div>'
+ +'<div class="names">'
+ +'<div class="name-col"><div class="role">'+esc(L.groomRole||'Groom')+'</div><div class="en">'+esc(g.en||g.name)+'</div><div class="kr">'+esc(g.name)+'</div></div>'
+ +'<div class="name-sep"></div>'
+ +'<div class="name-col"><div class="role">'+esc(L.brideRole||'Bride')+'</div><div class="en">'+esc(b.en||b.name)+'</div><div class="kr">'+esc(b.name)+'</div></div>'
+ +'</div></section>');
+
+/* 영상 */
+function youtubeId(url){
+  if(!url)return null;
+  var m=url.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{6,})/);
+  return m?m[1]:null;
+}
+if(D.video&&D.video.url){
+  var yid=youtubeId(D.video.url);
+  var inner=yid
+    ?'<iframe src="https://www.youtube.com/embed/'+esc(yid)+'?rel=0" title="웨딩 영상" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+    :'<video src="'+esc(D.video.url)+'" controls playsinline></video>';
+  H.push('<section id="video" class="reveal"><div class="eyebrow">'+esc(L.videoEyebrow||'Video')+'</div><div class="sec-title">'+esc(L.videoTitle||'웨딩 영상')+'</div><div class="video-box">'+inner+'</div></section>');
+}
+
+/* 갤러리 */
+if(D.gallery&&D.gallery.show){
+  var imgs=D.gallery.images||[];
+  var initial=D.gallery.initial||6;
+  var cells=imgs.map(function(src,i){
+    var hidden=i>=initial?' style="display:none" data-extra="1"':'';
+    var inner=src?'<img src="'+esc(src)+'" alt="갤러리 사진 '+(i+1)+'" loading="lazy">':placeholder((i+1)+'','');
+    return '<button class="g-item" data-idx="'+i+'"'+hidden+'>'+inner+'</button>';
+  }).join('');
+  H.push('<section id="gallery" class="reveal"><div class="eyebrow">'+esc(L.galleryEyebrow||'Gallery')+'</div><div class="sec-title">'+esc(L.galleryTitle||'우리의 순간들')+'</div>'
+   +'<div class="g-grid">'+cells+'</div>'
+   +(imgs.length>initial?'<button class="g-more" id="gMore">'+esc(L.galleryMore||'더보기')+'</button>':'')
+   +'</section>');
+}
+
+/* 인사말 */
+if(D.greeting&&D.greeting.show){
+  var ghtml='<section id="greeting" class="reveal"><div class="eyebrow">'+esc(L.greetingEyebrow||'Invitation')+'</div>'
+   +'<div class="sec-title">'+esc(D.greeting.title)+'</div>'
+   +'<div class="divider"></div>'
+   +'<div class="greet-msg">'+nl2br(D.greeting.message)+'</div>';
+  if(D.greeting.showParents){
+    ghtml+='<div class="parents">'
+     +parentLine(g,'신랑')+parentLine(b,'신부')
+     +'</div>';
+  }
+  if(D.greeting.showContacts&&D.contacts&&D.contacts.length){
+    ghtml+='<div class="contact-btns">'+D.contacts.filter(function(c){return c.phone;}).map(function(c){
+      return '<a class="contact-btn" href="tel:'+esc(c.phone)+'">📞 '+esc(c.label)+'</a>';
+    }).join('')+'</div>';
+  }
+  ghtml+='</section>';
+  H.push(ghtml);
+}
+function parentLine(p,role){
+  var names=[p.father,p.mother].filter(Boolean).join(' · ');
+  if(!names)return '<div class="parent-line"><span class="p-rel">'+role+'</span> <span class="p-me">'+esc(p.name)+'</span></div>';
+  return '<div class="parent-line"><span class="p-names">'+esc(names)+'</span>'
+   +'<span class="p-rel">의 '+esc(p.relation||role)+'</span>'
+   +'<span class="p-me">'+esc(shortName(p.name))+'</span></div>';
+}
+function shortName(n){return n&&n.length>=3?n.slice(1):n;}
+
+/* 캘린더 & D-day */
+if(D.calendar&&D.calendar.show){
+  var y=WHEN.getFullYear(),mo=WHEN.getMonth(),dd=WHEN.getDate();
+  var first=new Date(y,mo,1).getDay(),last=new Date(y,mo+1,0).getDate();
+  var cal='<div class="cal-grid">';
+  ['일','월','화','수','목','금','토'].forEach(function(w,i){cal+='<div class="dow'+(i===0?' sun':'')+'">'+w+'</div>';});
+  for(var i=0;i<first;i++)cal+='<div class="day dim"></div>';
+  for(var d=1;d<=last;d++){
+    var dow=(first+d-1)%7;
+    cal+='<div class="day'+(dow===0?' sun':'')+(d===dd?' dday':'')+'">'+d+'</div>';
+  }
+  cal+='</div>';
+  var cd='';
+  if(D.calendar.showCountdown){
+    cd='<div class="countdown">'
+     +'<div class="cd-cell"><div class="n" id="cdD">0</div><div class="l">DAYS</div></div>'
+     +'<div class="cd-cell"><div class="n" id="cdH">0</div><div class="l">HOUR</div></div>'
+     +'<div class="cd-cell"><div class="n" id="cdM">0</div><div class="l">MIN</div></div>'
+     +'<div class="cd-cell"><div class="n" id="cdS">0</div><div class="l">SEC</div></div>'
+     +'</div><div class="cd-msg" id="cdMsg"></div>';
+  }
+  H.push('<section id="calendar" class="reveal"><div class="eyebrow">'+esc(L.calendarEyebrow||'Save the date')+'</div>'
+   +'<div class="cal-box"><div class="cal-month">'+(mo+1)+'월</div><div class="cal-sub">'+esc(dateText())+'</div>'
+   +cal+'</div>'+cd+'</section>');
+}
+
+/* 오시는 길 */
+if(D.map&&D.map.show){
+  var q=encodeURIComponent(D.wedding.address||D.wedding.venue);
+  var qName=encodeURIComponent(D.wedding.venue||D.wedding.address);
+  var mhtml='<section id="location" class="reveal"><div class="eyebrow">'+esc(L.locationEyebrow||'Location')+'</div><div class="sec-title">'+esc(L.locationTitle||'오시는 길')+'</div>'
+   +'<iframe class="map-frame" src="https://maps.google.com/maps?q='+q+'&z=16&hl=ko&output=embed" loading="lazy" title="지도"></iframe>'
+   +'<div class="loc-name">'+esc(D.wedding.venue)+(D.wedding.hall?' '+esc(D.wedding.hall):'')+'</div>'
+   +'<div class="loc-addr">'+esc(D.wedding.address)+'</div>'
+   +'<button class="copy-sm" id="addrCopy">'+esc(L.addressCopy||'주소 복사하기')+'</button>'
+   +'<div class="map-apps">'
+   +'<a class="map-app" href="https://map.naver.com/p/search/'+qName+'" target="_blank" rel="noopener">'+esc(L.naverMap||'네이버 지도')+'</a>'
+   +'<a class="map-app" href="https://map.kakao.com/link/search/'+qName+'" target="_blank" rel="noopener">'+esc(L.kakaoMap||'카카오맵')+'</a>'
+   +'<a class="map-app" href="https://www.google.com/maps/search/?api=1&query='+q+'" target="_blank" rel="noopener">'+esc(L.googleMap||'구글 지도')+'</a>'
+   +'</div>';
+  var gs=(D.map.guides||[]).filter(function(x){return x.title||x.desc;});
+  if(gs.length){
+    mhtml+='<div class="guides">'+gs.map(function(x){
+      return '<div class="guide"><div class="g-title">'+esc(x.title)+'</div><div class="g-desc">'+esc(x.desc)+'</div></div>';
+    }).join('')+'</div>';
+  }
+  mhtml+='</section>';
+  H.push(mhtml);
+}
+
+/* 마음 전하실 곳 */
+if(D.accounts&&D.accounts.show){
+  function accGroup(gr,idx){
+    if(!gr||!gr.items||!gr.items.length)return '';
+    var items=gr.items.map(function(a){
+      var full=(a.bank?a.bank+' ':'')+a.number;
+      return '<div class="acc-item"><div class="acc-info">'
+       +'<div class="a-num">'+esc(full)+'</div>'
+       +'<div class="a-holder">'+esc(a.holder)+(a.label?' ('+esc(a.label)+')':'')+'</div></div>'
+       +'<button class="acc-copy" data-copy="'+esc(full)+'">'+esc(L.accountCopy||'복사하기')+'</button></div>';
+    }).join('');
+    return '<div class="acc-group open"><button class="acc-head">'+esc(gr.title)+'<span class="arrow">▼</span></button>'
+     +'<div class="acc-list">'+items+'</div></div>';
+  }
+  H.push('<section id="accounts" class="reveal"><div class="eyebrow">'+esc(L.accountsEyebrow||'Gift')+'</div><div class="sec-title">'+esc(L.accountsTitle||'마음 전하실 곳')+'</div>'
+   +accGroup(D.accounts.groom,0)+accGroup(D.accounts.bride,1)+'</section>');
+}
+
+/* 공유 */
+H.push('<section id="share" class="reveal">'
+ +'<button class="share-btn share-kakao" id="btnShare">'+esc(L.shareButton||'💌 청첩장 공유하기')+'</button>'
+ +'<button class="share-btn share-copy" id="btnCopyUrl">'+esc(L.urlCopyButton||'🔗 청첩장 주소 복사하기')+'</button>'
+ +'</section>');
+H.push('<footer>'+esc(D.footer&&D.footer.text?D.footer.text:'Thank you')+'</footer>');
+
+document.getElementById('app').innerHTML=H.join('');
+
+/* ───────── 동작 연결 ───────── */
+/* 스크롤 등장 효과 */
+var io=new IntersectionObserver(function(es){
+  es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}});
+},{threshold:.12});
+window.__weddingIo=io;
+document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+
+/* 갤러리 */
+var gImgs=(D.gallery&&D.gallery.images||[]).slice();
+var lb=document.getElementById('lightbox'),lbImg=document.getElementById('lbImg'),lbCount=document.getElementById('lbCount');
+var lbIdx=0;
+function openLb(i){
+  if(!gImgs[i])return;
+  lbIdx=i;lbImg.src=gImgs[i];
+  lbCount.textContent=(i+1)+' / '+gImgs.length;
+  lb.classList.add('open');document.body.style.overflow='hidden';
+}
+function closeLb(){lb.classList.remove('open');document.body.style.overflow='';}
+function moveLb(dir){
+  var n=gImgs.length;if(!n)return;
+  var i=lbIdx;
+  do{i=(i+dir+n)%n;}while(!gImgs[i]&&i!==lbIdx);
+  openLb(i);
+}
+document.querySelectorAll('.g-item').forEach(function(el){
+  el.addEventListener('click',function(){openLb(Number(el.dataset.idx));});
+});
+var gMore=document.getElementById('gMore');
+if(gMore)gMore.addEventListener('click',function(){
+  document.querySelectorAll('.g-item[data-extra]').forEach(function(el){el.style.display='';});
+  gMore.style.display='none';
+});
+lb.querySelector('.lb-close').addEventListener('click',closeLb);
+lb.querySelector('.lb-prev').addEventListener('click',function(e){e.stopPropagation();moveLb(-1);});
+lb.querySelector('.lb-next').addEventListener('click',function(e){e.stopPropagation();moveLb(1);});
+lb.addEventListener('click',function(e){if(e.target===lb)closeLb();});
+document.onkeydown=function(e){
+  if(!lb.classList.contains('open'))return;
+  if(e.key==='Escape')closeLb();
+  if(e.key==='ArrowLeft')moveLb(-1);
+  if(e.key==='ArrowRight')moveLb(1);
+};
+var tX=null;
+lb.addEventListener('touchstart',function(e){tX=e.touches[0].clientX;},{passive:true});
+lb.addEventListener('touchend',function(e){
+  if(tX==null)return;
+  var dx=e.changedTouches[0].clientX-tX;
+  if(Math.abs(dx)>40)moveLb(dx<0?1:-1);
+  tX=null;
+},{passive:true});
+
+/* 카운트다운 */
+if(D.calendar&&D.calendar.show&&D.calendar.showCountdown){
+  var cdD=document.getElementById('cdD'),cdH=document.getElementById('cdH'),
+      cdM=document.getElementById('cdM'),cdS=document.getElementById('cdS'),
+      cdMsg=document.getElementById('cdMsg');
+  function pad(n){return n<10?'0'+n:''+n;}
+  function tick(){
+    var diff=WHEN-new Date();
+    if(diff<=0){
+      cdD.textContent=cdH.textContent=cdM.textContent=cdS.textContent='0';
+      cdMsg.innerHTML='<b>'+esc(shortName(g.name))+' ♥ '+esc(shortName(b.name))+'</b>의 결혼식이 있는 날입니다 🎉';
+      return;
+    }
+    var s=Math.floor(diff/1000);
+    cdD.textContent=Math.floor(s/86400);
+    cdH.textContent=pad(Math.floor(s%86400/3600));
+    cdM.textContent=pad(Math.floor(s%3600/60));
+    cdS.textContent=pad(s%60);
+    cdMsg.innerHTML='<b>'+esc(shortName(g.name))+' ♥ '+esc(shortName(b.name))+'</b>의 결혼식이 <b>'+Math.ceil(diff/86400000)+'일</b> 남았습니다';
+  }
+  tick();window.__weddingCountdown=setInterval(tick,1000);
+}
+
+/* 복사 버튼들 */
+var addrCopy=document.getElementById('addrCopy');
+if(addrCopy)addrCopy.addEventListener('click',function(){copyText(D.wedding.address,'주소가 복사되었습니다');});
+document.querySelectorAll('.acc-copy').forEach(function(el){
+  el.addEventListener('click',function(){copyText(el.dataset.copy,'계좌번호가 복사되었습니다');});
+});
+document.querySelectorAll('.acc-head').forEach(function(el){
+  el.addEventListener('click',function(){el.parentElement.classList.toggle('open');});
+});
+
+/* 공유 */
+var pageUrl=(D.share&&D.share.url)||location.href.split('#')[0];
+document.getElementById('btnCopyUrl').addEventListener('click',function(){copyText(pageUrl,'청첩장 주소가 복사되었습니다');});
+document.getElementById('btnShare').addEventListener('click',function(){
+  var title=D.share&&D.share.title?D.share.title:document.title;
+  var text=D.share&&D.share.desc?D.share.desc:'';
+  if(D.share&&D.share.kakaoKey&&window.Kakao){
+    try{
+      if(!Kakao.isInitialized())Kakao.init(D.share.kakaoKey);
+      Kakao.Share.sendDefault({
+        objectType:'feed',
+        content:{title:title,description:text,imageUrl:(D.share.ogImageUrl?new URL(D.share.ogImageUrl,D.share.url||pageUrl).href:''),link:{mobileWebUrl:pageUrl,webUrl:pageUrl}},
+        buttons:[{title:'청첩장 보기',link:{mobileWebUrl:pageUrl,webUrl:pageUrl}}]
+      });
+      return;
+    }catch(e){}
+  }
+  if(navigator.share){
+    navigator.share({title:title,text:text,url:pageUrl}).catch(function(){});
+  }else{
+    copyText(pageUrl,'주소가 복사되었습니다. 붙여넣어 공유해 주세요!');
+  }
+});
+if(D.share&&D.share.kakaoKey){
+  if(!document.getElementById('kakao-sdk')){
+    var ks=document.createElement('script');
+    ks.id='kakao-sdk';
+    ks.src='https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js';
+    ks.crossOrigin='anonymous';
+    document.head.appendChild(ks);
+  }
+}
+
+/* 배경음악 */
+if(D.bgm&&D.bgm.src){
+  var audio=document.getElementById('bgmAudio'),btn=document.getElementById('bgmBtn');
+  audio.src=D.bgm.src;btn.classList.add('show');
+  function setIcon(){btn.textContent=audio.paused?'♪':'♫';btn.classList.toggle('playing',!audio.paused);}
+  btn.addEventListener('click',function(){
+    if(audio.paused)audio.play().then(setIcon).catch(function(){toast('재생할 수 없습니다');});
+    else{audio.pause();setIcon();}
+  });
+  audio.addEventListener('play',setIcon);audio.addEventListener('pause',setIcon);
+  if(D.bgm.autoplay){
+    audio.play().then(setIcon).catch(function(){
+      var once=function(){audio.play().then(setIcon).catch(function(){});
+        document.removeEventListener('touchstart',once);document.removeEventListener('click',once);};
+      window.__weddingAutoplayOnce=once;
+      document.addEventListener('touchstart',once,{once:true});
+      document.addEventListener('click',once,{once:true});
+    });
+  }
+}
+}
+
+var previewReceived=false;
+window.addEventListener('message',function(event){
+  if(event.data&&event.data.type==='WEDDING_PREVIEW'&&event.data.content){
+    previewReceived=true;
+    try{renderWedding(event.data.content);}catch(error){
+      document.getElementById('app').innerHTML='<section><div class="sec-title">미리보기를 표시할 수 없습니다</div><p style="text-align:center">'+String(error.message)+'</p></section>';
+    }
+  }
+});
+
+fetch('content.json?v='+Date.now())
+  .then(function(response){if(!response.ok)throw new Error('content.json을 불러오지 못했습니다.');return response.json();})
+  .then(function(data){if(!previewReceived)renderWedding(data);})
+  .catch(function(error){
+    if(previewReceived)return;
+    document.getElementById('app').innerHTML='<section><div class="sec-title">청첩장을 불러오지 못했습니다</div><p style="text-align:center">'+String(error.message)+'</p></section>';
+  });
+})();
+</script>
 </body>
 </html>

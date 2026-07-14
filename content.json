@@ -1,64 +1,141 @@
 {
-  "meta": {
-    "title": "신랑 · 신부 결혼합니다",
-    "description": "소중한 분들을 저희의 시작에 초대합니다.",
-    "shareUrl": "https://hittto.github.io/"
-  },
   "theme": {
-    "accent": "#f4879f",
-    "soft": "#ffe0e3",
-    "paper": "#fbf8f3",
-    "ink": "#181818"
+    "accent": "#c48d7e",
+    "font": "serif"
   },
   "couple": {
-    "groom": "신랑 이름",
-    "bride": "신부 이름",
-    "groomEn": "GROOM",
-    "brideEn": "BRIDE"
+    "groom": {
+      "name": "김민준",
+      "en": "Kim Min Jun",
+      "father": "김영수",
+      "mother": "박미경",
+      "relation": "장남"
+    },
+    "bride": {
+      "name": "이서연",
+      "en": "Lee Seo Yeon",
+      "father": "이정호",
+      "mother": "최은정",
+      "relation": "장녀"
+    }
   },
-  "event": {
+  "wedding": {
     "date": "2026-10-24",
-    "time": "12:00",
-    "venue": "예식장 이름",
-    "address": "서울특별시 예식장 주소"
+    "time": "12:30",
+    "venue": "더블룸 웨딩홀",
+    "hall": "3층 그랜드홀",
+    "address": "서울특별시 마포구 양화로 100"
   },
-  "messages": {
-    "opening": "SAVE THE DATE",
-    "invitation": "서로의 하루를 아끼고 사랑하며\n평생을 함께 걷기로 약속했습니다.\n저희의 첫걸음에 따뜻한 축복을 더해 주세요.",
-    "letterTitle": "우리의 이야기",
-    "letter": "수많은 계절을 지나 서로에게 가장 편안한 사람이 되었습니다. 이제 같은 방향을 바라보며 새로운 계절을 시작하려 합니다.",
-    "groomFamily": "귀한 걸음으로 함께해 주시면\n더없는 기쁨으로 간직하겠습니다.",
-    "brideFamily": "두 사람의 앞날을 축복해 주시고\n따뜻하게 지켜봐 주세요."
+  "cover": {
+    "image": ""
   },
-  "family": {
-    "groomFather": "신랑 아버지",
-    "groomMother": "신랑 어머니",
-    "brideFather": "신부 아버지",
-    "brideMother": "신부 어머니"
+  "intro": {
+    "image": ""
   },
-  "images": {
-    "cover": "assets/placeholder-photo.svg",
-    "secondary": "assets/placeholder-photo-wide.svg",
-    "groomFamily": "",
-    "brideFamily": "",
-    "videoThumbnail": "",
-    "shareThumbnail": "assets/placeholder-photo-wide.svg"
+  "greeting": {
+    "show": true,
+    "title": "소중한 분들을 초대합니다",
+    "message": "서로 다른 길을 걸어온 두 사람이\n이제 같은 곳을 바라보며\n나란히 걸어가려 합니다.\n\n저희 두 사람의 새로운 시작을\n따뜻한 마음으로 축복해 주시면\n더없는 기쁨으로 간직하겠습니다.",
+    "showParents": true,
+    "showContacts": true
   },
-  "video": {
-    "youtubeUrl": ""
-  },
-  "gallery": [],
-  "map": {
-    "lat": 37.5665,
-    "lng": 126.978,
-    "subway": "가까운 지하철역과 출구, 도보 시간을 입력해 주세요.",
-    "bus": "가까운 정류장과 버스 번호를 입력해 주세요.",
-    "parking": "주차 안내를 입력해 주세요."
-  },
-  "accounts": [
-    { "side": "groom", "role": "신랑", "bank": "은행", "number": "000-0000-0000", "holder": "예금주" },
-    { "side": "bride", "role": "신부", "bank": "은행", "number": "000-0000-0000", "holder": "예금주" }
+  "contacts": [
+    {
+      "label": "신랑에게 연락하기",
+      "phone": "010-1234-5678"
+    },
+    {
+      "label": "신부에게 연락하기",
+      "phone": "010-2345-6789"
+    }
   ],
-  "musicUrl": "",
-  "footer": "Thank you for celebrating with us"
+  "video": {
+    "url": ""
+  },
+  "gallery": {
+    "show": true,
+    "initial": 6,
+    "images": ["", "", "", "", "", ""]
+  },
+  "calendar": {
+    "show": true,
+    "showCountdown": true
+  },
+  "map": {
+    "show": true,
+    "guides": [
+      {
+        "title": "🚃 지하철",
+        "desc": "2호선 홍대입구역 하차\n5번 출구에서 도보 300M"
+      },
+      {
+        "title": "🚌 버스",
+        "desc": "홍대입구역 정류장 하차 후\n도보 5분"
+      },
+      {
+        "title": "🚗 주차",
+        "desc": "건물 지하 주차장 2시간 무료"
+      }
+    ]
+  },
+  "accounts": {
+    "show": true,
+    "groom": {
+      "title": "🤵🏻 신랑 측 계좌번호",
+      "items": [
+        { "bank": "OO은행", "number": "123-456-789012", "holder": "김민준", "label": "신랑" },
+        { "bank": "OO은행", "number": "123-456-789013", "holder": "김영수", "label": "신랑 아버지" },
+        { "bank": "OO은행", "number": "123-456-789014", "holder": "박미경", "label": "신랑 어머니" }
+      ]
+    },
+    "bride": {
+      "title": "👰🏻‍♀️ 신부 측 계좌번호",
+      "items": [
+        { "bank": "OO은행", "number": "987-654-321098", "holder": "이서연", "label": "신부" },
+        { "bank": "OO은행", "number": "987-654-321097", "holder": "이정호", "label": "신부 아버지" },
+        { "bank": "OO은행", "number": "987-654-321096", "holder": "최은정", "label": "신부 어머니" }
+      ]
+    }
+  },
+  "bgm": {
+    "src": "",
+    "autoplay": true
+  },
+  "share": {
+    "title": "민준 ♥ 서연, 결혼합니다",
+    "desc": "2026년 10월 24일 토요일 오후 12시 30분\n더블룸 웨딩홀 3층 그랜드홀",
+    "url": "https://hittto.github.io/",
+    "kakaoKey": "",
+    "ogImageUrl": ""
+  },
+  "labels": {
+    "coverEyebrow": "Wedding Invitation",
+    "coverPlaceholderTitle": "커버 사진",
+    "coverPlaceholderSubtitle": "편집기에서 사진을 등록해 주세요",
+    "introPlaceholderTitle": "웨딩 사진",
+    "introPlaceholderSubtitle": "편집기에서 사진을 등록해 주세요",
+    "groomRole": "Groom",
+    "brideRole": "Bride",
+    "videoEyebrow": "Video",
+    "videoTitle": "웨딩 영상",
+    "galleryEyebrow": "Gallery",
+    "galleryTitle": "우리의 순간들",
+    "galleryMore": "더보기",
+    "greetingEyebrow": "Invitation",
+    "calendarEyebrow": "Save the date",
+    "locationEyebrow": "Location",
+    "locationTitle": "오시는 길",
+    "addressCopy": "주소 복사하기",
+    "naverMap": "네이버 지도",
+    "kakaoMap": "카카오맵",
+    "googleMap": "구글 지도",
+    "accountsEyebrow": "Gift",
+    "accountsTitle": "마음 전하실 곳",
+    "accountCopy": "복사하기",
+    "shareButton": "💌 청첩장 공유하기",
+    "urlCopyButton": "🔗 청첩장 주소 복사하기"
+  },
+  "footer": {
+    "text": "Thank you for celebrating with us"
+  }
 }
