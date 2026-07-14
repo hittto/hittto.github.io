@@ -8,8 +8,19 @@
   const guideEditor = document.getElementById('guide-editor');
   const publishDialog = document.getElementById('publish-dialog');
   const publishStatus = document.getElementById('publish-status');
+  const accessGate = document.getElementById('editor-access-gate');
+  const accessForm = document.getElementById('editor-access-form');
+  const accessPassword = document.getElementById('editor-access-password');
+  const accessError = document.getElementById('editor-access-error');
+  const defaultSecurity = {
+    editor: {
+      enabled: true,
+      passwordHash: 'c074b53107fc40272a5191283cc66a54f4a6359e1243efd77ad73c5740154783'
+    }
+  };
   let originalContent = null;
   let content = null;
+  let security = null;
   let saveTimer = null;
   let previewTimer = null;
   let databasePromise = null;
@@ -21,6 +32,51 @@
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;')
     .replaceAll("'", '&#039;');
+
+  async function hashPassword(value) {
+    if (!window.crypto?.subtle) throw new Error('이 브라우저에서는 비밀번호 기능을 사용할 수 없습니다.');
+    const digest = await window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(value));
+    return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, '0')).join('');
+  }
+
+  function unlockEditor() {
+    document.body.classList.remove('editor-locked');
+    accessGate.hidden = true;
+  }
+
+  function requireEditorPassword(publishedSecurity) {
+    const lock = publishedSecurity?.editor || defaultSecurity.editor;
+    if (!lock.enabled || !lock.passwordHash) {
+      unlockEditor();
+      return Promise.resolve();
+    }
+    accessGate.hidden = false;
+    accessPassword.focus();
+    return new Promise((resolve) => {
+      accessForm.onsubmit = async (event) => {
+        event.preventDefault();
+        const password = accessPassword.value;
+        if (!password) {
+          accessError.textContent = '비밀번호를 입력해 주세요.';
+          return;
+        }
+        accessError.textContent = '확인 중…';
+        try {
+          if (await hashPassword(password) !== lock.passwordHash) {
+            accessError.textContent = '비밀번호가 맞지 않습니다.';
+            accessPassword.select();
+            return;
+          }
+          accessPassword.value = '';
+          accessError.textContent = '';
+          unlockEditor();
+          resolve();
+        } catch (error) {
+          accessError.textContent = error.message;
+        }
+      };
+    });
+  }
 
   function mergeDefaults(defaults, value) {
     if (Array.isArray(defaults)) return Array.isArray(value) ? value : clone(defaults);
@@ -140,7 +196,7 @@
     previewTimer = setTimeout(sendPreview, 90);
     saveTimer = setTimeout(async () => {
       try {
-        await storeDraft(content);
+        await storeDraft({ content, security });
         saveState.textContent = '자동 저장됨 ✓';
       } catch (_) { saveState.textContent = '저장 공간이 부족합니다'; }
     }, 350);
@@ -250,6 +306,63 @@
     }));
   }
 
+  function setSecurityMessage(id, message, isError = false) {
+    const element = document.getElementById(id);
+    element.textContent = message;
+    element.classList.toggle('error', isError);
+  }
+
+  function setLockStatus(id, enabled, hasPassword) {
+    const element = document.getElementById(id);
+    element.className = 'security-status';
+    if (enabled && hasPassword) {
+      element.textContent = '사용 중';
+      element.classList.add('active');
+    } else if (enabled) {
+      element.textContent = '설정 필요';
+      element.classList.add('warning');
+    } else {
+      element.textContent = hasPassword ? '꺼짐 · 보관됨' : '꺼짐';
+    }
+  }
+
+  function refreshSecurityEditor() {
+    const editorLock = security?.editor || {};
+    const invitationLock = content?.access || {};
+    document.getElementById('editor-lock-enabled').checked = Boolean(editorLock.enabled);
+    document.getElementById('invitation-lock-enabled').checked = Boolean(invitationLock.enabled);
+    setLockStatus('editor-lock-status', Boolean(editorLock.enabled), Boolean(editorLock.passwordHash));
+    setLockStatus('invitation-lock-status', Boolean(invitationLock.enabled), Boolean(invitationLock.passwordHash));
+  }
+
+  async function applyNewPassword(kind) {
+    const isEditor = kind === 'editor';
+    const passwordInput = document.getElementById(isEditor ? 'editor-new-password' : 'invitation-new-password');
+    const confirmInput = document.getElementById(isEditor ? 'editor-confirm-password' : 'invitation-confirm-password');
+    const messageId = isEditor ? 'editor-security-message' : 'invitation-security-message';
+    const password = passwordInput.value;
+    if (password.length < 4) {
+      setSecurityMessage(messageId, '비밀번호는 4자 이상으로 입력해 주세요.', true);
+      return;
+    }
+    if (password !== confirmInput.value) {
+      setSecurityMessage(messageId, '두 비밀번호가 서로 다릅니다.', true);
+      return;
+    }
+    try {
+      const passwordHash = await hashPassword(password);
+      if (isEditor) security.editor = { enabled: true, passwordHash };
+      else content.access = { ...(content.access || {}), enabled: true, passwordHash };
+      passwordInput.value = '';
+      confirmInput.value = '';
+      setSecurityMessage(messageId, '새 비밀번호가 저장되었습니다. GitHub에 게시하면 실제 사이트에 반영됩니다.');
+      refreshSecurityEditor();
+      scheduleSave();
+    } catch (error) {
+      setSecurityMessage(messageId, error.message, true);
+    }
+  }
+
   function refreshAll() {
     populateFields();
     refreshMediaCards();
@@ -258,6 +371,7 @@
     renderGuides();
     renderAccountGroup('groom');
     renderAccountGroup('bride');
+    refreshSecurityEditor();
     sendPreview();
   }
 
@@ -358,6 +472,40 @@
       if (!confirm('모든 편집 내용을 지우고 처음 상태로 돌아갈까요?')) return;
       await clearDraft(); content = clone(originalContent); refreshAll(); scheduleSave();
     });
+    document.getElementById('editor-lock-enabled').addEventListener('change', (event) => {
+      if (event.target.checked && !security.editor?.passwordHash) {
+        event.target.checked = false;
+        setSecurityMessage('editor-security-message', '새 비밀번호를 먼저 설정해 주세요.', true);
+        return;
+      }
+      security.editor.enabled = event.target.checked;
+      setSecurityMessage('editor-security-message', event.target.checked ? '편집기 잠금을 켰습니다.' : '편집기 잠금을 잠시 껐습니다. 비밀번호는 보관됩니다.');
+      refreshSecurityEditor(); scheduleSave();
+    });
+    document.getElementById('invitation-lock-enabled').addEventListener('change', (event) => {
+      if (event.target.checked && !content.access?.passwordHash) {
+        event.target.checked = false;
+        setSecurityMessage('invitation-security-message', '새 비밀번호를 먼저 설정해 주세요.', true);
+        return;
+      }
+      content.access.enabled = event.target.checked;
+      setSecurityMessage('invitation-security-message', event.target.checked ? '청첩장 잠금을 켰습니다.' : '청첩장 잠금을 잠시 껐습니다. 비밀번호는 보관됩니다.');
+      refreshSecurityEditor(); scheduleSave();
+    });
+    document.querySelector('[data-set-editor-password]').addEventListener('click', () => applyNewPassword('editor'));
+    document.querySelector('[data-set-invitation-password]').addEventListener('click', () => applyNewPassword('invitation'));
+    document.querySelector('[data-remove-editor-password]').addEventListener('click', () => {
+      if (!confirm('편집기 접근 비밀번호를 제거할까요? 제거 후 게시하면 누구나 편집기 페이지를 열 수 있습니다.')) return;
+      security.editor = { enabled: false, passwordHash: '' };
+      setSecurityMessage('editor-security-message', '편집기 비밀번호를 제거했습니다. GitHub에 게시하면 반영됩니다.');
+      refreshSecurityEditor(); scheduleSave();
+    });
+    document.querySelector('[data-remove-invitation-password]').addEventListener('click', () => {
+      if (!confirm('청첩장 비밀번호를 제거할까요?')) return;
+      content.access = { ...(content.access || {}), enabled: false, passwordHash: '' };
+      setSecurityMessage('invitation-security-message', '청첩장 비밀번호를 제거했습니다. GitHub에 게시하면 반영됩니다.');
+      refreshSecurityEditor(); scheduleSave();
+    });
     document.querySelector('[data-open-publish]').addEventListener('click', () => {
       publishStatus.textContent = ''; publishStatus.className = 'publish-status'; publishDialog.showModal();
     });
@@ -389,6 +537,14 @@
       publishStatus.textContent = 'GitHub 정보와 일회용 토큰을 모두 입력해 주세요.';
       publishStatus.className = 'publish-status error'; return;
     }
+    if (security.editor?.enabled && !security.editor.passwordHash) {
+      publishStatus.textContent = '편집기 잠금 비밀번호를 먼저 설정하거나 잠금을 꺼 주세요.';
+      publishStatus.className = 'publish-status error'; return;
+    }
+    if (content.access?.enabled && !content.access.passwordHash) {
+      publishStatus.textContent = '청첩장 잠금 비밀번호를 먼저 설정하거나 잠금을 꺼 주세요.';
+      publishStatus.className = 'publish-status error'; return;
+    }
     button.disabled = true; publishStatus.className = 'publish-status';
     const apiRoot = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}`;
     const request = async (path, options = {}) => {
@@ -406,6 +562,7 @@
       const headSha = ref.object.sha;
       const headCommit = await request(`/git/commits/${headSha}`);
       const cleanContent = clone(content);
+      const cleanSecurity = clone(security);
       const uploadFiles = [];
       const stamp = Date.now();
       const extract = (path, filename) => {
@@ -434,6 +591,8 @@
       publishStatus.textContent = '수정한 내용을 정리하고 있어요…';
       const contentBlob = await request('/git/blobs', { method: 'POST', body: JSON.stringify({ content: textToBase64(`${JSON.stringify(cleanContent, null, 2)}\n`), encoding: 'base64' }) });
       treeEntries.push({ path: 'content.json', mode: '100644', type: 'blob', sha: contentBlob.sha });
+      const securityBlob = await request('/git/blobs', { method: 'POST', body: JSON.stringify({ content: textToBase64(`${JSON.stringify(cleanSecurity, null, 2)}\n`), encoding: 'base64' }) });
+      treeEntries.push({ path: 'security.json', mode: '100644', type: 'blob', sha: securityBlob.sha });
 
       const indexResponse = await fetch(`index.html?v=${Date.now()}`);
       if (!indexResponse.ok) throw new Error('공유 정보를 넣을 index.html을 읽을 수 없습니다');
@@ -458,7 +617,7 @@
       const tree = await request('/git/trees', { method: 'POST', body: JSON.stringify({ base_tree: headCommit.tree.sha, tree: treeEntries }) });
       const commit = await request('/git/commits', { method: 'POST', body: JSON.stringify({ message: `청첩장 내용 수정 (${new Date().toLocaleString('ko-KR')})`, tree: tree.sha, parents: [headSha] }) });
       await request(`/git/refs/heads/${encodeURIComponent(branch)}`, { method: 'PATCH', body: JSON.stringify({ sha: commit.sha, force: false }) });
-      content = cleanContent; await storeDraft(content); refreshAll(); tokenInput.value = '';
+      content = cleanContent; security = cleanSecurity; await storeDraft({ content, security }); refreshAll(); tokenInput.value = '';
       publishStatus.innerHTML = '게시가 완료되었습니다 ✓<br>GitHub Pages 반영까지 보통 1~3분 정도 걸립니다.';
       publishStatus.className = 'publish-status success'; saveState.textContent = '게시 완료 ✓';
     } catch (error) {
@@ -469,16 +628,22 @@
 
   async function initialize() {
     try {
-      const [publishedResponse, defaultResponse] = await Promise.all([
+      const [publishedResponse, defaultResponse, securityResponse] = await Promise.all([
         fetch(`content.json?v=${Date.now()}`),
-        fetch(`default-content.json?v=${Date.now()}`)
+        fetch(`default-content.json?v=${Date.now()}`),
+        fetch(`security.json?v=${Date.now()}`)
       ]);
       if (!publishedResponse.ok) throw new Error('현재 게시 내용을 읽을 수 없습니다.');
       if (!defaultResponse.ok) throw new Error('개인정보 없는 초기값을 읽을 수 없습니다.');
+      if (!securityResponse.ok) throw new Error('편집기 보안 설정을 읽을 수 없습니다.');
       const publishedContent = await publishedResponse.json();
+      const publishedSecurity = mergeDefaults(defaultSecurity, await securityResponse.json());
       originalContent = await defaultResponse.json();
+      await requireEditorPassword(publishedSecurity);
       const draft = await loadDraft();
-      content = draft ? migrateLegacy(draft, originalContent) : mergeDefaults(originalContent, publishedContent);
+      const draftContent = draft?.content || draft;
+      content = draftContent ? migrateLegacy(draftContent, originalContent) : mergeDefaults(originalContent, publishedContent);
+      security = draft?.content && draft.security ? mergeDefaults(publishedSecurity, draft.security) : clone(publishedSecurity);
       bindInputs(); refreshAll(); saveState.textContent = '자동 저장 준비됨';
       previewFrame.addEventListener('load', sendPreview);
     } catch (error) {

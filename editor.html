@@ -9,7 +9,18 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
   <link rel="stylesheet" href="editor.css">
 </head>
-<body>
+<body class="editor-locked">
+  <div class="access-gate" id="editor-access-gate" role="dialog" aria-modal="true" aria-labelledby="editor-access-title">
+    <form class="access-card" id="editor-access-form">
+      <p class="brand-kicker">PRIVATE EDITOR</p>
+      <h2 id="editor-access-title">편집기 잠금</h2>
+      <p>편집 작업창에 들어가려면 비밀번호를 입력해 주세요.</p>
+      <label>접근 비밀번호<input id="editor-access-password" type="password" autocomplete="current-password" autofocus placeholder="비밀번호 입력"></label>
+      <p class="access-error" id="editor-access-error" role="alert"></p>
+      <button class="primary-button" type="submit">편집기 열기</button>
+    </form>
+  </div>
+
   <header class="editor-header">
     <div>
       <p class="brand-kicker">WEDDING STUDIO</p>
@@ -25,7 +36,7 @@
   <div class="editor-layout">
     <aside class="editor-panel">
       <div class="welcome-card">
-        <strong>클로드 디자인의 모든 항목을 이 화면에서 수정할 수 있습니다.</strong>
+        <strong>청첩장의 모든 항목을 이 화면에서 수정할 수 있습니다.</strong>
         <p>글자나 사진을 바꾸면 오른쪽에 즉시 반영되고, 내용은 현재 브라우저에 자동 저장됩니다.</p>
       </div>
 
@@ -187,7 +198,52 @@
       </details>
 
       <details>
-        <summary><span>11</span> 백업과 초기화</summary>
+        <summary><span>11</span> 접속 비밀번호</summary>
+        <div class="form-section">
+          <div class="security-card">
+            <div class="security-card-head">
+              <div><strong>편집기 접근 잠금</strong><p>editor.html을 열 때 사용하는 비밀번호입니다.</p></div>
+              <span class="security-status" id="editor-lock-status">확인 중</span>
+            </div>
+            <label class="switch-row"><input id="editor-lock-enabled" type="checkbox"> 편집기 접근 잠금 사용</label>
+            <div class="two-columns">
+              <label>새 비밀번호<input id="editor-new-password" type="password" autocomplete="new-password" placeholder="4자 이상"></label>
+              <label>새 비밀번호 확인<input id="editor-confirm-password" type="password" autocomplete="new-password" placeholder="한 번 더 입력"></label>
+            </div>
+            <div class="button-row">
+              <button class="wide-button" type="button" data-set-editor-password>비밀번호 설정·변경</button>
+              <button class="danger-button" type="button" data-remove-editor-password>비밀번호 제거</button>
+            </div>
+            <p class="security-message" id="editor-security-message" role="status"></p>
+          </div>
+
+          <div class="security-card">
+            <div class="security-card-head">
+              <div><strong>청첩장 방문 잠금</strong><p>공개 청첩장을 열 때 하객에게 비밀번호를 받습니다.</p></div>
+              <span class="security-status" id="invitation-lock-status">확인 중</span>
+            </div>
+            <label class="switch-row"><input id="invitation-lock-enabled" type="checkbox"> 청첩장 비밀번호 사용</label>
+            <div class="two-columns">
+              <label>새 비밀번호<input id="invitation-new-password" type="password" autocomplete="new-password" placeholder="4자 이상"></label>
+              <label>새 비밀번호 확인<input id="invitation-confirm-password" type="password" autocomplete="new-password" placeholder="한 번 더 입력"></label>
+            </div>
+            <div class="button-row">
+              <button class="wide-button" type="button" data-set-invitation-password>비밀번호 설정·변경</button>
+              <button class="danger-button" type="button" data-remove-invitation-password>비밀번호 제거</button>
+            </div>
+            <p class="security-message" id="invitation-security-message" role="status"></p>
+            <div class="divider-label">청첩장 잠금 화면 문구</div>
+            <label>제목<input data-path="access.title" type="text"></label>
+            <label>안내 문구<textarea data-path="access.message" rows="3"></textarea></label>
+            <label>입력창 안내<input data-path="access.placeholder" type="text"></label>
+            <label>열기 버튼 문구<input data-path="access.buttonLabel" type="text"></label>
+          </div>
+          <p class="help-text">비밀번호 설정 변경은 자동 저장되며, 실제 사이트에는 ‘GitHub에 게시’ 후 반영됩니다. 정적 사이트의 간단한 방문 잠금이므로 서버 인증 수준의 보안은 아닙니다.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary><span>12</span> 백업과 초기화</summary>
         <div class="form-section">
           <p class="help-text">다른 컴퓨터로 옮기려면 백업 파일을 내려받아 보관하세요.</p>
           <div class="button-row">

@@ -236,9 +236,48 @@ footer{
   white-space:nowrap;
 }
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ─── 청첩장 방문 잠금 ─── */
+body.wedding-locked{overflow:hidden}
+body.wedding-locked #wrap,body.wedding-locked #bgmBtn{visibility:hidden}
+#weddingAccessGate{
+  position:fixed;z-index:2000;inset:0;display:none;place-items:center;padding:24px;
+  background:radial-gradient(circle at 50% 16%,#fffaf7 0%,#f3e5df 58%,#e8d4cc 100%);
+  font-family:var(--sans);
+}
+body.wedding-locked #weddingAccessGate{display:grid}
+.wedding-access-card{
+  width:min(350px,100%);padding:34px 28px 28px;border:1px solid rgba(255,255,255,.75);
+  border-radius:20px;background:rgba(255,253,251,.95);text-align:center;
+  box-shadow:0 24px 70px rgba(83,61,51,.15);backdrop-filter:blur(12px);
+}
+.access-flower{font-size:30px;margin-bottom:12px}.wedding-access-card .eyebrow{margin-bottom:9px}
+.wedding-access-card h1{font-family:var(--serif);font-size:22px;margin-bottom:10px;color:var(--ink)}
+.wedding-access-card>p{font-size:12.5px;line-height:1.7;color:var(--ink-soft);margin-bottom:22px}
+.wedding-access-card input{
+  width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:9px;background:#fff;
+  color:var(--ink);font:14px var(--sans);text-align:center;outline:none;
+}
+.wedding-access-card input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.wedding-access-card button{
+  width:100%;margin-top:9px;padding:13px;border-radius:9px;color:#fff;background:var(--accent);
+  font:500 13px var(--sans);
+}
+.wedding-access-error{min-height:19px;margin:8px 0 0!important;color:#b44d62!important;font-size:11px!important}
 </style>
 </head>
 <body>
+<div id="weddingAccessGate" role="dialog" aria-modal="true" aria-labelledby="weddingAccessTitle">
+  <form class="wedding-access-card" id="weddingAccessForm">
+    <div class="access-flower">🌸</div>
+    <div class="eyebrow">Private Invitation</div>
+    <h1 id="weddingAccessTitle">청첩장을 열어주세요</h1>
+    <p id="weddingAccessMessage">초대받은 분만 입장할 수 있습니다.</p>
+    <input id="weddingAccessPassword" type="password" autocomplete="current-password" placeholder="비밀번호를 입력해 주세요" aria-label="청첩장 비밀번호">
+    <p class="wedding-access-error" id="weddingAccessError" role="alert"></p>
+    <button id="weddingAccessButton" type="submit">청첩장 열기</button>
+  </form>
+</div>
 <script type="application/json" id="wedding-data">{}</script>
 
 <button id="bgmBtn" aria-label="배경음악 재생/정지">♪</button>
@@ -259,6 +298,48 @@ footer{
 <script>
 (function(){
 'use strict';
+
+function hashPassword(value){
+  if(!window.crypto||!window.crypto.subtle)return Promise.reject(new Error('이 브라우저에서는 비밀번호 기능을 사용할 수 없습니다.'));
+  return window.crypto.subtle.digest('SHA-256',new TextEncoder().encode(value)).then(function(buffer){
+    return Array.from(new Uint8Array(buffer)).map(function(byte){return byte.toString(16).padStart(2,'0');}).join('');
+  });
+}
+
+function dismissWeddingAccess(){
+  document.body.classList.remove('wedding-locked');
+  document.getElementById('weddingAccessError').textContent='';
+  document.getElementById('weddingAccessPassword').value='';
+}
+
+function requestWeddingAccess(D){
+  var access=D&&D.access||{};
+  if(!access.enabled||!access.passwordHash){dismissWeddingAccess();return Promise.resolve();}
+  var sessionKey='wedding-access-'+access.passwordHash;
+  try{if(sessionStorage.getItem(sessionKey)==='granted'){dismissWeddingAccess();return Promise.resolve();}}catch(e){}
+  var form=document.getElementById('weddingAccessForm');
+  var input=document.getElementById('weddingAccessPassword');
+  var error=document.getElementById('weddingAccessError');
+  document.getElementById('weddingAccessTitle').textContent=access.title||'청첩장을 열어주세요';
+  document.getElementById('weddingAccessMessage').textContent=access.message||'초대받은 분만 입장할 수 있습니다.';
+  document.getElementById('weddingAccessButton').textContent=access.buttonLabel||'청첩장 열기';
+  input.placeholder=access.placeholder||'비밀번호를 입력해 주세요';
+  document.body.classList.add('wedding-locked');
+  setTimeout(function(){input.focus();},0);
+  return new Promise(function(resolve){
+    form.onsubmit=function(event){
+      event.preventDefault();
+      if(!input.value){error.textContent='비밀번호를 입력해 주세요.';return;}
+      error.textContent='확인 중…';
+      hashPassword(input.value).then(function(hash){
+        if(hash!==access.passwordHash){error.textContent='비밀번호가 맞지 않습니다.';input.select();return;}
+        try{sessionStorage.setItem(sessionKey,'granted');}catch(e){}
+        dismissWeddingAccess();
+        resolve();
+      }).catch(function(err){error.textContent=err.message;});
+    };
+  });
+}
 
 function resetWeddingUi(){
   if(window.__weddingCountdown){clearInterval(window.__weddingCountdown);window.__weddingCountdown=null;}
@@ -661,7 +742,7 @@ var previewReceived=false;
 window.addEventListener('message',function(event){
   if(event.data&&event.data.type==='WEDDING_PREVIEW'&&event.data.content){
     previewReceived=true;
-    try{renderWedding(event.data.content);}catch(error){
+    try{dismissWeddingAccess();renderWedding(event.data.content);}catch(error){
       document.getElementById('app').innerHTML='<section><div class="sec-title">미리보기를 표시할 수 없습니다</div><p style="text-align:center">'+String(error.message)+'</p></section>';
     }
   }
@@ -669,7 +750,7 @@ window.addEventListener('message',function(event){
 
 fetch('content.json?v='+Date.now())
   .then(function(response){if(!response.ok)throw new Error('content.json을 불러오지 못했습니다.');return response.json();})
-  .then(function(data){if(!previewReceived)renderWedding(data);})
+  .then(function(data){if(!previewReceived)return requestWeddingAccess(data).then(function(){if(!previewReceived)renderWedding(data);});})
   .catch(function(error){
     if(previewReceived)return;
     document.getElementById('app').innerHTML='<section><div class="sec-title">청첩장을 불러오지 못했습니다</div><p style="text-align:center">'+String(error.message)+'</p></section>';
