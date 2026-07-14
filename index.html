@@ -165,7 +165,10 @@ section{padding:70px 28px;position:relative}
 .cd-msg b{color:var(--accent)}
 
 /* ─── 오시는 길 ─── */
-.map-frame{width:100%;aspect-ratio:4/3;border:0;border-radius:6px;background:#eee}
+.map-frame{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;border:0;border-radius:6px;background:#eee}
+.map-frame>iframe{width:100%;height:100%;border:0}
+.map-loading{position:absolute;inset:0;display:grid;place-content:center;color:var(--ink-soft);background:linear-gradient(145deg,#f4f1ef,#e8e2df);font:12px var(--sans)}
+.map-provider{position:absolute;z-index:10;right:9px;bottom:9px;padding:5px 9px;border-radius:100px;color:#fff;background:rgba(46,42,40,.78);box-shadow:0 2px 8px rgba(0,0,0,.12);font:10px var(--sans);pointer-events:none}
 .loc-name{text-align:center;font-size:16.5px;font-weight:700;margin-top:26px}
 .loc-addr{text-align:center;font-size:13px;color:var(--ink-soft);font-family:var(--sans);font-weight:300;margin-top:6px}
 .copy-sm{
@@ -341,7 +344,112 @@ function requestWeddingAccess(D){
   });
 }
 
+function loadMapScript(id,src,isReady){
+  if(isReady())return Promise.resolve();
+  window.__mapSdkPromises=window.__mapSdkPromises||{};
+  if(window.__mapSdkPromises[src])return window.__mapSdkPromises[src];
+  window.__mapSdkPromises[src]=new Promise(function(resolve,reject){
+    var old=document.getElementById(id);
+    if(old)old.remove();
+    var script=document.createElement('script');
+    var settled=false;
+    var timer=setTimeout(function(){finish(new Error('지도 연결 시간이 초과되었습니다.'));},7000);
+    function finish(error){
+      if(settled)return;settled=true;clearTimeout(timer);
+      if(error){script.remove();delete window.__mapSdkPromises[src];reject(error);}
+      else resolve();
+    }
+    script.id=id;script.async=true;script.src=src;
+    script.onload=function(){isReady()?finish():finish(new Error('지도 서비스를 시작할 수 없습니다.'));};
+    script.onerror=function(){finish(new Error('지도 서비스를 불러오지 못했습니다.'));};
+    document.head.appendChild(script);
+  });
+  return window.__mapSdkPromises[src];
+}
+
+function initPreferredMap(D,renderToken){
+  var container=document.getElementById('mapCanvas');
+  if(!container)return;
+  var config=D.map||{};
+  var address=D.wedding.address||D.wedding.venue||'';
+  var naverKey=String(config.naverClientId||'').trim();
+  var kakaoKey=String(config.kakaoAppKey||(D.share&&D.share.kakaoKey)||'').trim();
+  function active(){return window.__weddingRenderToken===renderToken&&container.isConnected;}
+  function loading(name){if(active())container.innerHTML='<div class="map-loading">'+name+' 불러오는 중…</div>';}
+  function badge(name){
+    if(!active())return;
+    var el=document.createElement('span');el.className='map-provider';el.textContent=name;container.appendChild(el);
+  }
+  function naverMap(){
+    if(!naverKey)return Promise.reject(new Error('네이버 지도 키 없음'));
+    loading('네이버 지도');
+    var src='https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId='+encodeURIComponent(naverKey)+'&submodules=geocoder';
+    return loadMapScript('naver-map-sdk',src,function(){return !!(window.naver&&naver.maps&&naver.maps.Service);}).then(function(){
+      return new Promise(function(resolve,reject){
+        if(!active()){resolve();return;}
+        var settled=false;
+        var timer=setTimeout(function(){finish(new Error('네이버 주소 검색 시간 초과'));},6000);
+        function finish(error){if(settled)return;settled=true;clearTimeout(timer);error?reject(error):resolve();}
+        naver.maps.Service.geocode({query:address},function(status,response){
+          if(settled)return;
+          if(!active()){finish();return;}
+          if(status!==naver.maps.Service.Status.OK){finish(new Error('네이버 주소 검색 실패'));return;}
+          var item=response&&response.v2&&response.v2.addresses&&response.v2.addresses[0];
+          if(!item){finish(new Error('네이버 지도 위치 없음'));return;}
+          try{
+            var position=new naver.maps.LatLng(Number(item.y),Number(item.x));
+            container.innerHTML='';
+            var map=new naver.maps.Map(container,{center:position,zoom:16,zoomControl:true});
+            new naver.maps.Marker({position:position,map:map,title:D.wedding.venue||''});
+            badge('네이버 지도');finish();
+          }catch(error){finish(error);}
+        });
+      });
+    });
+  }
+  function kakaoMap(){
+    if(!kakaoKey)return Promise.reject(new Error('카카오 지도 키 없음'));
+    loading('카카오맵');
+    var src='https://dapi.kakao.com/v2/maps/sdk.js?appkey='+encodeURIComponent(kakaoKey)+'&autoload=false&libraries=services';
+    return loadMapScript('kakao-map-sdk',src,function(){return !!(window.kakao&&kakao.maps&&kakao.maps.load);}).then(function(){
+      return new Promise(function(resolve,reject){
+        kakao.maps.load(function(){
+          if(!active()){resolve();return;}
+          try{
+            var geocoder=new kakao.maps.services.Geocoder();
+            var settled=false;
+            var timer=setTimeout(function(){finish(new Error('카카오 주소 검색 시간 초과'));},6000);
+            function finish(error){if(settled)return;settled=true;clearTimeout(timer);error?reject(error):resolve();}
+            geocoder.addressSearch(address,function(result,status){
+              if(settled)return;
+              if(!active()){finish();return;}
+              if(status!==kakao.maps.services.Status.OK||!result[0]){finish(new Error('카카오 주소 검색 실패'));return;}
+              try{
+                var position=new kakao.maps.LatLng(Number(result[0].y),Number(result[0].x));
+                container.innerHTML='';
+                var map=new kakao.maps.Map(container,{center:position,level:4});
+                new kakao.maps.Marker({position:position,map:map,title:D.wedding.venue||''});
+                badge('카카오맵');finish();
+              }catch(error){finish(error);}
+            });
+          }catch(error){reject(error);}
+        });
+      });
+    });
+  }
+  function googleMap(){
+    if(!active())return;
+    container.innerHTML='';
+    var iframe=document.createElement('iframe');
+    iframe.src='https://maps.google.com/maps?q='+encodeURIComponent(address)+'&z=16&hl=ko&output=embed';
+    iframe.loading='lazy';iframe.title='Google 지도';
+    container.appendChild(iframe);badge('Google 지도');
+  }
+  naverMap().catch(function(){if(active())return kakaoMap();}).catch(function(){if(active())googleMap();});
+}
+
 function resetWeddingUi(){
+  window.__weddingRenderToken=(window.__weddingRenderToken||0)+1;
   if(window.__weddingCountdown){clearInterval(window.__weddingCountdown);window.__weddingCountdown=null;}
   if(window.__weddingIo){window.__weddingIo.disconnect();window.__weddingIo=null;}
   if(window.__weddingAutoplayOnce){
@@ -552,7 +660,7 @@ if(D.map&&D.map.show){
   var q=encodeURIComponent(D.wedding.address||D.wedding.venue);
   var qName=encodeURIComponent(D.wedding.venue||D.wedding.address);
   var mhtml='<section id="location" class="reveal"><div class="eyebrow">'+esc(L.locationEyebrow||'Location')+'</div><div class="sec-title">'+esc(L.locationTitle||'오시는 길')+'</div>'
-   +'<iframe class="map-frame" src="https://maps.google.com/maps?q='+q+'&z=16&hl=ko&output=embed" loading="lazy" title="지도"></iframe>'
+   +'<div class="map-frame" id="mapCanvas"><div class="map-loading">지도 불러오는 중…</div></div>'
    +'<div class="loc-name">'+esc(D.wedding.venue)+(D.wedding.hall?' '+esc(D.wedding.hall):'')+'</div>'
    +'<div class="loc-addr">'+esc(D.wedding.address)+'</div>'
    +'<button class="copy-sm" id="addrCopy">'+esc(L.addressCopy||'주소 복사하기')+'</button>'
@@ -597,6 +705,7 @@ H.push('<section id="share" class="reveal">'
 H.push('<footer>'+esc(D.footer&&D.footer.text?D.footer.text:'Thank you')+'</footer>');
 
 document.getElementById('app').innerHTML=H.join('');
+if(D.map&&D.map.show)initPreferredMap(D,window.__weddingRenderToken);
 
 /* ───────── 동작 연결 ───────── */
 /* 스크롤 등장 효과 */

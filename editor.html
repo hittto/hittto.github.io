@@ -7,7 +7,7 @@
   <title>모바일 청첩장 편집 작업창</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
-  <link rel="stylesheet" href="editor.css?v=20260714-security">
+  <link rel="stylesheet" href="editor.css?v=20260714-map-priority">
 </head>
 <body class="editor-locked">
   <div class="access-gate" id="editor-access-gate" role="dialog" aria-modal="true" aria-labelledby="editor-access-title">
@@ -130,7 +130,14 @@
         <summary><span>07</span> 오시는 길</summary>
         <div class="form-section">
           <label class="switch-row"><input data-path="map.show" type="checkbox"> 지도와 오시는 길 섹션 표시</label>
-          <p class="help-text">지도 위치는 02 예식 정보의 주소를 사용합니다.</p>
+          <div class="welcome-card map-priority-card">
+            <strong>지도 배경 우선순위</strong>
+            <p><b>1. 네이버 지도</b> → <b>2. 카카오맵</b> → <b>3. 구글 지도</b> 순으로 자동 선택합니다.</p>
+          </div>
+          <label>네이버 지도 Client ID<input data-path="map.naverClientId" type="password" autocomplete="off" placeholder="ncpKeyId (선택 입력)"></label>
+          <label>카카오 지도 JavaScript 키<input data-path="map.kakaoAppKey" type="password" autocomplete="off" placeholder="선택 입력 · 공유용 카카오 키도 사용 가능"></label>
+          <p class="help-text">지도 위치는 02 예식 정보의 주소를 사용합니다. 네이버 키가 없거나 불러오지 못하면 카카오, 카카오도 사용할 수 없으면 구글 지도로 자동 전환됩니다. 각 지도 키에는 <strong>https://hittto.github.io</strong> 도메인을 등록해 주세요.</p>
+          <div class="map-key-links"><a href="https://navermaps.github.io/maps.js.ncp/docs/tutorial-Geocoder-Geocoding.html" target="_blank" rel="noopener">네이버 지도 키 안내</a><a href="https://apis.map.kakao.com/web/guide/" target="_blank" rel="noopener">카카오 지도 키 안내</a></div>
           <div class="divider-label">교통 안내</div>
           <div id="guide-editor"></div>
           <button class="wide-button" type="button" data-add-guide>+ 교통 안내 추가</button>
@@ -287,6 +294,6 @@
     </form>
   </dialog>
 
-  <script src="editor.js?v=20260714-security" defer></script>
+  <script src="editor.js?v=20260714-map-priority" defer></script>
 </body>
 </html>

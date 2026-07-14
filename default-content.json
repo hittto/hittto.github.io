@@ -34,6 +34,8 @@
   "calendar": { "show": true, "showCountdown": true },
   "map": {
     "show": true,
+    "naverClientId": "",
+    "kakaoAppKey": "",
     "guides": [
       { "title": "🚃 지하철", "desc": "가까운 지하철역과 출구를 입력해 주세요." },
       { "title": "🚌 버스", "desc": "가까운 정류장과 버스 번호를 입력해 주세요." },

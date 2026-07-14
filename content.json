@@ -62,6 +62,8 @@
   },
   "map": {
     "show": true,
+    "naverClientId": "",
+    "kakaoAppKey": "",
     "guides": [
       {
         "title": "🚃 지하철",
