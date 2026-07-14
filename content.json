@@ -13,14 +13,14 @@
   "couple": {
     "groom": "황희수",
     "bride": "조혜정",
-    "groomEn": "GROOM",
-    "brideEn": "BRIDE"
+    "groomEn": "Hee Soo Hwang",
+    "brideEn": "Hye Jeong Cho"
   },
   "event": {
-    "date": "2026-10-24",
-    "time": "12:00",
-    "venue": "예식장 이름",
-    "address": "서울특별시 예식장 주소"
+    "date": "2026-11-07",
+    "time": "13:00",
+    "venue": "그랜드블랑 미라벨가든",
+    "address": "부산광역시 해운대구 센텀1로 25 센텀한샘빌딩 8층"
   },
   "messages": {
     "opening": "SAVE THE DATE",
@@ -31,10 +31,10 @@
     "brideFamily": "두 사람의 앞날을 축복해 주시고\n따뜻하게 지켜봐 주세요."
   },
   "family": {
-    "groomFather": "신랑 아버지",
-    "groomMother": "신랑 어머니",
-    "brideFather": "신부 아버지",
-    "brideMother": "신부 어머니"
+    "groomFather": "故 황주현",
+    "groomMother": "진미경",
+    "brideFather": "조길례",
+    "brideMother": "강경화"
   },
   "images": {
     "cover": "assets/placeholder-photo.svg",
@@ -59,16 +59,30 @@
     {
       "side": "groom",
       "role": "신랑",
-      "bank": "은행",
-      "number": "000-0000-0000",
-      "holder": "예금주"
+      "bank": "토스뱅크",
+      "number": "1000-2573-4121",
+      "holder": "황희수"
     },
     {
       "side": "bride",
       "role": "신부",
-      "bank": "은행",
+      "bank": "국민은행",
       "number": "000-0000-0000",
-      "holder": "예금주"
+      "holder": "조혜정"
+    },
+    {
+      "side": "bride",
+      "role": "아버지",
+      "bank": "은행",
+      "number": "",
+      "holder": "조길례"
+    },
+    {
+      "side": "bride",
+      "role": "어머니",
+      "bank": "은행",
+      "number": "",
+      "holder": "강경화"
     }
   ],
   "musicUrl": "",
