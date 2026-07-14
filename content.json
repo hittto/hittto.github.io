@@ -3,14 +3,6 @@
     "accent": "#f4879f",
     "font": "serif"
   },
-  "access": {
-    "enabled": false,
-    "passwordHash": "",
-    "title": "청첩장을 열어주세요",
-    "message": "초대받은 분만 입장할 수 있습니다.",
-    "placeholder": "비밀번호를 입력해 주세요",
-    "buttonLabel": "청첩장 열기"
-  },
   "couple": {
     "groom": {
       "name": "황희수",
@@ -30,24 +22,37 @@
   "wedding": {
     "date": "2026-11-07",
     "time": "13:00",
-    "venue": "그랜드블랑 미라벨가든",
-    "hall": "",
+    "venue": "그랜드블랑",
+    "hall": "미라벨가든",
     "address": "부산광역시 해운대구 센텀1로 25 센텀한샘빌딩 8층"
   },
   "cover": {
-    "image": ""
+    "image": "assets/placeholder-photo.svg"
   },
   "intro": {
-    "image": ""
+    "image": "assets/placeholder-photo-wide.svg"
   },
   "greeting": {
     "show": true,
     "title": "소중한 분들을 초대합니다",
     "message": "서로의 하루를 아끼고 사랑하며\n평생을 함께 걷기로 약속했습니다.\n저희의 첫걸음에 따뜻한 축복을 더해 주세요.",
     "showParents": true,
-    "showContacts": false
+    "showContacts": true
   },
-  "contacts": [],
+  "contacts": [
+    {
+      "label": "신랑 어머니에게 연락하기",
+      "phone": "010-5141-5109"
+    },
+    {
+      "label": "신부 아버지에게 연락하기",
+      "phone": "010-3563-7659"
+    },
+    {
+      "label": "신부 어머니에게 연락하기",
+      "phone": "010-9157-7411"
+    }
+  ],
   "video": {
     "url": ""
   },
@@ -67,15 +72,27 @@
     "guides": [
       {
         "title": "🚃 지하철",
-        "desc": "가까운 지하철역과 출구, 도보 시간을 입력해 주세요."
+        "desc": "2호선 센텀시티역 11·13번 출구"
       },
       {
-        "title": "🚌 버스",
-        "desc": "가까운 정류장과 버스 번호를 입력해 주세요."
+        "title": "🚐 버스",
+        "desc": "5-1, 39, 40, 63, 141, 155, 185, 공항리무진1 버스"
       },
       {
         "title": "🚗 주차",
-        "desc": "주차 안내를 입력해 주세요."
+        "desc": "- 1주차장: 센텀1로 25\n- 2주차장: APEC로 17"
+      },
+      {
+        "title": "🚄 KTX",
+        "desc": "- 부산역 - 지하철 1호선 - 2호선\n- 부산역 - 버스 40, 1001(급행)"
+      },
+      {
+        "title": "✈️ 비행기",
+        "desc": "- 김해공항 - 경전철 - 2호선\n- 김해공항 - 공항리무진1"
+      },
+      {
+        "title": "🚌 고속·시외버스",
+        "desc": "- 부산종합(동부)터미널 - 지하철 1호선 - 2호선\n- 부산사상(서부)터미널 - 지하철 2호선"
       }
     ]
   },
@@ -84,15 +101,35 @@
     "groom": {
       "title": "🤵🏻 신랑 측 계좌번호",
       "items": [
-        { "bank": "토스뱅크", "number": "1000-2573-4121", "holder": "황희수", "label": "신랑" }
+        {
+          "bank": "토스뱅크",
+          "number": "1000-2573-4121",
+          "holder": "황희수",
+          "label": "신랑"
+        }
       ]
     },
     "bride": {
       "title": "👰🏻‍♀️ 신부 측 계좌번호",
       "items": [
-        { "bank": "국민은행", "number": "000-0000-0000", "holder": "조혜정", "label": "신부" },
-        { "bank": "은행", "number": "", "holder": "조길례", "label": "아버지" },
-        { "bank": "은행", "number": "", "holder": "강경화", "label": "어머니" }
+        {
+          "bank": "국민은행",
+          "number": "000-0000-0000",
+          "holder": "조혜정",
+          "label": "신부"
+        },
+        {
+          "bank": "은행",
+          "number": "",
+          "holder": "조길례",
+          "label": "아버지"
+        },
+        {
+          "bank": "은행",
+          "number": "",
+          "holder": "강경화",
+          "label": "어머니"
+        }
       ]
     }
   },
@@ -105,7 +142,7 @@
     "desc": "소중한 분들을 저희의 시작에 초대합니다.",
     "url": "https://hittto.github.io/",
     "kakaoKey": "",
-    "ogImageUrl": ""
+    "ogImageUrl": "assets/placeholder-photo-wide.svg"
   },
   "labels": {
     "coverEyebrow": "Wedding Invitation",
