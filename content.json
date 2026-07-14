@@ -1,30 +1,30 @@
 {
   "theme": {
-    "accent": "#c48d7e",
+    "accent": "#f4879f",
     "font": "serif"
   },
   "couple": {
     "groom": {
-      "name": "김민준",
-      "en": "Kim Min Jun",
-      "father": "김영수",
-      "mother": "박미경",
-      "relation": "장남"
+      "name": "황희수",
+      "en": "Hee Soo Hwang",
+      "father": "故 황주현",
+      "mother": "진미경",
+      "relation": "아들"
     },
     "bride": {
-      "name": "이서연",
-      "en": "Lee Seo Yeon",
-      "father": "이정호",
-      "mother": "최은정",
-      "relation": "장녀"
+      "name": "조혜정",
+      "en": "Hye Jeong Cho",
+      "father": "조길례",
+      "mother": "강경화",
+      "relation": "딸"
     }
   },
   "wedding": {
-    "date": "2026-10-24",
-    "time": "12:30",
-    "venue": "더블룸 웨딩홀",
-    "hall": "3층 그랜드홀",
-    "address": "서울특별시 마포구 양화로 100"
+    "date": "2026-11-07",
+    "time": "13:00",
+    "venue": "그랜드블랑 미라벨가든",
+    "hall": "",
+    "address": "부산광역시 해운대구 센텀1로 25 센텀한샘빌딩 8층"
   },
   "cover": {
     "image": ""
@@ -35,27 +35,18 @@
   "greeting": {
     "show": true,
     "title": "소중한 분들을 초대합니다",
-    "message": "서로 다른 길을 걸어온 두 사람이\n이제 같은 곳을 바라보며\n나란히 걸어가려 합니다.\n\n저희 두 사람의 새로운 시작을\n따뜻한 마음으로 축복해 주시면\n더없는 기쁨으로 간직하겠습니다.",
+    "message": "서로의 하루를 아끼고 사랑하며\n평생을 함께 걷기로 약속했습니다.\n저희의 첫걸음에 따뜻한 축복을 더해 주세요.",
     "showParents": true,
-    "showContacts": true
+    "showContacts": false
   },
-  "contacts": [
-    {
-      "label": "신랑에게 연락하기",
-      "phone": "010-1234-5678"
-    },
-    {
-      "label": "신부에게 연락하기",
-      "phone": "010-2345-6789"
-    }
-  ],
+  "contacts": [],
   "video": {
     "url": ""
   },
   "gallery": {
     "show": true,
     "initial": 6,
-    "images": ["", "", "", "", "", ""]
+    "images": []
   },
   "calendar": {
     "show": true,
@@ -66,15 +57,15 @@
     "guides": [
       {
         "title": "🚃 지하철",
-        "desc": "2호선 홍대입구역 하차\n5번 출구에서 도보 300M"
+        "desc": "가까운 지하철역과 출구, 도보 시간을 입력해 주세요."
       },
       {
         "title": "🚌 버스",
-        "desc": "홍대입구역 정류장 하차 후\n도보 5분"
+        "desc": "가까운 정류장과 버스 번호를 입력해 주세요."
       },
       {
         "title": "🚗 주차",
-        "desc": "건물 지하 주차장 2시간 무료"
+        "desc": "주차 안내를 입력해 주세요."
       }
     ]
   },
@@ -83,17 +74,15 @@
     "groom": {
       "title": "🤵🏻 신랑 측 계좌번호",
       "items": [
-        { "bank": "OO은행", "number": "123-456-789012", "holder": "김민준", "label": "신랑" },
-        { "bank": "OO은행", "number": "123-456-789013", "holder": "김영수", "label": "신랑 아버지" },
-        { "bank": "OO은행", "number": "123-456-789014", "holder": "박미경", "label": "신랑 어머니" }
+        { "bank": "토스뱅크", "number": "1000-2573-4121", "holder": "황희수", "label": "신랑" }
       ]
     },
     "bride": {
       "title": "👰🏻‍♀️ 신부 측 계좌번호",
       "items": [
-        { "bank": "OO은행", "number": "987-654-321098", "holder": "이서연", "label": "신부" },
-        { "bank": "OO은행", "number": "987-654-321097", "holder": "이정호", "label": "신부 아버지" },
-        { "bank": "OO은행", "number": "987-654-321096", "holder": "최은정", "label": "신부 어머니" }
+        { "bank": "국민은행", "number": "000-0000-0000", "holder": "조혜정", "label": "신부" },
+        { "bank": "은행", "number": "", "holder": "조길례", "label": "아버지" },
+        { "bank": "은행", "number": "", "holder": "강경화", "label": "어머니" }
       ]
     }
   },
@@ -102,8 +91,8 @@
     "autoplay": true
   },
   "share": {
-    "title": "민준 ♥ 서연, 결혼합니다",
-    "desc": "2026년 10월 24일 토요일 오후 12시 30분\n더블룸 웨딩홀 3층 그랜드홀",
+    "title": "신랑 · 신부 결혼합니다",
+    "desc": "소중한 분들을 저희의 시작에 초대합니다.",
     "url": "https://hittto.github.io/",
     "kakaoKey": "",
     "ogImageUrl": ""

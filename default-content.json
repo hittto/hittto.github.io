@@ -1,0 +1,82 @@
+{
+  "theme": { "accent": "#c48d7e", "font": "serif" },
+  "couple": {
+    "groom": { "name": "신랑 이름", "en": "Groom Name", "father": "신랑 아버지", "mother": "신랑 어머니", "relation": "아들" },
+    "bride": { "name": "신부 이름", "en": "Bride Name", "father": "신부 아버지", "mother": "신부 어머니", "relation": "딸" }
+  },
+  "wedding": {
+    "date": "2026-10-24",
+    "time": "12:00",
+    "venue": "예식장 이름",
+    "hall": "홀 이름",
+    "address": "예식장 주소를 입력해 주세요"
+  },
+  "cover": { "image": "" },
+  "intro": { "image": "" },
+  "greeting": {
+    "show": true,
+    "title": "소중한 분들을 초대합니다",
+    "message": "서로 다른 길을 걸어온 두 사람이\n이제 같은 곳을 바라보며\n나란히 걸어가려 합니다.\n\n저희 두 사람의 새로운 시작을\n따뜻한 마음으로 축복해 주세요.",
+    "showParents": true,
+    "showContacts": false
+  },
+  "contacts": [],
+  "video": { "url": "" },
+  "gallery": { "show": true, "initial": 6, "images": [] },
+  "calendar": { "show": true, "showCountdown": true },
+  "map": {
+    "show": true,
+    "guides": [
+      { "title": "🚃 지하철", "desc": "가까운 지하철역과 출구를 입력해 주세요." },
+      { "title": "🚌 버스", "desc": "가까운 정류장과 버스 번호를 입력해 주세요." },
+      { "title": "🚗 주차", "desc": "주차 안내를 입력해 주세요." }
+    ]
+  },
+  "accounts": {
+    "show": true,
+    "groom": {
+      "title": "🤵🏻 신랑 측 계좌번호",
+      "items": [{ "bank": "은행", "number": "000-0000-0000", "holder": "예금주", "label": "신랑" }]
+    },
+    "bride": {
+      "title": "👰🏻‍♀️ 신부 측 계좌번호",
+      "items": [{ "bank": "은행", "number": "000-0000-0000", "holder": "예금주", "label": "신부" }]
+    }
+  },
+  "bgm": { "src": "", "autoplay": true },
+  "share": {
+    "title": "신랑 · 신부 결혼합니다",
+    "desc": "소중한 분들을 저희의 시작에 초대합니다.",
+    "url": "https://hittto.github.io/",
+    "kakaoKey": "",
+    "ogImageUrl": ""
+  },
+  "labels": {
+    "coverEyebrow": "Wedding Invitation",
+    "coverPlaceholderTitle": "커버 사진",
+    "coverPlaceholderSubtitle": "편집기에서 사진을 등록해 주세요",
+    "introPlaceholderTitle": "웨딩 사진",
+    "introPlaceholderSubtitle": "편집기에서 사진을 등록해 주세요",
+    "groomRole": "Groom",
+    "brideRole": "Bride",
+    "videoEyebrow": "Video",
+    "videoTitle": "웨딩 영상",
+    "galleryEyebrow": "Gallery",
+    "galleryTitle": "우리의 순간들",
+    "galleryMore": "더보기",
+    "greetingEyebrow": "Invitation",
+    "calendarEyebrow": "Save the date",
+    "locationEyebrow": "Location",
+    "locationTitle": "오시는 길",
+    "addressCopy": "주소 복사하기",
+    "naverMap": "네이버 지도",
+    "kakaoMap": "카카오맵",
+    "googleMap": "구글 지도",
+    "accountsEyebrow": "Gift",
+    "accountsTitle": "마음 전하실 곳",
+    "accountCopy": "복사하기",
+    "shareButton": "💌 청첩장 공유하기",
+    "urlCopyButton": "🔗 청첩장 주소 복사하기"
+  },
+  "footer": { "text": "Thank you for celebrating with us" }
+}

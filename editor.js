@@ -469,10 +469,16 @@
 
   async function initialize() {
     try {
-      const response = await fetch(`content.json?v=${Date.now()}`);
-      if (!response.ok) throw new Error('기본 내용을 읽을 수 없습니다.');
-      originalContent = await response.json();
-      content = migrateLegacy(await loadDraft(), originalContent);
+      const [publishedResponse, defaultResponse] = await Promise.all([
+        fetch(`content.json?v=${Date.now()}`),
+        fetch(`default-content.json?v=${Date.now()}`)
+      ]);
+      if (!publishedResponse.ok) throw new Error('현재 게시 내용을 읽을 수 없습니다.');
+      if (!defaultResponse.ok) throw new Error('개인정보 없는 초기값을 읽을 수 없습니다.');
+      const publishedContent = await publishedResponse.json();
+      originalContent = await defaultResponse.json();
+      const draft = await loadDraft();
+      content = draft ? migrateLegacy(draft, originalContent) : mergeDefaults(originalContent, publishedContent);
       bindInputs(); refreshAll(); saveState.textContent = '자동 저장 준비됨';
       previewFrame.addEventListener('load', sendPreview);
     } catch (error) {
