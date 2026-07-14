@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <title>모바일 청첩장 편집 작업창</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <link rel="stylesheet" href="editor.css">
+</head>
+<body>
+  <header class="editor-header">
+    <div>
+      <p class="brand-kicker">WEDDING STUDIO</p>
+      <h1>모바일 청첩장 편집 작업창</h1>
+    </div>
+    <div class="header-actions">
+      <span class="save-state" id="save-state">불러오는 중…</span>
+      <a class="ghost-button" href="index.html" target="_blank">청첩장 새 창 보기</a>
+      <button class="primary-button" type="button" data-open-publish>GitHub에 게시</button>
+    </div>
+  </header>
+
+  <div class="editor-layout">
+    <aside class="editor-panel">
+      <div class="welcome-card">
+        <strong>글자를 고치거나 사진을 선택하면 오른쪽에 바로 반영됩니다.</strong>
+        <p>내용은 이 브라우저에 자동 저장됩니다. 모두 고친 뒤 위의 “GitHub에 게시”를 누르세요.</p>
+      </div>
+
+      <details open>
+        <summary><span>01</span> 기본 정보</summary>
+        <div class="form-section two-columns">
+          <label>신랑 이름<input data-path="couple.groom" type="text"></label>
+          <label>신부 이름<input data-path="couple.bride" type="text"></label>
+          <label>신랑 영문 이름<input data-path="couple.groomEn" type="text"></label>
+          <label>신부 영문 이름<input data-path="couple.brideEn" type="text"></label>
+          <label>예식 날짜<input data-path="event.date" type="date"></label>
+          <label>예식 시간<input data-path="event.time" type="time"></label>
+          <label class="full">예식장 이름<input data-path="event.venue" type="text"></label>
+          <label class="full">예식장 주소<input data-path="event.address" type="text"></label>
+          <label class="full">공유 제목<input data-path="meta.title" type="text"></label>
+          <label class="full">공유 설명<input data-path="meta.description" type="text"></label>
+          <label class="full">공개 주소<input data-path="meta.shareUrl" type="url"></label>
+        </div>
+      </details>
+
+      <details>
+        <summary><span>02</span> 초대 문구와 가족</summary>
+        <div class="form-section">
+          <label>날짜 위 짧은 문구<input data-path="messages.opening" type="text"></label>
+          <label>초대 문구<textarea data-path="messages.invitation" rows="5"></textarea></label>
+          <label>러브레터 제목<input data-path="messages.letterTitle" type="text"></label>
+          <label>러브레터 내용<textarea data-path="messages.letter" rows="5"></textarea></label>
+          <div class="divider-label">신랑 측</div>
+          <div class="two-columns">
+            <label>아버지<input data-path="family.groomFather" type="text"></label>
+            <label>어머니<input data-path="family.groomMother" type="text"></label>
+          </div>
+          <label>가족 인사말<textarea data-path="messages.groomFamily" rows="3"></textarea></label>
+          <div class="divider-label">신부 측</div>
+          <div class="two-columns">
+            <label>아버지<input data-path="family.brideFather" type="text"></label>
+            <label>어머니<input data-path="family.brideMother" type="text"></label>
+          </div>
+          <label>가족 인사말<textarea data-path="messages.brideFamily" rows="3"></textarea></label>
+          <label>맨 아래 문구<input data-path="footer" type="text"></label>
+        </div>
+      </details>
+
+      <details>
+        <summary><span>03</span> 사진과 영상</summary>
+        <div class="form-section">
+          <p class="help-text">사진은 자동으로 웹용 크기로 줄어듭니다. 세로 메인 사진은 3:4 비율을 권장합니다.</p>
+          <div class="media-editor-grid" id="media-editor-grid">
+            <div class="media-editor" data-image-card="images.cover"><div class="media-preview"></div><strong>메인 사진</strong><label class="upload-button">사진 선택<input type="file" accept="image/*" data-image-input="images.cover"></label><button type="button" data-image-clear="images.cover">비우기</button></div>
+            <div class="media-editor" data-image-card="images.secondary"><div class="media-preview"></div><strong>중간 와이드 사진</strong><label class="upload-button">사진 선택<input type="file" accept="image/*" data-image-input="images.secondary"></label><button type="button" data-image-clear="images.secondary">비우기</button></div>
+            <div class="media-editor" data-image-card="images.groomFamily"><div class="media-preview"></div><strong>신랑 가족 사진</strong><label class="upload-button">사진 선택<input type="file" accept="image/*" data-image-input="images.groomFamily"></label><button type="button" data-image-clear="images.groomFamily">비우기</button></div>
+            <div class="media-editor" data-image-card="images.brideFamily"><div class="media-preview"></div><strong>신부 가족 사진</strong><label class="upload-button">사진 선택<input type="file" accept="image/*" data-image-input="images.brideFamily"></label><button type="button" data-image-clear="images.brideFamily">비우기</button></div>
+            <div class="media-editor" data-image-card="images.videoThumbnail"><div class="media-preview"></div><strong>영상 썸네일</strong><label class="upload-button">사진 선택<input type="file" accept="image/*" data-image-input="images.videoThumbnail"></label><button type="button" data-image-clear="images.videoThumbnail">비우기</button></div>
+            <div class="media-editor" data-image-card="images.shareThumbnail"><div class="media-preview"></div><strong>공유 대표 사진</strong><label class="upload-button">사진 선택<input type="file" accept="image/*" data-image-input="images.shareThumbnail"></label><button type="button" data-image-clear="images.shareThumbnail">비우기</button></div>
+          </div>
+          <label>유튜브 주소<input data-path="video.youtubeUrl" type="url" placeholder="https://youtu.be/..."></label>
+          <label>배경 음악 파일 주소<input data-path="musicUrl" type="url" placeholder="https://.../music.mp3"></label>
+          <div class="divider-label">갤러리</div>
+          <label class="gallery-upload">여러 사진 한 번에 추가<input id="gallery-input" type="file" accept="image/*" multiple></label>
+          <div class="gallery-editor" id="gallery-editor"></div>
+        </div>
+      </details>
+
+      <details>
+        <summary><span>04</span> 오시는 길</summary>
+        <div class="form-section two-columns">
+          <label>위도<input data-path="map.lat" type="number" step="0.000001"></label>
+          <label>경도<input data-path="map.lng" type="number" step="0.000001"></label>
+          <p class="help-text full">위도·경도를 모르면 지도에서 예식장을 검색한 뒤 좌표를 확인해 입력하세요. 기본값은 서울시청입니다.</p>
+          <label class="full">지하철 안내<textarea data-path="map.subway" rows="3"></textarea></label>
+          <label class="full">버스 안내<textarea data-path="map.bus" rows="3"></textarea></label>
+          <label class="full">주차 안내<textarea data-path="map.parking" rows="3"></textarea></label>
+        </div>
+      </details>
+
+      <details>
+        <summary><span>05</span> 계좌번호</summary>
+        <div class="form-section">
+          <div id="account-editor"></div>
+          <button class="wide-button" type="button" data-add-account>+ 계좌 추가</button>
+        </div>
+      </details>
+
+      <details>
+        <summary><span>06</span> 색상</summary>
+        <div class="form-section color-grid">
+          <label>포인트 색<input data-path="theme.accent" type="color"></label>
+          <label>연한 배경<input data-path="theme.soft" type="color"></label>
+          <label>종이 배경<input data-path="theme.paper" type="color"></label>
+          <label>글자 색<input data-path="theme.ink" type="color"></label>
+        </div>
+      </details>
+
+      <details>
+        <summary><span>07</span> 백업과 초기화</summary>
+        <div class="form-section">
+          <p class="help-text">다른 컴퓨터로 옮기려면 백업 파일을 내려받아 보관하세요.</p>
+          <div class="button-row">
+            <button class="wide-button" type="button" data-export>백업 파일 받기</button>
+            <label class="wide-button file-button">백업 불러오기<input id="import-input" type="file" accept="application/json"></label>
+          </div>
+          <button class="danger-button" type="button" data-reset>모든 편집 내용 초기화</button>
+        </div>
+      </details>
+    </aside>
+
+    <section class="preview-area" aria-label="모바일 미리보기">
+      <div class="preview-label"><span class="live-dot"></span> 실시간 모바일 미리보기</div>
+      <div class="phone-frame">
+        <div class="phone-speaker"></div>
+        <iframe id="preview-frame" src="index.html?preview=1" title="청첩장 미리보기"></iframe>
+      </div>
+    </section>
+  </div>
+
+  <dialog class="publish-dialog" id="publish-dialog">
+    <form method="dialog" class="dialog-card">
+      <button class="dialog-close" value="cancel" aria-label="닫기">×</button>
+      <p class="brand-kicker">PUBLISH</p>
+      <h2>GitHub에 게시하기</h2>
+      <p class="dialog-intro">게시하면 약 1~3분 뒤 <strong>hittto.github.io</strong>에서 모두가 볼 수 있습니다.</p>
+      <div class="publish-steps">
+        <p><b>1.</b> GitHub에서 <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">새 토큰 만들기</a>를 엽니다.</p>
+        <p><b>2.</b> 저장소는 <strong>hittto/hittto.github.io</strong>, 권한은 <strong>Contents → Read and write</strong>로 선택합니다.</p>
+        <p><b>3.</b> 만들어진 토큰을 아래에 붙여넣고 게시합니다. 토큰은 이 화면에 저장되지 않습니다.</p>
+      </div>
+      <div class="two-columns publish-fields">
+        <label>GitHub 아이디<input id="publish-owner" value="hittto" autocomplete="off"></label>
+        <label>저장소<input id="publish-repo" value="hittto.github.io" autocomplete="off"></label>
+        <label>브랜치<input id="publish-branch" value="main" autocomplete="off"></label>
+        <label>일회용 토큰<input id="publish-token" type="password" autocomplete="off" placeholder="github_pat_..."></label>
+      </div>
+      <div class="publish-status" id="publish-status" role="status"></div>
+      <button class="primary-button publish-submit" type="button" data-publish>지금 게시하기</button>
+      <p class="security-note">🔒 토큰은 게시 요청에만 사용하며 브라우저나 파일에 저장하지 않습니다.</p>
+    </form>
+  </dialog>
+
+  <script src="editor.js" defer></script>
+</body>
+</html>

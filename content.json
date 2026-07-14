@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "title": "신랑 · 신부 결혼합니다",
+    "description": "소중한 분들을 저희의 시작에 초대합니다.",
+    "shareUrl": "https://hittto.github.io/"
+  },
+  "theme": {
+    "accent": "#f4879f",
+    "soft": "#ffe0e3",
+    "paper": "#fbf8f3",
+    "ink": "#181818"
+  },
+  "couple": {
+    "groom": "신랑 이름",
+    "bride": "신부 이름",
+    "groomEn": "GROOM",
+    "brideEn": "BRIDE"
+  },
+  "event": {
+    "date": "2026-10-24",
+    "time": "12:00",
+    "venue": "예식장 이름",
+    "address": "서울특별시 예식장 주소"
+  },
+  "messages": {
+    "opening": "SAVE THE DATE",
+    "invitation": "서로의 하루를 아끼고 사랑하며\n평생을 함께 걷기로 약속했습니다.\n저희의 첫걸음에 따뜻한 축복을 더해 주세요.",
+    "letterTitle": "우리의 이야기",
+    "letter": "수많은 계절을 지나 서로에게 가장 편안한 사람이 되었습니다. 이제 같은 방향을 바라보며 새로운 계절을 시작하려 합니다.",
+    "groomFamily": "귀한 걸음으로 함께해 주시면\n더없는 기쁨으로 간직하겠습니다.",
+    "brideFamily": "두 사람의 앞날을 축복해 주시고\n따뜻하게 지켜봐 주세요."
+  },
+  "family": {
+    "groomFather": "신랑 아버지",
+    "groomMother": "신랑 어머니",
+    "brideFather": "신부 아버지",
+    "brideMother": "신부 어머니"
+  },
+  "images": {
+    "cover": "assets/placeholder-photo.svg",
+    "secondary": "assets/placeholder-photo-wide.svg",
+    "groomFamily": "",
+    "brideFamily": "",
+    "videoThumbnail": "",
+    "shareThumbnail": "assets/placeholder-photo-wide.svg"
+  },
+  "video": {
+    "youtubeUrl": ""
+  },
+  "gallery": [],
+  "map": {
+    "lat": 37.5665,
+    "lng": 126.978,
+    "subway": "가까운 지하철역과 출구, 도보 시간을 입력해 주세요.",
+    "bus": "가까운 정류장과 버스 번호를 입력해 주세요.",
+    "parking": "주차 안내를 입력해 주세요."
+  },
+  "accounts": [
+    { "side": "groom", "role": "신랑", "bank": "은행", "number": "000-0000-0000", "holder": "예금주" },
+    { "side": "bride", "role": "신부", "bank": "은행", "number": "000-0000-0000", "holder": "예금주" }
+  ],
+  "musicUrl": "",
+  "footer": "Thank you for celebrating with us"
+}

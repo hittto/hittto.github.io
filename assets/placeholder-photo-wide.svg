@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100">
+  <defs><linearGradient id="bg" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#2f2829"/><stop offset=".5" stop-color="#8b6263"/><stop offset="1" stop-color="#f1d8d5"/></linearGradient></defs>
+  <rect width="1600" height="1100" fill="url(#bg)"/>
+  <circle cx="1280" cy="170" r="410" fill="#fff" opacity=".10"/>
+  <circle cx="230" cy="970" r="350" fill="#efb9bb" opacity=".13"/>
+  <path d="M520 430c-80-105-225-19-164 95 39 72 164 147 164 147s126-75 165-147c61-114-85-200-165-95z" fill="none" stroke="#fff" stroke-width="4" opacity=".55"/>
+  <text x="800" y="800" text-anchor="middle" fill="#fff" font-family="serif" font-size="38" letter-spacing="14">TOGETHER</text>
+  <text x="800" y="860" text-anchor="middle" fill="#fff" opacity=".72" font-family="sans-serif" font-size="25">편집 화면에서 사진을 바꿔 주세요</text>
+</svg>
