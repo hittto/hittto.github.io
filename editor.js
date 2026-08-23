@@ -220,6 +220,7 @@
     const coverVideo = content.cover?.video || '';
     const coverVideoPreview = document.getElementById('cover-video-preview');
     const coverState = document.getElementById('cover-media-state');
+    coverVideoPreview.parentElement.classList.toggle('video-active', Boolean(coverVideo));
     if (coverVideo) {
       coverVideoPreview.hidden = false;
       if (coverVideoPreview.src !== coverVideo) coverVideoPreview.src = coverVideo;
