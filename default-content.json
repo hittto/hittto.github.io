@@ -19,7 +19,7 @@
     "hall": "홀 이름",
     "address": "예식장 주소를 입력해 주세요"
   },
-  "cover": { "image": "assets/default-cover.svg" },
+  "cover": { "image": "assets/default-cover.svg", "video": "" },
   "intro": { "image": "assets/default-intro.svg" },
   "greeting": {
     "show": true,

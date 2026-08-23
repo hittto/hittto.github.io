@@ -217,6 +217,23 @@
       preview.style.backgroundImage = value ? `url("${String(value).replaceAll('"', '%22')}")` : 'none';
       preview.style.backgroundColor = value ? '#eee' : '#f4f1ef';
     });
+    const coverVideo = content.cover?.video || '';
+    const coverVideoPreview = document.getElementById('cover-video-preview');
+    const coverState = document.getElementById('cover-media-state');
+    if (coverVideo) {
+      coverVideoPreview.hidden = false;
+      if (coverVideoPreview.src !== coverVideo) coverVideoPreview.src = coverVideo;
+      coverVideoPreview.muted = true;
+      coverVideoPreview.play().catch(() => { /* preview can wait for a user gesture */ });
+      coverState.textContent = coverVideo.startsWith('data:') ? '새 MP4 영상 선택됨 · 게시하면 업로드됩니다' : `커버 MP4 사용 중 · ${coverVideo}`;
+    } else {
+      coverVideoPreview.pause();
+      coverVideoPreview.removeAttribute('src');
+      coverVideoPreview.load();
+      coverVideoPreview.hidden = true;
+      const coverImage = content.cover?.image || originalContent?.cover?.image || '';
+      coverState.textContent = coverImage === originalContent?.cover?.image ? '기본 커버 이미지 사용 중' : '커버 사진 사용 중';
+    }
     const music = content.bgm?.src || '';
     document.getElementById('music-state').textContent = music ? (music.startsWith('data:') ? '새 음악 파일이 등록되었습니다' : music) : '등록된 음악 없음';
   }
@@ -423,14 +440,35 @@
       saveState.textContent = '사진 처리 중…';
       try {
         setPath(content, input.dataset.imageInput, await compressImage(input.files[0]));
+        if (input.dataset.clearOnSelect) setPath(content, input.dataset.clearOnSelect, '');
         refreshMediaCards(); scheduleSave();
       } catch (error) { alert(error.message); }
       input.value = '';
     }));
     document.querySelectorAll('[data-image-clear]').forEach((button) => button.addEventListener('click', () => {
       const path = button.dataset.imageClear;
-      setPath(content, path, clone(getPath(originalContent, path) || '')); refreshMediaCards(); scheduleSave();
+      setPath(content, path, clone(getPath(originalContent, path) || ''));
+      if (button.dataset.clearOnDefault) setPath(content, button.dataset.clearOnDefault, '');
+      refreshMediaCards(); scheduleSave();
     }));
+    document.getElementById('cover-video-input').addEventListener('change', async (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+      const isMp4 = file.type === 'video/mp4' || file.name.toLowerCase().endsWith('.mp4');
+      if (!isMp4) { alert('커버 영상은 MP4 파일만 선택해 주세요.'); event.target.value = ''; return; }
+      if (file.size > 80 * 1024 * 1024) { alert('커버 영상은 80MB 이하로 준비해 주세요.'); event.target.value = ''; return; }
+      if (file.size > 20 * 1024 * 1024 && !confirm('영상이 20MB보다 커서 모바일 로딩이 느릴 수 있습니다. 그래도 사용할까요?')) { event.target.value = ''; return; }
+      saveState.textContent = '커버 영상 처리 중…';
+      try {
+        content.cover.video = await fileToDataUrl(file);
+        refreshMediaCards(); scheduleSave();
+      } catch (error) { alert(error.message); }
+      event.target.value = '';
+    });
+    document.querySelector('[data-clear-cover-video]').addEventListener('click', () => {
+      content.cover.video = '';
+      refreshMediaCards(); scheduleSave();
+    });
     document.getElementById('gallery-input').addEventListener('change', async (event) => {
       const files = [...event.target.files]; if (!files.length) return;
       const defaultImages = originalContent?.gallery?.images || [];
@@ -529,7 +567,7 @@
     const match = String(dataUrl).match(/^data:([^;,]+);base64,(.+)$/);
     if (!match) throw new Error('업로드 파일 데이터를 읽을 수 없습니다.');
     const mime = match[1];
-    const extension = mime.includes('png') ? 'png' : mime.includes('webp') ? 'webp' : mime.includes('mpeg') ? 'mp3' : mime.includes('mp4') ? 'm4a' : mime.includes('ogg') ? 'ogg' : mime.includes('wav') ? 'wav' : 'jpg';
+    const extension = mime === 'video/mp4' ? 'mp4' : mime.includes('png') ? 'png' : mime.includes('webp') ? 'webp' : mime.includes('mpeg') ? 'mp3' : mime.includes('mp4') ? 'm4a' : mime.includes('ogg') ? 'ogg' : mime.includes('wav') ? 'wav' : 'jpg';
     return { base64: match[2], extension };
   }
 
@@ -580,6 +618,7 @@
         uploadFiles.push({ path: target, content: parts.base64 }); setPath(cleanContent, path, target);
       };
       extract('cover.image', 'cover');
+      extract('cover.video', 'cover-video');
       extract('intro.image', 'intro');
       extract('share.ogImageUrl', 'share');
       extract('bgm.src', 'bgm');
@@ -591,7 +630,7 @@
       });
       const treeEntries = [];
       for (let i = 0; i < uploadFiles.length; i += 1) {
-        publishStatus.textContent = `사진·음악 업로드 중 ${i + 1}/${uploadFiles.length}`;
+        publishStatus.textContent = `사진·영상·음악 업로드 중 ${i + 1}/${uploadFiles.length}`;
         const blob = await request('/git/blobs', { method: 'POST', body: JSON.stringify({ content: uploadFiles[i].content, encoding: 'base64' }) });
         treeEntries.push({ path: uploadFiles[i].path, mode: '100644', type: 'blob', sha: blob.sha });
       }

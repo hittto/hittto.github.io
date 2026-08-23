@@ -59,7 +59,8 @@ section{padding:70px 28px;position:relative}
 /* ─── 커버 ─── */
 #cover{padding:0}
 .cover-photo{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden}
-.cover-photo img{width:100%;height:100%;object-fit:cover}
+.cover-photo img,.cover-photo video{width:100%;height:100%;object-fit:cover}
+.cover-photo video{display:block;background:#181513}
 .ph{
   width:100%;height:100%;display:flex;flex-direction:column;gap:8px;
   align-items:center;justify-content:center;text-align:center;
@@ -580,7 +581,9 @@ var L=D.labels||{};
 
 /* 커버 */
 H.push('<section id="cover" class="reveal">'
- +'<div class="cover-photo">'+imgOrPh(mediaSource(D.cover&&D.cover.image,DEFAULT_MEDIA.cover),'커버 사진',L.coverPlaceholderTitle||'커버 사진',L.coverPlaceholderSubtitle||'편집기에서 사진을 등록해 주세요')+'</div>'
+ +'<div class="cover-photo">'+(D.cover&&D.cover.video
+   ?'<video src="'+esc(D.cover.video)+'" poster="'+esc(mediaSource(D.cover.image,DEFAULT_MEDIA.cover))+'" autoplay muted loop playsinline preload="metadata" aria-label="커버 영상"></video>'
+   :imgOrPh(mediaSource(D.cover&&D.cover.image,DEFAULT_MEDIA.cover),'커버 사진',L.coverPlaceholderTitle||'커버 사진',L.coverPlaceholderSubtitle||'편집기에서 사진을 등록해 주세요'))+'</div>'
  +'<div class="cover-text">'
  +'<div class="cover-script">'+esc(L.coverEyebrow||'Wedding Invitation')+'</div>'
  +'<div class="cover-date">'+esc(dateText())+'</div>'
@@ -736,6 +739,8 @@ H.push('<section id="share" class="reveal">'
 H.push('<footer>'+esc(D.footer&&D.footer.text?D.footer.text:'Thank you')+'</footer>');
 
 document.getElementById('app').innerHTML=H.join('');
+var coverVideo=document.querySelector('#cover video');
+if(coverVideo){coverVideo.muted=true;coverVideo.play().catch(function(){});}
 if(D.map&&D.map.show)initPreferredMap(D,window.__weddingRenderToken);
 
 /* ───────── 동작 연결 ───────── */

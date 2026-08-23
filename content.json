@@ -35,7 +35,8 @@
     "address": "부산광역시 해운대구 센텀1로 25 센텀한샘빌딩 8층"
   },
   "cover": {
-    "image": "assets/default-cover.svg"
+    "image": "assets/default-cover.svg",
+    "video": ""
   },
   "intro": {
     "image": "assets/default-intro.svg"
