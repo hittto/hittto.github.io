@@ -640,6 +640,7 @@
       extract('cover.image', 'cover');
       extract('cover.video', 'cover-video');
       extract('intro.image', 'intro');
+      extract('map.image', 'venue-map');
       extract('share.ogImageUrl', 'share');
       extract('bgm.src', 'bgm');
       cleanContent.gallery.images = (cleanContent.gallery.images || []).map((value, index) => {
@@ -710,10 +711,19 @@
       const draft = await loadDraft();
       const draftContent = draft?.content || draft;
       content = draftContent ? migrateLegacy(draftContent, originalContent) : mergeDefaults(originalContent, publishedContent);
+      const publishedGuideVersion = Number(publishedContent.map?.guideVersion || 0);
+      const draftGuideVersion = Number(draftContent?.map?.guideVersion || 0);
+      const shouldRefreshPublishedGuides = Boolean(draftContent && publishedGuideVersion > draftGuideVersion);
+      if (shouldRefreshPublishedGuides) {
+        content.map.guides = clone(publishedContent.map?.guides || []);
+        content.map.guideVersion = publishedGuideVersion;
+        content.map.image = publishedContent.map?.image || content.map.image;
+      }
       if (content.cover && !content.cover.video && !content.cover.videoRemoved && publishedContentSnapshot.cover?.video) {
         content.cover.video = publishedContentSnapshot.cover.video;
       }
       security = draft?.content && draft.security ? mergeDefaults(publishedSecurity, draft.security) : clone(publishedSecurity);
+      if (shouldRefreshPublishedGuides) await storeDraft({ content, security });
       bindInputs(); refreshAll(); saveState.textContent = '자동 저장 준비됨';
       previewFrame.addEventListener('load', sendPreview);
     } catch (error) {

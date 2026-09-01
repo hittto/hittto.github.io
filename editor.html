@@ -130,10 +130,13 @@
         <summary><span>07</span> 오시는 길</summary>
         <div class="form-section">
           <label class="switch-row"><input data-path="map.show" type="checkbox"> 지도와 오시는 길 섹션 표시</label>
-          <div class="welcome-card map-priority-card">
-            <strong>약도 이미지</strong>
-            <p>카카오·네이버·구글 지도 API 없이 식장 주변 약도를 표시합니다. 주소와 교통 안내 문구를 함께 수정해 주세요.</p>
+          <div class="media-editor map-media-editor" data-image-card="map.image">
+            <div class="media-preview portrait"></div>
+            <strong>오시는 길 약도</strong>
+            <label class="upload-button">약도 이미지 선택<input type="file" accept="image/*" data-image-input="map.image"></label>
+            <button type="button" data-image-clear="map.image">기본 약도로</button>
           </div>
+          <p class="help-text">지도 API 없이 약도 이미지를 표시합니다. 필요하면 새 약도를 선택하고 아래 교통 안내 문구를 수정해 주세요.</p>
           <div class="divider-label">교통 안내</div>
           <div id="guide-editor"></div>
           <button class="wide-button" type="button" data-add-guide>+ 교통 안내 추가</button>

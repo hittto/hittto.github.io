@@ -589,8 +589,9 @@ if(D.calendar&&D.calendar.show){
 if(D.map&&D.map.show){
  var q=encodeURIComponent(D.wedding.address||D.wedding.venue);
  var qName=encodeURIComponent(D.wedding.venue||D.wedding.address);
+ var mapImage=D.map.image||'assets/default-map.svg';
   var mhtml='<section id="location" class="reveal"><div class="eyebrow">'+esc(L.locationEyebrow||'Location')+'</div><div class="sec-title">'+esc(L.locationTitle||'오시는 길')+'</div>'
-   +'<div class="map-frame"><img class="venue-map" src="assets/venue-map-grayscale.png" alt="그랜드블랑을 위쪽에, 센텀시티역 11번·13번 출구와 버스정류장을 아래쪽에 표시한 그레이스케일 약도"></div>'
+   +'<div class="map-frame"><img class="venue-map" src="'+esc(mapImage)+'" alt="예식장 오시는 길 약도"></div>'
    +'<div class="loc-name">'+esc(D.wedding.venue)+(D.wedding.hall?' '+esc(D.wedding.hall):'')+'</div>'
    +'<div class="loc-addr">'+esc(D.wedding.address)+'</div>'
    +'<button class="copy-sm" id="addrCopy">'+esc(L.addressCopy||'주소 복사하기')+'</button>'

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1100" viewBox="0 0 900 1100" role="img" aria-labelledby="title desc">
+  <title id="title">기본 약도 이미지</title>
+  <desc id="desc">편집기에서 약도 이미지를 등록하라는 안내</desc>
+  <rect width="900" height="1100" fill="#f7f5f3"/>
+  <g fill="none" stroke="#ddd8d4" stroke-width="38">
+    <path d="M80 230H820M80 760H820M300 70V1030M650 70V1030"/>
+  </g>
+  <path d="M450 500C415 452 392 421 392 385a58 58 0 0 1 116 0c0 36-23 67-58 115Z" fill="#9d8f8a"/>
+  <circle cx="450" cy="386" r="20" fill="#f7f5f3"/>
+  <text x="450" y="610" text-anchor="middle" fill="#5e5551" font-family="Noto Sans KR,Apple SD Gothic Neo,Malgun Gothic,sans-serif" font-size="46" font-weight="700">약도 이미지</text>
+  <text x="450" y="670" text-anchor="middle" fill="#918580" font-family="Noto Sans KR,Apple SD Gothic Neo,Malgun Gothic,sans-serif" font-size="28">편집기에서 이미지를 등록해 주세요</text>
+</svg>
