@@ -35,7 +35,7 @@
     "address": "부산광역시 해운대구 센텀1로 25 센텀한샘빌딩 8층"
   },
   "cover": {
-    "image": "assets/default-cover.svg",
+    "image": "assets/placeholder-photo.svg",
     "video": "assets/uploads/cover.mp4"
   },
   "intro": {
@@ -122,7 +122,7 @@
   },
   "map": {
     "show": true,
-    "image": "assets/grand-blanc-grayscale-map.png?v=20260901-final",
+    "image": "assets/venue-map.svg?v=20260901-attached-only",
     "guideVersion": 20260901,
     "guides": [
       {
@@ -161,12 +161,6 @@
           "number": "1000-2573-4121",
           "holder": "황희수",
           "label": "신랑"
-        },
-        {
-          "bank": "은행",
-          "number": "",
-          "holder": "",
-          "label": "신랑"
         }
       ]
     },
@@ -203,7 +197,7 @@
     "desc": "소중한 분들을 저희의 시작에 초대합니다.",
     "url": "https://hittto.github.io/",
     "kakaoKey": "",
-    "ogImageUrl": "assets/default-share.svg"
+    "ogImageUrl": "assets/placeholder-photo-wide.svg"
   },
   "labels": {
     "coverEyebrow": "Wedding Invitation",
