@@ -35,8 +35,8 @@
     "address": "부산광역시 해운대구 센텀1로 25 센텀한샘빌딩 8층"
   },
   "cover": {
-    "image": "assets/default-cover.svg",
-    "video": "assets/uploads/cover.mp4"
+    "image": "assets/placeholder-photo.svg",
+    "video": ""
   },
   "intro": {
     "image": "assets/uploads/intro-1788264341335.jpg"
@@ -67,14 +67,53 @@
   },
   "gallery": {
     "show": true,
-    "initial": 6,
+    "initial": 46,
     "images": [
-      "assets/default-cover.svg",
-      "assets/default-intro.svg",
-      "assets/default-detail-01.svg",
-      "assets/default-detail-02.svg",
-      "assets/default-detail-03.svg",
-      "assets/default-detail-04.svg"
+      "assets/uploads/gallery-01-1788267396008.jpg",
+      "assets/uploads/gallery-02-1788267396008.jpg",
+      "assets/uploads/gallery-03-1788267396008.jpg",
+      "assets/uploads/gallery-04-1788267396008.jpg",
+      "assets/uploads/gallery-05-1788267396008.jpg",
+      "assets/uploads/gallery-06-1788267396008.jpg",
+      "assets/uploads/gallery-07-1788267396008.jpg",
+      "assets/uploads/gallery-08-1788267396008.jpg",
+      "assets/uploads/gallery-09-1788267396008.jpg",
+      "assets/uploads/gallery-10-1788267396008.jpg",
+      "assets/uploads/gallery-11-1788267396008.jpg",
+      "assets/uploads/gallery-12-1788267396008.jpg",
+      "assets/uploads/gallery-13-1788267396008.jpg",
+      "assets/uploads/gallery-14-1788267396008.jpg",
+      "assets/uploads/gallery-15-1788267396008.jpg",
+      "assets/uploads/gallery-16-1788267396008.jpg",
+      "assets/uploads/gallery-17-1788267396008.jpg",
+      "assets/uploads/gallery-18-1788267396008.jpg",
+      "assets/uploads/gallery-19-1788267396008.jpg",
+      "assets/uploads/gallery-20-1788267396008.jpg",
+      "assets/uploads/gallery-21-1788267396008.jpg",
+      "assets/uploads/gallery-22-1788267396008.jpg",
+      "assets/uploads/gallery-23-1788267396008.jpg",
+      "assets/uploads/gallery-24-1788267396008.jpg",
+      "assets/uploads/gallery-25-1788267396008.jpg",
+      "assets/uploads/gallery-26-1788267396008.jpg",
+      "assets/uploads/gallery-27-1788267396008.jpg",
+      "assets/uploads/gallery-28-1788267396008.jpg",
+      "assets/uploads/gallery-29-1788267396008.jpg",
+      "assets/uploads/gallery-30-1788267396008.jpg",
+      "assets/uploads/gallery-31-1788267396008.jpg",
+      "assets/uploads/gallery-32-1788267396008.jpg",
+      "assets/uploads/gallery-33-1788267396008.jpg",
+      "assets/uploads/gallery-34-1788267396008.jpg",
+      "assets/uploads/gallery-35-1788267396008.jpg",
+      "assets/uploads/gallery-36-1788267396008.jpg",
+      "assets/uploads/gallery-37-1788267396008.jpg",
+      "assets/uploads/gallery-38-1788267396008.jpg",
+      "assets/uploads/gallery-39-1788267396008.jpg",
+      "assets/uploads/gallery-40-1788267396008.jpg",
+      "assets/uploads/gallery-41-1788267396008.jpg",
+      "assets/uploads/gallery-42-1788267396008.jpg",
+      "assets/uploads/gallery-43-1788267396008.jpg",
+      "assets/uploads/gallery-44-1788267396008.jpg",
+      "assets/uploads/gallery-45-1788267396008.jpg"
     ]
   },
   "calendar": {
@@ -121,6 +160,12 @@
           "number": "1000-2573-4121",
           "holder": "황희수",
           "label": "신랑"
+        },
+        {
+          "bank": "은행",
+          "number": "",
+          "holder": "",
+          "label": "신랑"
         }
       ]
     },
@@ -128,20 +173,20 @@
       "title": "👰🏻‍♀️ 신부 측 계좌번호",
       "items": [
         {
-          "bank": "국민은행",
-          "number": "000-0000-0000",
+          "bank": "우리은행",
+          "number": "1002-065-466940",
           "holder": "조혜정",
           "label": "신부"
         },
         {
-          "bank": "은행",
-          "number": "",
-          "holder": "조길례",
+          "bank": "부산은행",
+          "number": "105-12-066286-7",
+          "holder": "조길래",
           "label": "아버지"
         },
         {
-          "bank": "은행",
-          "number": "",
+          "bank": "부산은행",
+          "number": "105-12-074713-1",
           "holder": "강경화",
           "label": "어머니"
         }
@@ -149,7 +194,7 @@
     }
   },
   "bgm": {
-    "src": "",
+    "src": "assets/uploads/bgm-1788267396008.mp3",
     "autoplay": true
   },
   "share": {
@@ -157,7 +202,7 @@
     "desc": "소중한 분들을 저희의 시작에 초대합니다.",
     "url": "https://hittto.github.io/",
     "kakaoKey": "",
-    "ogImageUrl": "assets/default-share.svg"
+    "ogImageUrl": "assets/placeholder-photo-wide.svg"
   },
   "labels": {
     "coverEyebrow": "Wedding Invitation",
