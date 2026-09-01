@@ -19,6 +19,7 @@
     }
   };
   let originalContent = null;
+  let publishedContentSnapshot = null;
   let content = null;
   let security = null;
   let saveTimer = null;
@@ -426,7 +427,10 @@
       saveState.textContent = '원본 사진 읽는 중…';
       try {
         setPath(content, input.dataset.imageInput, await readImageFile(input.files[0]));
-        if (input.dataset.clearOnSelect) setPath(content, input.dataset.clearOnSelect, '');
+        if (input.dataset.clearOnSelect) {
+          setPath(content, input.dataset.clearOnSelect, '');
+          if (input.dataset.clearOnSelect === 'cover.video') setPath(content, 'cover.videoRemoved', true);
+        }
         refreshMediaCards(); scheduleSave();
       } catch (error) { alert(error.message); }
       input.value = '';
@@ -434,7 +438,10 @@
     document.querySelectorAll('[data-image-clear]').forEach((button) => button.addEventListener('click', () => {
       const path = button.dataset.imageClear;
       setPath(content, path, clone(getPath(originalContent, path) || ''));
-      if (button.dataset.clearOnDefault) setPath(content, button.dataset.clearOnDefault, '');
+      if (button.dataset.clearOnDefault) {
+        setPath(content, button.dataset.clearOnDefault, '');
+        if (button.dataset.clearOnDefault === 'cover.video') setPath(content, 'cover.videoRemoved', true);
+      }
       refreshMediaCards(); scheduleSave();
     }));
     document.getElementById('cover-video-input').addEventListener('change', async (event) => {
@@ -447,12 +454,14 @@
       saveState.textContent = '커버 영상 처리 중…';
       try {
         content.cover.video = await fileToDataUrl(file);
+        content.cover.videoRemoved = false;
         refreshMediaCards(); scheduleSave();
       } catch (error) { alert(error.message); }
       event.target.value = '';
     });
     document.querySelector('[data-clear-cover-video]').addEventListener('click', () => {
       content.cover.video = '';
+      content.cover.videoRemoved = true;
       refreshMediaCards(); scheduleSave();
     });
     document.getElementById('gallery-input').addEventListener('change', async (event) => {
@@ -605,6 +614,13 @@
       const headCommit = await request(`/git/commits/${headSha}`);
       const cleanContent = clone(content);
       if (cleanContent.map) delete cleanContent.map.naverClientId;
+      // 오래된 브라우저 초안이 영상 경로를 비워도, 게시된 커버 영상을
+      // 실수로 덮어쓰지 않도록 복원합니다. 편집기에서 명시적으로 제거한
+      // 경우(cover.videoRemoved)는 빈 값 그대로 게시합니다.
+      if (cleanContent.cover && !cleanContent.cover.video && !cleanContent.cover.videoRemoved && publishedContentSnapshot?.cover?.video) {
+        cleanContent.cover.video = publishedContentSnapshot.cover.video;
+      }
+      if (cleanContent.cover) delete cleanContent.cover.videoRemoved;
       const cleanSecurity = clone(security);
       const uploadFiles = [];
       const stamp = Date.now();
@@ -661,7 +677,7 @@
       const tree = await request('/git/trees', { method: 'POST', body: JSON.stringify({ base_tree: headCommit.tree.sha, tree: treeEntries }) });
       const commit = await request('/git/commits', { method: 'POST', body: JSON.stringify({ message: `청첩장 내용 수정 (${new Date().toLocaleString('ko-KR')})`, tree: tree.sha, parents: [headSha] }) });
       await request(`/git/refs/heads/${encodeURIComponent(branch)}`, { method: 'PATCH', body: JSON.stringify({ sha: commit.sha, force: false }) });
-      content = cleanContent; security = cleanSecurity; await storeDraft({ content, security }); refreshAll(); tokenInput.value = '';
+      content = cleanContent; security = cleanSecurity; publishedContentSnapshot = clone(cleanContent); await storeDraft({ content, security }); refreshAll(); tokenInput.value = '';
       publishStatus.innerHTML = '게시가 완료되었습니다 ✓<br>GitHub Pages 반영까지 보통 1~3분 정도 걸립니다.';
       publishStatus.className = 'publish-status success'; saveState.textContent = '게시 완료 ✓';
     } catch (error) {
@@ -681,12 +697,16 @@
       if (!defaultResponse.ok) throw new Error('개인정보 없는 초기값을 읽을 수 없습니다.');
       if (!securityResponse.ok) throw new Error('편집기 보안 설정을 읽을 수 없습니다.');
       const publishedContent = await publishedResponse.json();
+      publishedContentSnapshot = clone(publishedContent);
       const publishedSecurity = mergeDefaults(defaultSecurity, await securityResponse.json());
       originalContent = await defaultResponse.json();
       await requireEditorPassword(publishedSecurity);
       const draft = await loadDraft();
       const draftContent = draft?.content || draft;
       content = draftContent ? migrateLegacy(draftContent, originalContent) : mergeDefaults(originalContent, publishedContent);
+      if (content.cover && !content.cover.video && !content.cover.videoRemoved && publishedContentSnapshot.cover?.video) {
+        content.cover.video = publishedContentSnapshot.cover.video;
+      }
       security = draft?.content && draft.security ? mergeDefaults(publishedSecurity, draft.security) : clone(publishedSecurity);
       bindInputs(); refreshAll(); saveState.textContent = '자동 저장 준비됨';
       previewFrame.addEventListener('load', sendPreview);
