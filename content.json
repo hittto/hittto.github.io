@@ -122,7 +122,6 @@
   },
   "map": {
     "show": true,
-    "kakaoAppKey": "f661ca61f63d18b306f13700a95d1d42",
     "guides": [
       {
         "title": "🚃 지하철",

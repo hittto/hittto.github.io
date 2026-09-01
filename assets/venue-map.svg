@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">그랜드블랑 오시는 길 약도</title>
+  <desc id="desc">센텀시티역 11번과 13번 출구, 신세계 센텀시티, 벡스코와 그랜드블랑의 위치를 보여주는 안내도</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#fffaf7"/>
+      <stop offset="1" stop-color="#f4e8e2"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#8a665e" flood-opacity=".14"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto">
+      <path d="M0 0L12 6L0 12Z" fill="#d7838e"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="900" rx="28" fill="url(#paper)"/>
+  <path d="M0 630C190 560 295 690 450 625S780 490 1200 585V900H0Z" fill="#f1dfd8" opacity=".46"/>
+
+  <!-- 도로 -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M105 155C290 245 355 305 440 415S610 635 745 760" stroke="#e4c6be" stroke-width="54"/>
+    <path d="M1060 95C925 210 850 294 795 390S690 615 655 820" stroke="#ead1ca" stroke-width="46"/>
+    <path d="M95 520C330 505 505 500 710 512S1015 560 1150 665" stroke="#e9cec7" stroke-width="42"/>
+    <path d="M310 80C360 220 460 305 610 390S890 560 1070 820" stroke="#fffaf7" stroke-width="15" stroke-dasharray="2 20"/>
+    <path d="M70 520C320 508 500 505 710 516S1020 565 1160 670" stroke="#fffaf7" stroke-width="12" stroke-dasharray="2 18"/>
+  </g>
+  <text x="860" y="198" fill="#b99389" font-family="Noto Sans KR, Arial, sans-serif" font-size="23" letter-spacing="3" transform="rotate(-48 860 198)">APEC로</text>
+  <text x="300" y="450" fill="#b99389" font-family="Noto Sans KR, Arial, sans-serif" font-size="22" letter-spacing="2" transform="rotate(39 300 450)">센텀1로</text>
+
+  <!-- 주요 시설 -->
+  <g filter="url(#shadow)">
+    <rect x="92" y="112" width="288" height="138" rx="22" fill="#fff"/>
+    <circle cx="142" cy="163" r="25" fill="#f4879f"/>
+    <path d="M132 163h20M142 153v20" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+    <text x="185" y="165" fill="#554b48" font-family="Noto Sans KR, Arial, sans-serif" font-size="30" font-weight="700">센텀시티역</text>
+    <text x="185" y="207" fill="#8e7770" font-family="Noto Sans KR, Arial, sans-serif" font-size="21">2호선 · 11·13번 출구</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="835" y="113" width="270" height="132" rx="22" fill="#fff"/>
+    <rect x="881" y="147" width="50" height="42" rx="7" fill="#f3b3b8"/>
+    <path d="M888 160h36M888 174h36" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+    <text x="955" y="165" fill="#554b48" font-family="Noto Sans KR, Arial, sans-serif" font-size="27" font-weight="700">신세계 센텀시티</text>
+    <text x="955" y="207" fill="#8e7770" font-family="Noto Sans KR, Arial, sans-serif" font-size="20">버스 하차 · 도보 이동</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="440" y="665" width="355" height="170" rx="25" fill="#fff"/>
+    <rect x="477" y="706" width="57" height="57" rx="12" fill="#d7838e"/>
+    <path d="M491 706v-17h29v17M487 730h37M487 747h37" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="566" y="724" fill="#9b4c5c" font-family="Noto Sans KR, Arial, sans-serif" font-size="31" font-weight="700">그랜드블랑</text>
+    <text x="566" y="763" fill="#665653" font-family="Noto Sans KR, Arial, sans-serif" font-size="21">센텀1로 25 · 8층 미라벨가든</text>
+    <text x="566" y="798" fill="#a58d87" font-family="Noto Sans KR, Arial, sans-serif" font-size="18">예식장 도착</text>
+  </g>
+
+  <g>
+    <rect x="922" y="480" width="160" height="90" rx="18" fill="#fff" stroke="#ead1ca" stroke-width="3"/>
+    <text x="1002" y="521" text-anchor="middle" fill="#665653" font-family="Noto Sans KR, Arial, sans-serif" font-size="25" font-weight="700">벡스코</text>
+    <text x="1002" y="552" text-anchor="middle" fill="#a58d87" font-family="Noto Sans KR, Arial, sans-serif" font-size="17">APEC로</text>
+  </g>
+
+  <!-- 도보 안내 -->
+  <path d="M380 225C500 260 605 365 666 505C693 567 696 629 620 690" fill="none" stroke="#d7838e" stroke-width="8" stroke-dasharray="16 14" marker-end="url(#arrow)"/>
+  <circle cx="432" cy="246" r="19" fill="#d7838e"/>
+  <text x="432" y="253" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="18" font-weight="700">11</text>
+  <circle cx="477" cy="277" r="19" fill="#d7838e"/>
+  <text x="477" y="284" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="18" font-weight="700">13</text>
+  <text x="515" y="336" fill="#a55d69" font-family="Noto Sans KR, Arial, sans-serif" font-size="24" font-weight="700">출구에서 약 5분</text>
+
+  <!-- 주차 -->
+  <g transform="translate(120 700)">
+    <rect width="220" height="104" rx="20" fill="#fff" stroke="#ead1ca" stroke-width="3"/>
+    <circle cx="42" cy="52" r="25" fill="#ead1ca"/>
+    <text x="42" y="61" text-anchor="middle" fill="#8e6b64" font-family="Arial, sans-serif" font-size="27" font-weight="700">P</text>
+    <text x="82" y="47" fill="#665653" font-family="Noto Sans KR, Arial, sans-serif" font-size="21" font-weight="700">주차 안내</text>
+    <text x="82" y="76" fill="#a58d87" font-family="Noto Sans KR, Arial, sans-serif" font-size="17">1·2주차장 지하</text>
+  </g>
+
+  <text x="600" y="875" text-anchor="middle" fill="#ad938c" font-family="Noto Sans KR, Arial, sans-serif" font-size="17">약도는 이해를 돕기 위한 안내도입니다 · 주소를 기준으로 이동해 주세요</text>
+</svg>

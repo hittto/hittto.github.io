@@ -387,7 +387,10 @@
   }
 
   function refreshAll() {
-    if (content?.map) delete content.map.naverClientId;
+    if (content?.map) {
+      delete content.map.naverClientId;
+      delete content.map.kakaoAppKey;
+    }
     populateFields();
     refreshMediaCards();
     renderGalleryEditor();
@@ -613,7 +616,10 @@
       const headSha = ref.object.sha;
       const headCommit = await request(`/git/commits/${headSha}`);
       const cleanContent = clone(content);
-      if (cleanContent.map) delete cleanContent.map.naverClientId;
+      if (cleanContent.map) {
+        delete cleanContent.map.naverClientId;
+        delete cleanContent.map.kakaoAppKey;
+      }
       // 오래된 브라우저 초안이 영상 경로를 비워도, 게시된 커버 영상을
       // 실수로 덮어쓰지 않도록 복원합니다. 편집기에서 명시적으로 제거한
       // 경우(cover.videoRemoved)는 빈 값 그대로 게시합니다.
