@@ -122,7 +122,7 @@
   },
   "map": {
     "show": true,
-    "image": "assets/venue-map.svg?v=20260901-attached-only",
+    "image": "assets/grand-blanc-grayscale-map.png?v=20260901-final",
     "guideVersion": 20260901,
     "guides": [
       {
