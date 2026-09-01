@@ -80,7 +80,7 @@
           <p class="help-text">커버에는 9:16 사진 또는 MP4 영상을 넣을 수 있으며, 영상은 모바일에서 무음으로 자동 반복 재생됩니다. MP4는 자동 압축하지 않으므로 미리 용량을 줄여 주세요.</p>
           <div class="media-editor-grid">
             <div class="media-editor cover-media-editor" data-image-card="cover.image"><div class="media-preview portrait"><video id="cover-video-preview" muted loop autoplay playsinline hidden></video></div><strong>커버 사진 또는 MP4 · 2160×3840 (9:16)</strong><label class="upload-button">사진 선택<input type="file" accept="image/*" data-image-input="cover.image" data-clear-on-select="cover.video"></label><label class="upload-button video-upload-button">MP4 선택<input id="cover-video-input" type="file" accept="video/mp4,.mp4"></label><button type="button" data-clear-cover-video>영상 제거</button><button type="button" data-image-clear="cover.image" data-clear-on-default="cover.video">기본 이미지로</button><span class="media-state" id="cover-media-state">기본 커버 이미지 사용 중</span></div>
-            <div class="media-editor" data-image-card="intro.image"><div class="media-preview"></div><strong>서브 사진</strong><label class="upload-button">사진 선택<input type="file" accept="image/*" data-image-input="intro.image"></label><button type="button" data-image-clear="intro.image">기본 이미지로</button></div>
+            <div class="media-editor intro-media-editor" data-image-card="intro.image"><div class="media-preview"></div><strong>서브 사진 · 세로 전체 표시</strong><label class="upload-button">사진 선택<input type="file" accept="image/*" data-image-input="intro.image"></label><button type="button" data-image-clear="intro.image">기본 이미지로</button></div>
             <div class="media-editor" data-image-card="share.ogImageUrl"><div class="media-preview"></div><strong>공유 대표 사진</strong><label class="upload-button">사진 선택<input type="file" accept="image/*" data-image-input="share.ogImageUrl"></label><button type="button" data-image-clear="share.ogImageUrl">기본 이미지로</button></div>
           </div>
           <label>웨딩 영상 주소<input data-path="video.url" type="url" placeholder="비워두면 기본 웨딩 영상 카드가 표시됩니다"></label>
@@ -132,12 +132,11 @@
           <label class="switch-row"><input data-path="map.show" type="checkbox"> 지도와 오시는 길 섹션 표시</label>
           <div class="welcome-card map-priority-card">
             <strong>지도 배경 우선순위</strong>
-            <p><b>1. 네이버 지도</b> → <b>2. 카카오맵</b> → <b>3. 구글 지도</b> 순으로 자동 선택합니다.</p>
+            <p><b>1. 카카오맵</b> → <b>2. 구글 지도</b> 순으로 자동 선택합니다.</p>
           </div>
-          <label>네이버 지도 Client ID<input data-path="map.naverClientId" type="password" autocomplete="off" placeholder="ncpKeyId (선택 입력)"></label>
           <label>카카오 지도 JavaScript 키<input data-path="map.kakaoAppKey" type="password" autocomplete="off" placeholder="선택 입력 · 공유용 카카오 키도 사용 가능"></label>
-          <p class="help-text">지도 위치는 02 예식 정보의 주소를 사용합니다. 네이버 키가 없거나 불러오지 못하면 카카오, 카카오도 사용할 수 없으면 구글 지도로 자동 전환됩니다. 각 지도 키에는 <strong>https://hittto.github.io</strong> 도메인을 등록해 주세요.</p>
-          <div class="map-key-links"><a href="https://navermaps.github.io/maps.js.ncp/docs/tutorial-Geocoder-Geocoding.html" target="_blank" rel="noopener">네이버 지도 키 안내</a><a href="https://apis.map.kakao.com/web/guide/" target="_blank" rel="noopener">카카오 지도 키 안내</a></div>
+          <p class="help-text">지도 위치는 02 예식 정보의 주소를 사용합니다. 카카오맵을 불러올 수 없으면 구글 지도로 자동 전환됩니다. 카카오 키에는 <strong>https://hittto.github.io</strong> 도메인을 등록해 주세요.</p>
+          <div class="map-key-links"><a href="https://apis.map.kakao.com/web/guide/" target="_blank" rel="noopener">카카오 지도 키 안내</a></div>
           <div class="divider-label">교통 안내</div>
           <div id="guide-editor"></div>
           <button class="wide-button" type="button" data-add-guide>+ 교통 안내 추가</button>

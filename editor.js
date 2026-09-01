@@ -386,6 +386,7 @@
   }
 
   function refreshAll() {
+    if (content?.map) delete content.map.naverClientId;
     populateFields();
     refreshMediaCards();
     renderGalleryEditor();
@@ -608,6 +609,7 @@
       const headSha = ref.object.sha;
       const headCommit = await request(`/git/commits/${headSha}`);
       const cleanContent = clone(content);
+      if (cleanContent.map) delete cleanContent.map.naverClientId;
       const cleanSecurity = clone(security);
       const uploadFiles = [];
       const stamp = Date.now();
