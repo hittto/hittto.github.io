@@ -402,26 +402,41 @@ function initPreferredMap(D,renderToken){
     var src='https://dapi.kakao.com/v2/maps/sdk.js?appkey='+encodeURIComponent(kakaoKey)+'&autoload=false&libraries=services';
     return loadMapScript('kakao-map-sdk',src,function(){return !!(window.kakao&&kakao.maps&&kakao.maps.load);}).then(function(){
       return new Promise(function(resolve,reject){
+        var settled=false;
+        var timer=setTimeout(function(){finish(new Error('카카오 지도 초기화 시간이 초과되었습니다.'));},8000);
+        function finish(error){if(settled)return;settled=true;clearTimeout(timer);error?reject(error):resolve();}
         kakao.maps.load(function(){
-          if(!active()){resolve();return;}
+          if(!active()){finish();return;}
           try{
-            var geocoder=new kakao.maps.services.Geocoder();
-            var settled=false;
-            var timer=setTimeout(function(){finish(new Error('카카오 주소 검색 시간 초과'));},6000);
-            function finish(error){if(settled)return;settled=true;clearTimeout(timer);error?reject(error):resolve();}
-            geocoder.addressSearch(address,function(result,status){
-              if(settled)return;
-              if(!active()){finish();return;}
-              if(status!==kakao.maps.services.Status.OK||!result[0]){finish(new Error('카카오 주소 검색 실패'));return;}
+            if(!kakao.maps.services){finish(new Error('카카오 장소 검색 서비스를 사용할 수 없습니다.'));return;}
+            function draw(result){
+              if(!result||!active()){finish();return;}
               try{
-                var position=new kakao.maps.LatLng(Number(result[0].y),Number(result[0].x));
+                var position=new kakao.maps.LatLng(Number(result.y),Number(result.x));
                 container.innerHTML='';
                 var map=new kakao.maps.Map(container,{center:position,level:4});
                 new kakao.maps.Marker({position:position,map:map,title:D.wedding.venue||''});
                 badge('카카오맵');finish();
               }catch(error){finish(error);}
+            }
+            function keywordFallback(){
+              if(!address||!kakao.maps.services.Places){finish(new Error('카카오 주소 검색 실패'));return;}
+              var places=new kakao.maps.services.Places();
+              places.keywordSearch(address,function(result,status){
+                if(settled)return;
+                if(!active()){finish();return;}
+                if(status===kakao.maps.services.Status.OK&&result[0])draw(result[0]);
+                else finish(new Error('카카오 장소 검색 실패'));
+              });
+            }
+            var geocoder=new kakao.maps.services.Geocoder();
+            geocoder.addressSearch(address,function(result,status){
+              if(settled)return;
+              if(!active()){finish();return;}
+              if(status===kakao.maps.services.Status.OK&&result[0])draw(result[0]);
+              else keywordFallback();
             });
-          }catch(error){reject(error);}
+          }catch(error){finish(error);}
         });
       });
     });

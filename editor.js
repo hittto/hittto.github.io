@@ -398,29 +398,6 @@
     sendPreview();
   }
 
-  function compressImage(file, maxSize = 1600, quality = 0.84) {
-    return new Promise((resolve, reject) => {
-      if (!file || !file.type.startsWith('image/')) return reject(new Error('이미지 파일만 선택할 수 있습니다.'));
-      const image = new Image();
-      const objectUrl = URL.createObjectURL(file);
-      image.onload = () => {
-        let width = image.naturalWidth;
-        let height = image.naturalHeight;
-        const ratio = Math.min(1, maxSize / Math.max(width, height));
-        width = Math.round(width * ratio); height = Math.round(height * ratio);
-        const canvas = document.createElement('canvas');
-        canvas.width = width; canvas.height = height;
-        const context = canvas.getContext('2d');
-        context.fillStyle = '#fff'; context.fillRect(0, 0, width, height);
-        context.drawImage(image, 0, 0, width, height);
-        URL.revokeObjectURL(objectUrl);
-        resolve(canvas.toDataURL('image/jpeg', quality));
-      };
-      image.onerror = () => { URL.revokeObjectURL(objectUrl); reject(new Error('사진을 읽을 수 없습니다.')); };
-      image.src = objectUrl;
-    });
-  }
-
   function fileToDataUrl(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -428,6 +405,13 @@
       reader.onerror = () => reject(new Error('파일을 읽을 수 없습니다.'));
       reader.readAsDataURL(file);
     });
+  }
+
+  async function readImageFile(file) {
+    if (!file || !file.type.startsWith('image/')) throw new Error('이미지 파일만 선택할 수 있습니다.');
+    // 원본 해상도·비율·파일 형식을 유지합니다. 용량을 줄인 파일이 필요하면
+    // 사용자가 직접 압축한 파일을 선택할 수 있도록 자동 재인코딩하지 않습니다.
+    return fileToDataUrl(file);
   }
 
   function bindInputs() {
@@ -439,9 +423,9 @@
     });
     document.querySelectorAll('[data-image-input]').forEach((input) => input.addEventListener('change', async () => {
       if (!input.files[0]) return;
-      saveState.textContent = '사진 처리 중…';
+      saveState.textContent = '원본 사진 읽는 중…';
       try {
-        setPath(content, input.dataset.imageInput, await compressImage(input.files[0]));
+        setPath(content, input.dataset.imageInput, await readImageFile(input.files[0]));
         if (input.dataset.clearOnSelect) setPath(content, input.dataset.clearOnSelect, '');
         refreshMediaCards(); scheduleSave();
       } catch (error) { alert(error.message); }
@@ -477,8 +461,8 @@
       const currentImages = (content.gallery.images || []).filter(Boolean);
       content.gallery.images = currentImages.length && currentImages.every((src) => defaultImages.includes(src)) ? [] : currentImages;
       for (let i = 0; i < files.length; i += 1) {
-        saveState.textContent = `사진 처리 중 ${i + 1}/${files.length}`;
-        try { content.gallery.images.push(await compressImage(files[i], 1500, 0.82)); }
+        saveState.textContent = `원본 사진 읽는 중 ${i + 1}/${files.length}`;
+        try { content.gallery.images.push(await readImageFile(files[i])); }
         catch (error) { alert(`${files[i].name}: ${error.message}`); }
       }
       event.target.value = ''; renderGalleryEditor(); scheduleSave();
@@ -569,7 +553,18 @@
     const match = String(dataUrl).match(/^data:([^;,]+);base64,(.+)$/);
     if (!match) throw new Error('업로드 파일 데이터를 읽을 수 없습니다.');
     const mime = match[1];
-    const extension = mime === 'video/mp4' ? 'mp4' : mime.includes('png') ? 'png' : mime.includes('webp') ? 'webp' : mime.includes('mpeg') ? 'mp3' : mime.includes('mp4') ? 'm4a' : mime.includes('ogg') ? 'ogg' : mime.includes('wav') ? 'wav' : 'jpg';
+    const extension = mime === 'video/mp4' ? 'mp4'
+      : mime.includes('jpeg') || mime.includes('jpg') ? 'jpg'
+      : mime.includes('png') ? 'png'
+      : mime.includes('webp') ? 'webp'
+      : mime.includes('gif') ? 'gif'
+      : mime.includes('avif') ? 'avif'
+      : mime.includes('svg') ? 'svg'
+      : mime.includes('mpeg') ? 'mp3'
+      : mime.includes('mp4') ? 'm4a'
+      : mime.includes('ogg') ? 'ogg'
+      : mime.includes('wav') ? 'wav'
+      : 'bin';
     return { base64: match[2], extension };
   }
 

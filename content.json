@@ -36,7 +36,7 @@
   },
   "cover": {
     "image": "assets/default-cover.svg",
-    "video": ""
+    "video": "assets/uploads/cover.mp4"
   },
   "intro": {
     "image": "assets/default-intro.svg"
