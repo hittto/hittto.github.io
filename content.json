@@ -31,15 +31,15 @@
     "date": "2026-11-07",
     "time": "13:00",
     "venue": "그랜드블랑",
-    "hall": "미라벨가든",
+    "hall": "8층 미라벨가든",
     "address": "부산광역시 해운대구 센텀1로 25 센텀한샘빌딩 8층"
   },
   "cover": {
-    "image": "assets/default-cover.svg",
+    "image": "assets/placeholder-photo.svg",
     "video": ""
   },
   "intro": {
-    "image": "assets/default-intro.svg"
+    "image": "assets/uploads/intro-1788264341335.jpg"
   },
   "greeting": {
     "show": true,
@@ -83,7 +83,7 @@
   },
   "map": {
     "show": true,
-    "kakaoAppKey": "6272acf8b347f8a83c8d3acfcf54ce55",
+    "kakaoAppKey": "f661ca61f63d18b306f13700a95d1d42",
     "guides": [
       {
         "title": "🚃 지하철",
@@ -157,7 +157,7 @@
     "desc": "소중한 분들을 저희의 시작에 초대합니다.",
     "url": "https://hittto.github.io/",
     "kakaoKey": "",
-    "ogImageUrl": "assets/default-share.svg"
+    "ogImageUrl": "assets/placeholder-photo-wide.svg"
   },
   "labels": {
     "coverEyebrow": "Wedding Invitation",
