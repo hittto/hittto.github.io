@@ -122,7 +122,7 @@
   },
   "map": {
     "show": true,
-    "image": "assets/uploads/venue-map-1788353113986.png",
+    "image": "assets/uploads/venue-map-1788353197608.png",
     "guideVersion": 20260901,
     "guides": [
       {
@@ -198,10 +198,10 @@
     "url": "https://hittto.github.io/",
     "kakaoKey": "",
     "ogImageUrl": "assets/uploads/share-1788351418627.jpg",
-    "previewVersion": "",
-    "ogImageType": "image/svg+xml",
-    "ogImageWidth": 1200,
-    "ogImageHeight": 630
+    "previewVersion": "1788353197608",
+    "ogImageType": "image/jpeg",
+    "ogImageWidth": 1125,
+    "ogImageHeight": 1500
   },
   "labels": {
     "coverEyebrow": "Wedding Invitation",
