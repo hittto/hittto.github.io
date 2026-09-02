@@ -580,6 +580,30 @@
     return { base64: match[2], extension };
   }
 
+  function imageMetadata(source) {
+    if (!source) return Promise.resolve({});
+    return new Promise((resolve) => {
+      const image = new Image();
+      image.onload = () => resolve({ width: image.naturalWidth, height: image.naturalHeight });
+      image.onerror = () => resolve({});
+      image.src = source;
+    });
+  }
+
+  function imageMime(source) {
+    const dataMatch = String(source || '').match(/^data:([^;,]+)/i);
+    if (dataMatch) return dataMatch[1];
+    let pathname = String(source || '').toLowerCase();
+    try { pathname = new URL(source, location.href).pathname.toLowerCase(); } catch (_) { /* keep source */ }
+    if (/\.jpe?g$/.test(pathname)) return 'image/jpeg';
+    if (/\.png$/.test(pathname)) return 'image/png';
+    if (/\.webp$/.test(pathname)) return 'image/webp';
+    if (/\.gif$/.test(pathname)) return 'image/gif';
+    if (/\.avif$/.test(pathname)) return 'image/avif';
+    if (/\.svg$/.test(pathname)) return 'image/svg+xml';
+    return '';
+  }
+
   async function publishToGitHub() {
     const owner = document.getElementById('publish-owner').value.trim();
     const repo = document.getElementById('publish-repo').value.trim();
@@ -612,10 +636,18 @@
     };
     try {
       publishStatus.textContent = '현재 게시 상태를 확인하고 있어요…';
+      const shareImageSource = content.share?.ogImageUrl || content.cover?.image || '';
+      const shareImageInfo = await imageMetadata(shareImageSource);
       const ref = await request(`/git/ref/heads/${encodeURIComponent(branch)}`);
       const headSha = ref.object.sha;
       const headCommit = await request(`/git/commits/${headSha}`);
       const cleanContent = clone(content);
+      const previewVersion = String(Date.now());
+      cleanContent.share = cleanContent.share || {};
+      cleanContent.share.previewVersion = previewVersion;
+      cleanContent.share.ogImageType = imageMime(shareImageSource);
+      cleanContent.share.ogImageWidth = shareImageInfo.width || 0;
+      cleanContent.share.ogImageHeight = shareImageInfo.height || 0;
       if (cleanContent.map) {
         delete cleanContent.map.naverClientId;
         delete cleanContent.map.kakaoAppKey;
@@ -666,9 +698,20 @@
       let indexHtml = await indexResponse.text();
       const title = escapeHtml(cleanContent.share?.title || '결혼합니다');
       const description = escapeHtml(cleanContent.share?.desc || '소중한 분들을 초대합니다.').replaceAll('\n', ' ');
-      const shareUrl = escapeHtml(cleanContent.share?.url || 'https://hittto.github.io/');
+      const baseShareUrl = cleanContent.share?.url || 'https://hittto.github.io/';
+      let shareUrl = baseShareUrl;
+      try {
+        const versionedShareUrl = new URL(baseShareUrl, location.href);
+        versionedShareUrl.searchParams.set('v', previewVersion);
+        shareUrl = versionedShareUrl.href;
+      } catch (_) { /* keep original */ }
+      shareUrl = escapeHtml(shareUrl);
       let shareImage = cleanContent.share?.ogImageUrl || cleanContent.cover?.image || '';
-      try { shareImage = new URL(shareImage, cleanContent.share?.url || location.href).href; } catch (_) { /* keep original */ }
+      try {
+        const versionedShareImage = new URL(shareImage, baseShareUrl || location.href);
+        versionedShareImage.searchParams.set('v', previewVersion);
+        shareImage = versionedShareImage.href;
+      } catch (_) { /* keep original */ }
       shareImage = escapeHtml(shareImage);
       const replaceMeta = (property, value) => {
         const pattern = new RegExp(`<meta\\s+property=["']${property}["']\\s+content=["'][^"']*["']\\s*>`, 'i');
@@ -678,6 +721,18 @@
       indexHtml = indexHtml.replace(/<title>[^<]*<\/title>/i, `<title>${title}</title>`);
       indexHtml = indexHtml.replace(/<meta\s+name=["']description["']\s+content=["'][^"']*["']\s*>/i, `<meta name="description" content="${description}">`);
       replaceMeta('og:title', title); replaceMeta('og:description', description); replaceMeta('og:url', shareUrl); replaceMeta('og:image', shareImage);
+      replaceMeta('og:image:secure_url', shareImage);
+      replaceMeta('og:image:type', escapeHtml(cleanContent.share.ogImageType || ''));
+      replaceMeta('og:image:width', String(cleanContent.share.ogImageWidth || ''));
+      replaceMeta('og:image:height', String(cleanContent.share.ogImageHeight || ''));
+      replaceMeta('og:image:alt', title);
+      const replaceNamedMeta = (name, value) => {
+        const pattern = new RegExp(`<meta\\s+name=["']${name}["']\\s+content=["'][^"']*["']\\s*>`, 'i');
+        const tag = `<meta name="${name}" content="${value}">`;
+        indexHtml = pattern.test(indexHtml) ? indexHtml.replace(pattern, tag) : indexHtml.replace('</head>', `  ${tag}\n</head>`);
+      };
+      replaceNamedMeta('twitter:card', 'summary_large_image');
+      replaceNamedMeta('twitter:image', shareImage);
       const indexBlob = await request('/git/blobs', { method: 'POST', body: JSON.stringify({ content: textToBase64(indexHtml), encoding: 'base64' }) });
       treeEntries.push({ path: 'index.html', mode: '100644', type: 'blob', sha: indexBlob.sha });
 

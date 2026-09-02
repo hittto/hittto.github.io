@@ -197,7 +197,11 @@
     "desc": "소중한 분들을 저희의 시작에 초대합니다.",
     "url": "https://hittto.github.io/",
     "kakaoKey": "",
-    "ogImageUrl": "assets/uploads/share-1788351418627.jpg"
+    "ogImageUrl": "assets/uploads/share-1788351418627.jpg",
+    "previewVersion": "20260902-ogfix1",
+    "ogImageType": "image/jpeg",
+    "ogImageWidth": 1125,
+    "ogImageHeight": 1500
   },
   "labels": {
     "coverEyebrow": "Wedding Invitation",

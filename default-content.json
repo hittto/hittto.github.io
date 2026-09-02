@@ -70,7 +70,11 @@
     "desc": "소중한 분들을 저희의 시작에 초대합니다.",
     "url": "https://hittto.github.io/",
     "kakaoKey": "",
-    "ogImageUrl": "assets/default-share.svg"
+    "ogImageUrl": "assets/default-share.svg",
+    "previewVersion": "",
+    "ogImageType": "image/svg+xml",
+    "ogImageWidth": 1200,
+    "ogImageHeight": 630
   },
   "labels": {
     "coverEyebrow": "Wedding Invitation",

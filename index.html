@@ -7,8 +7,15 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="희수 · 혜정 결혼합니다">
 <meta property="og:description" content="소중한 분들을 저희의 시작에 초대합니다.">
-<meta property="og:image" content="https://hittto.github.io/assets/uploads/share-1788351418627.jpg">
-<meta property="og:url" content="https://hittto.github.io/">
+<meta property="og:image" content="https://hittto.github.io/assets/uploads/share-1788351418627.jpg?v=20260902-ogfix1">
+<meta property="og:image:secure_url" content="https://hittto.github.io/assets/uploads/share-1788351418627.jpg?v=20260902-ogfix1">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1125">
+<meta property="og:image:height" content="1500">
+<meta property="og:image:alt" content="청첩장 공유 대표 사진">
+<meta property="og:url" content="https://hittto.github.io/?v=20260902-ogfix1">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://hittto.github.io/assets/uploads/share-1788351418627.jpg?v=20260902-ogfix1">
 <meta name="description" content="소중한 분들을 저희의 시작에 초대합니다.">
 <meta name="theme-color" content="#f4879f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -387,11 +394,21 @@ function resetWeddingUi(){
   document.getElementById('app').innerHTML='';
 }
 
+function addShareVersion(value,version){
+  if(!value)return '';
+  try{
+    var url=new URL(value,location.href);
+    if(version)url.searchParams.set('v',String(version));
+    return url.href;
+  }catch(e){return value;}
+}
+
 function updateShareMeta(D){
   var share=D.share||{};
   var title=share.title||'결혼합니다';
   var desc=share.desc||'소중한 분들을 초대합니다.';
-  var image=share.ogImageUrl||(D.cover&&D.cover.image)||'';
+  var pageUrl=addShareVersion(share.url||location.href.split('#')[0],share.previewVersion);
+  var image=addShareVersion(share.ogImageUrl||(D.cover&&D.cover.image)||'',share.previewVersion);
   document.title=title;
   function setMeta(selector,value){
     var el=document.querySelector(selector);if(el&&value)el.setAttribute('content',value);
@@ -399,8 +416,13 @@ function updateShareMeta(D){
   setMeta('meta[name="description"]',desc);
   setMeta('meta[property="og:title"]',title);
   setMeta('meta[property="og:description"]',desc);
-  setMeta('meta[property="og:url"]',share.url||location.href.split('#')[0]);
+  setMeta('meta[property="og:url"]',pageUrl);
   setMeta('meta[property="og:image"]',image);
+  setMeta('meta[property="og:image:secure_url"]',image);
+  setMeta('meta[property="og:image:type"]',share.ogImageType);
+  setMeta('meta[property="og:image:width"]',share.ogImageWidth);
+  setMeta('meta[property="og:image:height"]',share.ogImageHeight);
+  setMeta('meta[name="twitter:image"]',image);
 }
 
 function renderWedding(D){
@@ -727,7 +749,7 @@ document.querySelectorAll('.acc-head').forEach(function(el){
 });
 
 /* 공유 */
-var pageUrl=(D.share&&D.share.url)||location.href.split('#')[0];
+var pageUrl=addShareVersion((D.share&&D.share.url)||location.href.split('#')[0],D.share&&D.share.previewVersion);
 document.getElementById('btnCopyUrl').addEventListener('click',function(){copyText(pageUrl,'청첩장 주소가 복사되었습니다');});
 document.getElementById('btnShare').addEventListener('click',function(){
   var title=D.share&&D.share.title?D.share.title:document.title;
