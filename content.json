@@ -122,7 +122,7 @@
   },
   "map": {
     "show": true,
-    "image": "assets/uploads/venue-map-1788352675876.png",
+    "image": "assets/uploads/venue-map-1788353113986.png",
     "guideVersion": 20260901,
     "guides": [
       {
@@ -197,7 +197,11 @@
     "desc": "소중한 분들을 저희의 시작에 초대합니다.",
     "url": "https://hittto.github.io/",
     "kakaoKey": "",
-    "ogImageUrl": "assets/uploads/share-1788351418627.jpg"
+    "ogImageUrl": "assets/uploads/share-1788351418627.jpg",
+    "previewVersion": "",
+    "ogImageType": "image/svg+xml",
+    "ogImageWidth": 1200,
+    "ogImageHeight": 630
   },
   "labels": {
     "coverEyebrow": "Wedding Invitation",
